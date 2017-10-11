@@ -21,10 +21,10 @@ EndEvent
 
 Event OnActivate(ObjectReference akActionRef)
 	If akActionRef == PlayerRef
-		LichEvilynnBeginQuest.SetStage(changeStageTo)
+		Debug.Trace("Start Quest")
+		LichEvilynnBeginQuest.Start()
 	EndIf
 EndEvent
 
 Quest property LichEvilynnBeginQuest Auto
-Int Property changeStageTo Auto
 Actor Property PlayerRef Auto

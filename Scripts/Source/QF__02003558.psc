@@ -1,20 +1,11 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 8
-Scriptname QF_LichEvilynnBeginQuest_02002A93 Extends Quest Hidden
+;NEXT FRAGMENT INDEX 5
+Scriptname QF__02003558 Extends Quest Hidden
 
 ;BEGIN ALIAS PROPERTY Player
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_Player Auto
 ;END ALIAS PROPERTY
-
-;BEGIN FRAGMENT Fragment_6
-Function Fragment_6()
-;BEGIN CODE
-; bad guy route
-SetObjectiveCompleted(30)
-;END CODE
-EndFunction
-;END FRAGMENT
 
 ;BEGIN FRAGMENT Fragment_3
 Function Fragment_3()
@@ -28,15 +19,6 @@ SetObjectiveDisplayed(20)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_5
-Function Fragment_5()
-;BEGIN CODE
-; good guy route
-SetObjectiveCompleted(30)
-;END CODE
-EndFunction
-;END FRAGMENT
-
 ;BEGIN FRAGMENT Fragment_4
 Function Fragment_4()
 ;BEGIN CODE
@@ -44,15 +26,6 @@ Function Fragment_4()
 
 SetObjectiveCompleted(20)
 SetObjectiveDisplayed(30)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_7
-Function Fragment_7()
-;BEGIN CODE
-Alias_Player.RegisterForSleep()
-SetObjectiveDisplayed(0)
 ;END CODE
 EndFunction
 ;END FRAGMENT
