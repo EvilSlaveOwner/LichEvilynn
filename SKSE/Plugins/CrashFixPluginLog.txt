@@ -10,3 +10,7 @@
 1. Reduce the amount of installed animations.
 2. Try reload the save until it works.
 
+12 Oct 00:24:16 Skyrim has crashed while setting up FootIK. Some things you can try to fix this problem:
+1. Reduce the amount of installed animations.
+2. Try reload the save until it works.
+

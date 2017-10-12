@@ -1,0 +1,1 @@
+Scriptname LichEvilynnDreamscapeAlignmentT1 extends ObjectReference  

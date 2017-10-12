@@ -21,10 +21,14 @@ EndEvent
 
 Event OnActivate(ObjectReference akActionRef)
 	If akActionRef == PlayerRef
-		Debug.Trace("Start Quest")
+		Zap.RemoteCast(SoulStone, PlayerRef, PlayerRef)
+		LichEvilynnBeginQuestOuch.Show()
 		LichEvilynnBeginQuest.Start()
 	EndIf
 EndEvent
 
 Quest property LichEvilynnBeginQuest Auto
 Actor Property PlayerRef Auto
+Actor Property SoulStone Auto
+Message Property LichEvilynnBeginQuestOuch Auto
+Spell Property Zap Auto
