@@ -1,1 +1,0 @@
-Scriptname LichEvilynnBeginQuestDreamActivate extends ObjectReference  
