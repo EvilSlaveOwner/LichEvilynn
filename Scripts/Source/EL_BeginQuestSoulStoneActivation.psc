@@ -29,7 +29,6 @@ EndEvent
 Event OnUpdate()
 	EL_BeginQuest.Start()
 	EL_BeginQuest.SetStage(5)
-	EL_BeginQuestOuch.Show()
 EndEvent
 
 Quest property EL_BeginQuest Auto
