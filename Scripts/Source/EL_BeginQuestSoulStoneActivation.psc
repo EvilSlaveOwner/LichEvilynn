@@ -22,6 +22,7 @@ EndEvent
 Event OnActivate(ObjectReference akActionRef)
 	If akActionRef == PlayerRef
 		RegisterForSingleUpdate(2.0)
+		PlayerRef.SetDontMove(true)
 		Zap.RemoteCast(SoulStone, PlayerRef, PlayerRef)	
 	EndIf
 EndEvent

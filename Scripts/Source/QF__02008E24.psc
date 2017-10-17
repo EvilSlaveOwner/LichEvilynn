@@ -1,25 +1,20 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 22
+;NEXT FRAGMENT INDEX 25
 Scriptname QF__02008E24 Extends Quest Hidden
-
-;BEGIN ALIAS PROPERTY Evilynn
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Evilynn Auto
-;END ALIAS PROPERTY
 
 ;BEGIN ALIAS PROPERTY Bandit2
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_Bandit2 Auto
 ;END ALIAS PROPERTY
 
-;BEGIN ALIAS PROPERTY Bandit1
+;BEGIN ALIAS PROPERTY Lynn
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Bandit1 Auto
+ReferenceAlias Property Alias_Lynn Auto
 ;END ALIAS PROPERTY
 
-;BEGIN ALIAS PROPERTY DreamscapeKey
+;BEGIN ALIAS PROPERTY Evilynn
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_DreamscapeKey Auto
+ReferenceAlias Property Alias_Evilynn Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN ALIAS PROPERTY TortureEquipment
@@ -32,10 +27,58 @@ ReferenceAlias Property Alias_TortureEquipment Auto
 ReferenceAlias Property Alias_Player Auto
 ;END ALIAS PROPERTY
 
-;BEGIN ALIAS PROPERTY Lynn
+;BEGIN ALIAS PROPERTY DreamscapeKey
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Lynn Auto
+ReferenceAlias Property Alias_DreamscapeKey Auto
 ;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY Bandit1
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_Bandit1 Auto
+;END ALIAS PROPERTY
+
+;BEGIN FRAGMENT Fragment_20
+Function Fragment_20()
+;BEGIN CODE
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(3)
+Game.GetPlayer().MoveTo(QuestEndMarker)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_3
+Function Fragment_3()
+;BEGIN CODE
+; ends when the player gets the key
+Alias_Bandit1.GetActorRef().Enable()
+Alias_Bandit2.GetActorRef().Enable()
+SetObjectiveCompleted(10)
+SetObjectiveDisplayed(20)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_15
+Function Fragment_15()
+;BEGIN CODE
+SetObjectiveDisplayed(5)
+(Alias_Lynn as EL_ActorEquipBondageGear).Equip()
+EL_BeginQuestOuch.Show()
+Utility.wait(1)
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(4)
+Game.GetPlayer().MoveTo(BedrollMarker)
+SetStage(10)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_22
+Function Fragment_22()
+;BEGIN CODE
+Debug.Notification("it's m time!")
+;END CODE
+EndFunction
+;END FRAGMENT
 
 ;BEGIN FRAGMENT Fragment_6
 Function Fragment_6()
@@ -48,16 +91,6 @@ Alias_Bandit1.TryToDisable()
 Alias_Bandit2.TryToDisable()
 Alias_TortureEquipment.TryToDisable()
 Alias_Evilynn.TryToEnable()
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_20
-Function Fragment_20()
-;BEGIN CODE
-(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(3)
-Game.GetPlayer().MoveTo(QuestEndMarker)
-Game.GetPlayer().AddToFaction(EL_PlayerGood)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -81,18 +114,7 @@ Function Fragment_0()
 
 SetObjectiveCompleted(5)
 SetObjectiveDisplayed(10)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_3
-Function Fragment_3()
-;BEGIN CODE
-; ends when the player gets the key
-Alias_Bandit1.GetActorRef().Enable()
-Alias_Bandit2.GetActorRef().Enable()
-SetObjectiveCompleted(10)
-SetObjectiveDisplayed(20)
+Alias_Player.GetActorRef().SetDontMove(false)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -107,56 +129,30 @@ Game.GetPlayer().AddToFaction(EL_PlayerEvil)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_19
-Function Fragment_19()
-;BEGIN CODE
-SetObjectiveCompleted(100)
-;END CODE
-EndFunction
-;END FRAGMENT
-
 ;BEGIN FRAGMENT Fragment_18
 Function Fragment_18()
 ;BEGIN CODE
 ; good guy route
 SetObjectiveCompleted(40)
 SetObjectiveDisplayed(100)
-
-Alias_Lynn.TryToDisable()
 Alias_Bandit1.TryToDisable()
 Alias_Bandit2.TryToDisable()
+Alias_Lynn.TryToDisable()
 Alias_TortureEquipment.TryToDisable()
+SetStage(110)
+SetObjectiveCompleted(100)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_19
+Function Fragment_19()
+;BEGIN CODE
+; force conversation with Evilynn - Villan gloat
+;SetObjectiveCompleted(100)
+;SetObjectiveDisplayed(100)
+Alias_Player.GetActorRef().AddToFaction(EL_PlayerGood)
 Alias_Evilynn.TryToEnable()
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_17
-Function Fragment_17()
-;BEGIN CODE
-; ends when the player makes the choice...
-int choice = ChoiceMessage.show()
-if choice == 0
-  SetStage(100)
-elseif choice == 1
-   SetStage(200)
-else 
-   debug.messagebox("Lich Evilynn - Error Unknown Option Selected")
-endif
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_15
-Function Fragment_15()
-;BEGIN CODE
-SetObjectiveDisplayed(5)
-(Alias_Lynn as EL_ActorEquipBondageGear).Equip()
-EL_BeginQuestOuch.Show()
-Utility.wait(2)
-(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(4)
-Game.GetPlayer().MoveTo(BedrollMarker)
-SetStage(10)
 ;END CODE
 EndFunction
 ;END FRAGMENT
