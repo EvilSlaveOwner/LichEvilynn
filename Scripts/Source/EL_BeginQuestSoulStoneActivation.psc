@@ -35,5 +35,4 @@ EndEvent
 Quest property EL_BeginQuest Auto
 Actor Property PlayerRef Auto
 ObjectReference Property SoulStone Auto
-Message Property EL_BeginQuestOuch Auto
 Spell Property Zap Auto
