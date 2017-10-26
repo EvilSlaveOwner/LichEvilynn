@@ -6,9 +6,9 @@ string Message3 = "You can feel her twisted pleasure as she caresses your mind.\
 SexLabFramework Property SexLab Auto
 
 Function MasturbationGood(Actor victim, ObjectReference CenterOn)
-	Debug.MessageBox(Message1)
-	Debug.MessageBox(Message2)
-	Debug.MessageBox(Message3)
+	;Debug.MessageBox(Message1)
+	;Debug.MessageBox(Message2)
+	;Debug.MessageBox(Message3)
 	sslBaseAnimation[] AnimationList = SexLab.GetAnimationsByTags(1, "Solo,F", "", true);
 	sslThreadModel thread = SexLab.NewThread()
 	thread.AddActor(victim)
@@ -21,7 +21,6 @@ Function MasturbationGood(Actor victim, ObjectReference CenterOn)
 EndFunction
 
 Event goodAnimEndEventHandler(int tid, bool HasPlayer)
-	Utility.Wait(5)
 	Game.GetPlayer().AddToFaction(EL_PlayerSexEnd)
 EndEvent
 
