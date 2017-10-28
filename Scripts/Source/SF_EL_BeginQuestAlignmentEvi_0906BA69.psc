@@ -1,20 +1,6 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 41
+;NEXT FRAGMENT INDEX 75
 Scriptname SF_EL_BeginQuestAlignmentEvi_0906BA69 Extends Scene Hidden
-
-;BEGIN FRAGMENT Fragment_35
-Function Fragment_35()
-;BEGIN CODE
-(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
-string Message1 = "Your vision fogs and everything goes dark for you as you feel an immensely powerful entity invade your mind and body."
-string Message2 = "You hear a voice in your mind, dripping with an evil you've never felt before."
-Debug.MessageBox(Message1)
-Utility.Wait(2)
-Debug.MessageBox(Message2)
-Game.GetPlayer().AddToFaction(EL_Posessed)
-;END CODE
-EndFunction
-;END FRAGMENT
 
 ;BEGIN FRAGMENT Fragment_24
 Function Fragment_24()
@@ -26,20 +12,33 @@ GetOwningQuest().SetStage(120)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_5
-Function Fragment_5()
+;BEGIN FRAGMENT Fragment_67
+Function Fragment_67()
 ;BEGIN CODE
-string Message1 = "For a moment that lasted an eternity,\nyou feel as though your very essence was torn from you and shredded into nothingness ..."
-string Message2 = "You feel everything fade, you no longer feel the comforting safety of your armour, the satisfying weight of your weapon, the flow of air through your nostrils, the taste of your own mouth."
-string Message3 = "You are surprised at just how ...\n\npleasurable dying is."
-string Message4 = "That same chillingly evil voice suddenly laughs with insane cruelty!!"
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_72
+Function Fragment_72()
+;BEGIN CODE
+Game.DisablePlayerControls(true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_35
+Function Fragment_35()
+;BEGIN CODE
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
+Game.DisablePlayerControls(true)
+string Message1 = "Your vision fogs and everything goes dark for you as you feel an immensely powerful entity invade your mind and body."
+string Message2 = "You hear a voice in your mind, dripping with an evil you've never felt before."
 Debug.MessageBox(Message1)
 Utility.Wait(2)
 Debug.MessageBox(Message2)
-Utility.Wait(2)
-Debug.MessageBox(Message3)
-Utility.Wait(2)
-Debug.MessageBox(Message4)
+Game.GetPlayer().AddToFaction(EL_Posessed)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -47,19 +46,26 @@ EndFunction
 ;BEGIN FRAGMENT Fragment_31
 Function Fragment_31()
 ;BEGIN CODE
-string Message1 = "Well, that was fun.\n\nI'm going to enjoy playing with you.\n\nI'm going to take a nap, but don't worry. I'll be back soon."
-Debug.MessageBox(Message1)
 Game.GetPlayer().RemoveFromFaction(EL_PlayerSexEnd)
+Game.DisablePlayerControls(true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_8
-Function Fragment_8()
+;BEGIN FRAGMENT Fragment_13
+Function Fragment_13()
 ;BEGIN CODE
-string Message1 = "You feel as though a thousand dragon's claws rip into your soul as you are dragged from pure bliss back into your body."
-Debug.MessageBox(Message1)
+string Message1 = "Suddenly, you stop breathing.\nYou just simply stop."
+string Message2 = "Within a very short time,\nyou can feel the need to for air.\nYou have the over-powering need to gasp for it,\nbut nothing happens.\n\nYou begin to black out."
+string Message3 = "Suddenly you can breathe again,\nbut it is with an unnatural calmness\nand not the gasping and gulping\n for precious air that would normally happen.\nSoon enough, though,\nyour breathing is fully restored"
 Utility.Wait(1)
+Debug.MessageBox(Message1)
+Utility.Wait(3)
+Debug.MessageBox(Message2)
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
+Utility.Wait(5)
+Debug.MessageBox(Message3)
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeIn(0.0)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -75,6 +81,7 @@ string Message5 = "Helplessly, your head is drawn down so\nthat you can see down
 Debug.MessageBox(Message1)
 Utility.Wait(1)
 Debug.MessageBox(Message2)
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeIn(0.0)
 Utility.Wait(1)
 Debug.MessageBox(Message3)
 Utility.Wait(1)
@@ -86,39 +93,39 @@ Utility.Wait(1)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_0
-Function Fragment_0()
+;BEGIN FRAGMENT Fragment_8
+Function Fragment_8()
 ;BEGIN CODE
-;WARNING: Unable to load fragment source from function Fragment_0 in script SF_EL_BeginQuestAlignmentEvi_0906BA69
-;Source NOT loaded
+string Message1 = "You feel as though a thousand dragon's claws rip into your soul as you are dragged from pure bliss back into your body."
+Debug.MessageBox(Message1)
+Utility.Wait(1)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_22
-Function Fragment_22()
+;BEGIN FRAGMENT Fragment_48
+Function Fragment_48()
 ;BEGIN CODE
-string Message1 = "Your horror grows as you watch one hand move down you body to you pussy, feel our fingers gently part your lips, feel one of them begin stroking your clit."
-string Message2 = "With a feeling of shame and guilt you realize that you enjoyed the resulting orgasm."
-Debug.MessageBox(Message1)
-Debug.MessageBox(Message2)
+Utility.Wait(2)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_13
-Function Fragment_13()
+;BEGIN FRAGMENT Fragment_5
+Function Fragment_5()
 ;BEGIN CODE
-string Message1 = "Suddenly, you stop breathing.\nYou just simply stop."
-string Message2 = "Within a very short time, you can feel the need to for air.\nYou have the over-powering need to gasp for it, but nothing happens.\nYou begin to black out."
-string Message3 = "Suddenly you can breathe again, but it is with an unnatural calmness and not the gasping and gulping for precious air that would normally happen. Soon enough, though, your breathing is fully restored"
+string Message1 = "For a moment that lasted an eternity,\nyou feel as though your very essence was torn from you and shredded into nothingness ..."
+string Message2 = "You feel everything fade,\nyou no longer feel,\nthe comforting safety of your armor,\nthe satisfying weight of your weapon,\nthe flow of air through your nostrils,\nthe taste of your own mouth."
+string Message3 = "You are surprised at just how ...\n\npleasurable dying is."
+string Message4 = "That same chillingly evil voice suddenly laughs with insane cruelty!!"
 Debug.MessageBox(Message1)
-Utility.Wait(3)
+Utility.Wait(2)
 Debug.MessageBox(Message2)
+Utility.Wait(2)
 (Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
-Utility.Wait(5)
 Debug.MessageBox(Message3)
-(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeIn(0.0)
+Utility.Wait(2)
+Debug.MessageBox(Message4)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -126,8 +133,7 @@ EndFunction
 ;BEGIN FRAGMENT Fragment_15
 Function Fragment_15()
 ;BEGIN CODE
-string Message1 = "With utter despair you helplessly watch your hands as they caress and stroke your body. You feel her enjoyment of the feel of your body as your hands softly glide over your skin as they move over your stomach to softly, gently stroke and cup your breasts. An enjoyment cruelly doubled by her pleasure at your horror and despair."
-Debug.MessageBox(Message1)
+Game.DisablePlayerControls(true)
 (Alias_Player as EL_AlignmentForceMasturbationAlias).MasturbationGood(Game.GetPlayer(), RugMarker1)
 ;END CODE
 EndFunction

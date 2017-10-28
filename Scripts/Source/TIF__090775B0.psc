@@ -11,6 +11,8 @@ Game.GetPlayer().RemoveFromFaction(EL_PlayerLastAlignmentChoice)
 Game.GetPlayer().AddToFaction(EL_PlayerGood)
 GetOwningQuest().SetStage(110)
 GetOwningQuest().SetObjectiveCompleted(200)
+(EL_SceneUtility as EL_SceneUtilityScript).DoFadeOut(0.0)
+Game.DisablePlayerControls(true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -22,3 +24,5 @@ Faction Property EL_PlayerGood Auto
 Faction Property EL_PlayerEvil  Auto  
 
 Faction Property EL_PlayerLastAlignmentChoice  Auto  
+
+Quest Property EL_SceneUtility  Auto  

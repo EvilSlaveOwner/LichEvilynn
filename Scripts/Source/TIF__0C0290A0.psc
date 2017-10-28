@@ -8,6 +8,7 @@ Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
 Game.GetPlayer().AddToFaction(EL_PlayerGood)
 GetOwningQuest().SetStage(100)
+Game.DisablePlayerControls(true)
 ;END CODE
 EndFunction
 ;END FRAGMENT

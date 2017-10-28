@@ -21,15 +21,12 @@ EndEvent
 
 Event OnActivate(ObjectReference akActionRef)
 	If akActionRef == PlayerRef
-		RegisterForSingleUpdate(2.0)
-		PlayerRef.SetDontMove(true)
 		Zap.RemoteCast(SoulStone, PlayerRef, PlayerRef)	
+		Utility.Wait(2)
+Debug.Notification("start quest")
+		EL_BeginQuest.Start()
+		EL_BeginQuest.SetStage(5)
 	EndIf
-EndEvent
-
-Event OnUpdate()
-	EL_BeginQuest.Start()
-	EL_BeginQuest.SetStage(5)
 EndEvent
 
 Quest property EL_BeginQuest Auto

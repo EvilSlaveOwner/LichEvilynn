@@ -9,6 +9,7 @@ Actor akSpeaker = akSpeakerRef as Actor
 string Message1 = "You hear Evilynn happily laugh, and her presence fades to the back of your mind."
 Debug.MessageBox(Message1)
 Game.GetPlayer().RemoveFromFaction(EL_PlayerLastAlignmentFG2)
+GetOwningQuest().SetStage(300)
 ;END CODE
 EndFunction
 ;END FRAGMENT
