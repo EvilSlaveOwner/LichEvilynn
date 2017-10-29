@@ -1,0 +1,98 @@
+I want to keep to the following rules:
+	It's not game breaking - You can not make permanent changes to essential characters.
+	It's not overpowered - Your character will gain some powerful spells, but they will not be very useful for questing / exploring / earning money.
+	It fits into Skyrim lore.
+
+Lich Evilynn:
+==============================
+Once day the player finds a soul gem and that begins the quest line.
+ 
+Players have two major paths to follow:
+	Join Evilynn and rape/torture/etc NPCs throughout the rest of the game.
+	Fight Evilynn and she will try to rape/torture/etc the PC throughout the rest of the game.
+The questline path is chosen by the players reactions in the story.
+ 
+Background:
+=============================
+Many centuries ago during the first era a mage named Lynn specialized in Alteration and Illusion. She was a member of the Psijic Order, and was known and loved by many. Everyone knew that Lynn was a defender of the innocent, and friend to all good people.
+ 
+Lynn had a dark secret. While she was careful to keep up appearances, what she really enjoyed was torturing, raping, and breaking people. Because of her reputation she had many opportunities to kidnap people without anyone knowing. Her preferred victims being some of the more beautiful of the young women that came to her for help. If the opportunity came she would kidnap a victim, and take her helpless victim to an underground lair. Then she would torture and rape the woman anytime the whim struck her. 
+ 
+She developed spells that would allow her to control minds, erase memories, physically overpower, and torture people.
+ 
+After many years someone found out about about Lynn, and the Psijic Order was horrified by what she had done. She was not simply a horrible serial killer and rapist, she was a well known member of the Psijic Order that was a serial killer and rapist. Iachesis referred to "Lynn" as "Evilynn", and fabricated a story that Lynn was killed and replaced by Evilynn.
+ 
+Evilynn embraced her new name, and prepared for the attack that she knew was coming. When the Psijic Order came for Evilynn she knew she wouldn't be able to beat them. Instead she planned to capture her own soul in a carefully prepared black soul gem. She wove spell after spell into the soul gem draining the life from her remaining victims and trapping their souls as well. The final three layers of spells wrapped around the soul gem waited for the final trigger - her death.
+ 
+She couldn't leave her soul gem where a member of the Psijic Order might find it, and the final three layers were carefully designed to ensure her freedom. The first layer waited for her to die and then pulled her soul safely into the gem. The second layer then catapulted the gem as far into the future as she could send it. The third layer simply destroyed all traces of the previous two layers.
+ 
+When they came and attacked her, she fought them and they killed her. The Psijic Order carefully searched and explored her lair, then destroyed it and left.
+ 
+At the beginning of the fourth era Evilynn regains awareness and begins the long process of regaining her power.
+ 
+After spending a couple centuries gathering power, she is ready to find someone new to play with.
+ 
+...
+ 
+Enter the Player:
+=============================
+(Note: The mod assumes that the player is female, but that will not be enforced)
+ 
+When the player touches Evilynn's soul stone it casts a sleep spell on the player.
+ 
+ 
+... A Dream Sequence Starts ...
+ 
+	The player wakes up in a empty room. When the players moves to the nearby door they hear some bandits in the next room over talking about the two people they have captured and plan on raping and killing.
+	 
+	They have one girl in the next room and the player hears them say that she is blindfolded, then they come to tie up and blindfold the player.
+	 
+	When they come in they are surprised to see the player awake, and attack.
+	 
+	When the player defeats them, and loots the bodies they find a key to the door.
+	Then the player goes to the next room and when the player talks to the other woman they are given two options: 
+		1. Save the poor girl!
+		2. Hey, she can't see or hear.. I'll have some fun with her helpless body - she sure can't say no! I can even free her later and she will thank you for saving her!
+	 
+	When the player leaves the room or tries to "have some fun" the player falls back asleep.
+	 
+... A Dream Sequence Ends ...
+ 
+ 
+If you follow the first path and "Save the poor girl!":
+	You wake up and the girl thanks you for saving her, and tells you her name is Lynn.
+	She asks you to please take her home.
+	... Things get interesting as Lynn starts playing with her new victim.
+ 
+If you follow the second path and "Have some fun"
+	You wake up with a ghost called Evilynn standing next to you.
+	She says "I thought you were going to be my next victim, but, perhaps we can be partners instead" 
+	... Things get interesting as you and Evilynn find and play with victims.
+ 
+ 
+Long term plans:
+=============================
+What actually happens if you take the good route:
+	Evilynn will take you to her lair.
+	She will rape and torture you for a few days.
+	In time she will get bored with you and cast a spell on you that prevents you from remembering her when you are awake.
+	You will have terrible nightmares when you sleep, and will not know why.
+	She will come back to play with you anytime she feels like it. Often this will be in your dreams (aka, when you sleep).
+	You will have a quest to destroy her (long and involving the Psijic Order and destroying her soul stone)
+	Version 1 is just going to include 1 - 3.
+ 
+What actually happens if you take the evil route:
+	Evilynn show you her lair.
+	She will offer multiple different quests that capture victim(s) for the two of you to play with.
+	When you accept a quest from her she will also teach you a new spell required to finish the quest.
+	You will also be able to capture non essential NPC's on your own using the quest spells.
+	Some of the quest spells will be usable on essential NPC's, but will return them with no memory at the end of the quest.
+	Version 1 will only include a couple quests.
+ 
+Comments:
+=============================
+This is going to be something like a slave mod, and in fact I may end-up simply allowing the use of slaves from other mods.
+ 
+Currently many slave mods are out there, but I'd rather have my PC captured and raped/tortured by a beautiful woman, so this is going to feature female masters, and I plan for it to be more story/scene oriented like the Slaverun quest line.
+ 
+I also like the idea of having a partner if when I take the evil route.
