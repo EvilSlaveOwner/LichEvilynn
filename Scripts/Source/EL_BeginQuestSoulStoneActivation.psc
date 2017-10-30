@@ -23,7 +23,6 @@ Event OnActivate(ObjectReference akActionRef)
 	If akActionRef == PlayerRef
 		Zap.RemoteCast(SoulStone, PlayerRef, PlayerRef)	
 		Utility.Wait(2)
-Debug.Notification("start quest")
 		EL_BeginQuest.Start()
 		EL_BeginQuest.SetStage(5)
 	EndIf
