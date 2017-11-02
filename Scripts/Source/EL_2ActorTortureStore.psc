@@ -1,0 +1,1 @@
+Scriptname EL_2ActorTortureStore extends EL_QuestStore
