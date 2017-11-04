@@ -17,7 +17,7 @@ endFunction
 ; @implements SKI_ConfigBase
 event OnConfigInit()
 	{Called when this config menu is initialized}
-
+	
 	; ...
 endEvent
 
@@ -37,6 +37,10 @@ event OnPageReset(string page)
 		SetPageStatus()
 	elseif page == "Evilynn's Lair"
 		SetPageEvilynnsLair()
+	elseif page == "Victim Scenes"
+		SetPageVictimScenes()
+	elseif page == "Partner Scenes"
+		SetPagePartnerScenes()
 	elseif page == "Debug & Tests"
 		SetPageDebug()
 	endif
@@ -60,6 +64,9 @@ function SetPageStatus()
 	SetCursorFillMode(TOP_TO_BOTTOM)
 	AddHeaderOption("Status")
 	AddEmptyOption()
+	AddTextOption("Player Role", EL_PlayerRole.GetValue())
+	AddTextOption("1", "Player is Evilynn's Victim")
+	AddTextOption("2", "Player is Evilynn's Partner")
 endFunction
 
 function SetPageEvilynnsLair()
@@ -81,13 +88,73 @@ function SetPageDebug()
 	AddHeaderOption("Debug & Tests")
 	AddEmptyOption()
 	AddTextOptionST("ADD_SCENE", "Add a Scene", "")
+	AddTextOptionST("PLAY_SCENE", "Play a Scene", "")
+	AddTextOptionST("TELEPORT_TO_START", "Teleport to Start", "")
 endFunction
 
+function SetPageVictimScenes()
+	SetCursorFillMode(LEFT_TO_RIGHT)
+	if EL_PlayerRole.GetValue() != 1
+		AddTextOption("Player is not Evilynns Victim", "")
+		return
+	endif
+	EL_TortureStore questStore = EL_VictimStore as EL_TortureStore
+	int victimQuestCount = questStore.GetQuestCount()
+	if victimQuestCount < 0
+		AddTextOption("No quests loaded", "")
+		return
+	endif
+	int x = 0
+	string questInfo
+	while x < victimQuestCount
+		questInfo = ""
+		questInfo = questInfo + questStore.GetNumActorsByIndex(x)
+		questInfo = questInfo + " - " + questStore.GetInLairByIndex(x)
+		questInfo = questInfo + " - " + questStore.GetLocationsByIndex(x)
+		questInfo = questInfo + " - " + questStore.GetKeywordsByIndex(x)
 
-state ADD_SCENE
+		AddTextOption(questStore.GetNameByIndex(x), "")
+		AddTextOption(questInfo, "")
+		x = x + 1
+	endwhile
+	AddTextOption("", "")
+endfunction
+
+function SetPagePartnerScenes()
+	SetCursorFillMode(LEFT_TO_RIGHT)
+	if EL_PlayerRole.GetValue() != 2
+		AddTextOption("Player is not Evilynns Partner", "")
+		return
+	endif
+	EL_TortureStore questStore = EL_PartnerStore as EL_TortureStore
+	int partnerQuestCount = questStore.GetQuestCount()
+	if partnerQuestCount < 0
+		AddTextOption("No quests loaded", "")
+		return
+	endif
+	int x = 0
+	string questInfo
+	while x < partnerQuestCount
+		questInfo = ""
+		questInfo = questInfo + questStore.GetNumActorsByIndex(x)
+		questInfo = questInfo + " - " + questStore.GetInLairByIndex(x)
+		questInfo = questInfo + " - " + questStore.GetLocationsByIndex(x)
+		questInfo = questInfo + " - " + questStore.GetKeywordsByIndex(x)
+
+		AddTextOption(questStore.GetNameByIndex(x), "")
+		AddTextOption(questInfo, "")
+		x = x + 1
+	endwhile
+	AddTextOption("", "")
+endfunction
+
+state PLAY_SCENE
 	event OnSelectST()
-		Debug.Notification("adding scene")
-		; SetTextOptionValueST(true)
+		EL_TortureStore questStore = EL_VictimStore as EL_TortureStore
+		int questIndex = questStore.GetRandomQuestIndex()
+		Quest curQuest = questStore.GetQuestByIndex(questIndex)
+		curQuest.Start()
+		EL_VicTortPlayBall
 	endEvent
 
 	event OnDefaultST()
@@ -95,14 +162,19 @@ state ADD_SCENE
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Add Scene to test")
 	endEvent
 endState
+
+state TELEPORT_TO_START
+	event OnSelectST()
+		PlayerREF.MoveTo(EL_AlignmentQuestMarker)
+	endEvent
+endState
+
 
 state CLEAN_NORTH
 	event OnSelectST()
 		EL_LairNorthDoorClutterEnabled = !EL_LairNorthDoorClutterEnabled
-		Debug.Notification("CLEAN_NORTH SELECT")
 		SetToggleOptionValueST(EL_LairNorthDoorClutterEnabled)
 		if EL_LairNorthDoorClutterEnabled
 			EL_LairNorthDoorClutter.Enable(true)
@@ -113,7 +185,6 @@ state CLEAN_NORTH
 
 	event OnDefaultST()
 		EL_LairNorthDoorClutterEnabled = true
-		Debug.Notification("CLEAN_NORTH DEFAULT")
 		SetToggleOptionValueST(EL_LairNorthDoorClutterEnabled)
 		if EL_LairNorthDoorClutterEnabled
 			EL_LairNorthDoorClutter.Enable(true)
@@ -130,7 +201,6 @@ endState
 state CLEAN_EAST
 	event OnSelectST()
 		EL_LairEastDoorClutterEnabled = !EL_LairEastDoorClutterEnabled
-		Debug.Notification("CLEAN_NORTH SELECT")
 		SetToggleOptionValueST(EL_LairEastDoorClutterEnabled)
 		if EL_LairEastDoorClutterEnabled
 			EL_LairEastDoorClutter.Enable(true)
@@ -141,7 +211,6 @@ state CLEAN_EAST
 
 	event OnDefaultST()
 		EL_LairEastDoorClutterEnabled = false
-		Debug.Notification("CLEAN_EAST DEFAULT")
 		SetToggleOptionValueST(EL_LairEastDoorClutterEnabled)
 		if EL_LairEastDoorClutterEnabled
 			EL_LairEastDoorClutter.Enable(true)
@@ -158,7 +227,6 @@ endState
 state CLEAN_WEST
 	event OnSelectST()
 		EL_LairWestDoorClutterEnabled = !EL_LairWestDoorClutterEnabled
-		Debug.Notification("CLEAN_WEST SELECT")
 		SetToggleOptionValueST(EL_LairWestDoorClutterEnabled)
 		if EL_LairWestDoorClutterEnabled
 			EL_LairWestDoorClutter.Enable(true)
@@ -169,7 +237,6 @@ state CLEAN_WEST
 
 	event OnDefaultST()
 		EL_LairWestDoorClutterEnabled = false
-		Debug.Notification("CLEAN_WEST DEFAULT")
 		SetToggleOptionValueST(EL_LairWestDoorClutterEnabled)
 		if EL_LairWestDoorClutterEnabled
 			EL_LairWestDoorClutter.Enable(true)
@@ -187,3 +254,10 @@ endState
 ObjectReference Property EL_LairNorthDoorClutter  Auto  
 ObjectReference Property EL_LairEastDoorClutter  Auto  
 ObjectReference Property El_LairWestDoorClutter  Auto 
+Quest Property EL_PartnerStore  Auto  
+Quest Property EL_VictimStore  Auto 
+Quest Property EL_VicTortPlayBall  Auto 
+GlobalVariable Property EL_PlayerRole  Auto  
+ObjectReference Property EL_AlignmentQuestMarker  Auto  
+
+Actor Property PlayerRef  Auto  

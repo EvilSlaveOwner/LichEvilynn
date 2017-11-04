@@ -6,7 +6,6 @@ Scriptname TIF__0C0290A0 Extends TopicInfo Hidden
 Function Fragment_0(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
-Game.GetPlayer().AddToFaction(EL_PlayerGood)
 GetOwningQuest().SetStage(100)
 Game.DisablePlayerControls(true)
 ;END CODE

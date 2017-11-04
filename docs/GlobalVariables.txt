@@ -1,0 +1,4 @@
+EL_PlayerRole
+0 - Player has not finished the alignment quest
+1 - Player is Evilynn's Victim
+2 - Player is Evilynn's Partner

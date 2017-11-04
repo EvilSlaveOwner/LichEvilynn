@@ -1,1 +1,0 @@
-Scriptname EL_DreamscapeAlignmentT1 extends ObjectReference  

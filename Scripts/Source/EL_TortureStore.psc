@@ -1,52 +1,12 @@
-Scriptname EL_TortureStore extends Quest
+Scriptname EL_TortureStore extends EL_QuestStore
 
-Quest Property Main auto
+Event OnInit()
+	initValues()
+	AddQuest(EL_VicTortPlayBall, "Time to play ball", 1, true, "", "")
+	AddQuest(EL_VicTortPlayBall, "Time to play ball", 2, true, "", "")
+	AddQuest(EL_VicTortPlayBall, "Some other quest", 2, true, "", "")
+	AddQuest(EL_VicTortPlayBall, "Questing again", 2, true, "", "")
+	AddQuest(EL_VicTortPlayBall, "Questing again with five", 5, true, "", "")
+EndEvent
 
-
-function AddQuestWithNumActors(int numActors, Quest newQuest)
-	if numActors == 1
-		(Main as EL_1ActorTortureStore).AddQuest(newQuest)
-	elseif numActors == 1
-		(Main as EL_2ActorTortureStore).AddQuest(newQuest)
-	elseif numActors == 1
-		(Main as EL_3ActorTortureStore).AddQuest(newQuest)
-	elseif numActors == 1
-		(Main as EL_4ActorTortureStore).AddQuest(newQuest)
-	elseif numActors == 1
-		(Main as EL_5ActorTortureStore).AddQuest(newQuest)
-	else
-		Debug.Notification("number of actors must be between 1 and 5")
-	endif
-endfunction
-
-Quest function GetQuestByIndexWithNumActors(int numActors, int index)
-	if numActors == 1
-		(Main as EL_1ActorTortureStore).GetQuestByIndex(index)
-	elseif numActors == 1
-		(Main as EL_2ActorTortureStore).GetQuestByIndex(index)
-	elseif numActors == 1
-		(Main as EL_3ActorTortureStore).GetQuestByIndex(index)
-	elseif numActors == 1
-		(Main as EL_4ActorTortureStore).GetQuestByIndex(index)
-	elseif numActors == 1
-		(Main as EL_5ActorTortureStore).GetQuestByIndex(index)
-	else
-		Debug.Notification("number of actors must be between 1 and 5")
-	endif
-endfunction
-
-Quest function GetRandomQuestWithNumActors(int numActors)
-	if numActors == 1
-		(Main as EL_1ActorTortureStore).GetRandomQuest()
-	elseif numActors == 1
-		(Main as EL_2ActorTortureStore).GetRandomQuest()
-	elseif numActors == 1
-		(Main as EL_3ActorTortureStore).GetRandomQuest()
-	elseif numActors == 1
-		(Main as EL_4ActorTortureStore).GetRandomQuest()
-	elseif numActors == 1
-		(Main as EL_5ActorTortureStore).GetRandomQuest()
-	else
-		Debug.Notification("number of actors must be between 1 and 5")
-	endif
-endfunction
+Quest Property EL_VicTortPlayBall  Auto  

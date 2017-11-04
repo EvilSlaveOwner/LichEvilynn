@@ -1,1 +1,0 @@
-Scriptname EL_BeginQuestDreamActivate extends ObjectReference  

@@ -2,19 +2,14 @@
 ;NEXT FRAGMENT INDEX 29
 Scriptname QF__02008E24 Extends Quest Hidden
 
-;BEGIN ALIAS PROPERTY Evilynn
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Evilynn Auto
-;END ALIAS PROPERTY
-
 ;BEGIN ALIAS PROPERTY DreamscapeKey
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_DreamscapeKey Auto
 ;END ALIAS PROPERTY
 
-;BEGIN ALIAS PROPERTY Lynn
+;BEGIN ALIAS PROPERTY Evilynn
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Lynn Auto
+ReferenceAlias Property Alias_Evilynn Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN ALIAS PROPERTY Bandit2
@@ -22,14 +17,9 @@ ReferenceAlias Property Alias_Lynn Auto
 ReferenceAlias Property Alias_Bandit2 Auto
 ;END ALIAS PROPERTY
 
-;BEGIN ALIAS PROPERTY Player
+;BEGIN ALIAS PROPERTY Lynn
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Player Auto
-;END ALIAS PROPERTY
-
-;BEGIN ALIAS PROPERTY RugMarker1
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_RugMarker1 Auto
+ReferenceAlias Property Alias_Lynn Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN ALIAS PROPERTY Bandit1
@@ -37,9 +27,19 @@ ReferenceAlias Property Alias_RugMarker1 Auto
 ReferenceAlias Property Alias_Bandit1 Auto
 ;END ALIAS PROPERTY
 
+;BEGIN ALIAS PROPERTY RugMarker1
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_RugMarker1 Auto
+;END ALIAS PROPERTY
+
 ;BEGIN ALIAS PROPERTY SoulStone
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_SoulStone Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY Player
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_Player Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN FRAGMENT Fragment_26
@@ -48,7 +48,62 @@ Function Fragment_26()
 Game.DisablePlayerControls(true)
 SetObjectiveCompleted(220)
 EL_BeginQuestAlignmentEvilynnEvilPart2.Start()
-EL_BeginQuestEvil.Start()
+EL_PlayerRole.SetValue(2) ; Evilynns Partner
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_25
+Function Fragment_25()
+;BEGIN CODE
+Game.DisablePlayerControls(true)
+Alias_Evilynn.TryToEnable()
+Alias_Evilynn.GetActorRef().MoveTo(EL_EvilynnStartMarker)
+Alias_Player.GetActorRef().MoveTo(EL_PlayerStartMarker)
+EL_BeginQuestAlignmentEvilynnEvil.Start()
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_20
+Function Fragment_20()
+;BEGIN CODE
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
+Game.GetPlayer().MoveTo(QuestEndMarker)
+Alias_Player.GetActorRef().SetDontMove(false)
+Alias_Player.GetActorRef().SetRestrained(false)
+Alias_Lynn.GetActorRef().SetRestrained(false)
+Game.EnablePlayerControls(true)
+Utility.Wait(3)
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeIn(0.0)
+if EL_PlayerRole.GetValue() == 1
+    EL_EvilynnsVictim.Start()
+elseif EL_PlayerRole.GetValue() == 2
+    EL_EvilynnsPartner.Start()
+else
+    debug.notification("Unknown Player Status")
+endif
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_16
+Function Fragment_16()
+;BEGIN CODE
+SetObjectiveCompleted(10)
+SetObjectiveDisplayed(40)
+Alias_Lynn.GetActorRef().SetDontMove(true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_21
+Function Fragment_21()
+;BEGIN CODE
+Game.DisablePlayerControls(true)
+SetObjectiveCompleted(200)
+SetObjectiveCompleted(220)
+SetStage(230)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -86,6 +141,19 @@ SetStage(10)
 EndFunction
 ;END FRAGMENT
 
+;BEGIN FRAGMENT Fragment_19
+Function Fragment_19()
+;BEGIN CODE
+Alias_Evilynn.TryToEnable()
+Alias_Evilynn.GetActorRef().MoveTo(EL_EvilynnStartMarker)
+Alias_Player.GetActorRef().MoveTo(EL_PlayerStartMarker)
+EL_BeginQuestAlignmentEvilynnGood.Start()
+Game.DisablePlayerControls(true)
+EL_PlayerRole.SetValue(1) ; Evilynns Victim
+;END CODE
+EndFunction
+;END FRAGMENT
+
 ;BEGIN FRAGMENT Fragment_22
 Function Fragment_22()
 ;BEGIN CODE
@@ -93,7 +161,15 @@ Game.DisablePlayerControls(true)
 SetObjectiveDisplayed(120)
 Alias_Evilynn.TryToDisable()
 SetObjectiveCompleted(120)
-EL_BeginQuestGood.Start()
+int choice = EL_LastChanceMessageBox.Show()
+if choice == 1 ; allow cheating
+    EL_AllowCheat.SetValue(1)
+else ; perm victim
+    int lastChanceChoice = EL_LastChanceMessageBoxFinal.Show()
+    if lastChanceChoice == 1 ; cheat mode afterall!
+        EL_AllowCheat.SetValue(1)
+    endif
+endif
 SetStage(300)
 ;END CODE
 EndFunction
@@ -110,45 +186,6 @@ Alias_Bandit1.TryToDisable()
 Alias_Bandit2.TryToDisable()
 SetStage(210)
 (Alias_Lynn as EL_ActorState).ChangeState("")
-Game.GetPlayer().AddToFaction(EL_PlayerEvil)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_25
-Function Fragment_25()
-;BEGIN CODE
-Game.DisablePlayerControls(true)
-Alias_Evilynn.TryToEnable()
-Alias_Evilynn.GetActorRef().MoveTo(EL_EvilynnStartMarker)
-Alias_Player.GetActorRef().MoveTo(EL_PlayerStartMarker)
-EL_BeginQuestAlignmentEvilynnEvil.Start()
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_20
-Function Fragment_20()
-;BEGIN CODE
-(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
-Game.GetPlayer().MoveTo(QuestEndMarker)
-Alias_Player.GetActorRef().SetDontMove(false)
-Alias_Player.GetActorRef().SetRestrained(false)
-Alias_Lynn.GetActorRef().SetRestrained(false)
-Game.EnablePlayerControls(true)
-Utility.Wait(3)
-(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeIn(0.0)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_21
-Function Fragment_21()
-;BEGIN CODE
-Game.DisablePlayerControls(true)
-SetObjectiveCompleted(200)
-SetObjectiveCompleted(220)
-SetStage(230)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -166,28 +203,6 @@ Alias_Lynn.GetActorRef().MoveTo(RugMarker)
 debug.SendAnimationEvent(Alias_Lynn.GetActorRef(), "ZazAPC057")
 (Alias_Lynn as EL_ActorState).ChangeState("Crying")
 Game.EnablePlayerControls()
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_19
-Function Fragment_19()
-;BEGIN CODE
-Alias_Evilynn.TryToEnable()
-Alias_Evilynn.GetActorRef().MoveTo(EL_EvilynnStartMarker)
-Alias_Player.GetActorRef().MoveTo(EL_PlayerStartMarker)
-EL_BeginQuestAlignmentEvilynnGood.Start()
-Game.DisablePlayerControls(true)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_16
-Function Fragment_16()
-;BEGIN CODE
-SetObjectiveCompleted(10)
-SetObjectiveDisplayed(40)
-Alias_Lynn.GetActorRef().SetDontMove(true)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -216,11 +231,7 @@ Armor Property Blindfold  Auto
 Armor Property BODY  Auto  
 Message Property ChoiceMessage  Auto  
 ObjectReference Property QuestEndMarker  Auto  
-Faction Property EL_PlayerGood  Auto  
-Faction Property EL_PlayerEvil  Auto  
 ObjectReference Property BedrollMarker  Auto  
-Quest Property EL_BeginQuestEvil  Auto  
-Quest Property EL_BeginQuestGood  Auto  
 
 Quest Property EL_SceneUtility  Auto  
 
@@ -245,3 +256,15 @@ ReferenceAlias Property SoulStone  Auto
 ObjectReference Property EL_EvilynnStartMarker  Auto  
 
 ObjectReference Property EL_PlayerStartMarker  Auto  
+
+Quest Property EL_EvilynnsPartner  Auto  
+
+Quest Property EL_EvilynnsVictim  Auto  
+
+GlobalVariable Property EL_PlayerRole  Auto  
+
+Message Property EL_LastChanceMessageBox  Auto  
+
+Message Property EL_LastChanceMessageBoxFinal  Auto  
+
+GlobalVariable Property EL_AllowCheat  Auto  
