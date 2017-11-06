@@ -3,46 +3,75 @@ Scriptname EL_QuestStore extends Quest
 ; When time comes to expant to hold more scenes...
 ; http://forums.bethsoft.com/topic/1583034-quick-questions-quick-answers-thread-63/page-3#entry24889636
 
-int maxQuests = 0
+int currentQuestCount = 0 ; 0 - 99 .. needs to error out after the 100th quest is added
 
 ; Quest information. A quest has the same index in all arrays.
 Quest[] quests
 string[] questsName ; quest name
-int[] questsNumActors ; minimum actors required for the quest
 bool[] questsInLair ; does the quest require the player to be in the lair (most quests should)
-string[] questsLocations ; comma saraprated list of locations the quest is valid in, or an empty string for "all"
-string[] questsKeywords ; comma saraprated list of keywords the quest requires, or an empty string for "none"
+int[] questsNumVictims ; num vicitim actors required for the quest
+int[] questsNumAgressors ; num agressive actors required for the quest
+string[] questsRequirements ; list of requirements, or an empty string for "none"
+bool[] PlayerMustBeFirstVictim ; first victim must be player
+bool[] PlayerMustBeFirstAgressor ; first aggressor must be player
 
 event OnInit()
-	initValues()
+	currentQuestCount = 0
+	quests = new Quest[100]
+	questsInLair = new bool[100]
+	questsName = new string[100]
+	questsNumVictims = new int[100]
+	questsNumAgressors = new int[100]
+	questsRequirements = new string[100]
+	PlayerMustBeFirstVictim = new bool[100]
+	PlayerMustBeFirstAgressor = new bool[100]
 endevent
 
-function initValues()
-	maxQuests = 0
-	quests = new Quest[128]
-	questsName = new string[128]
-	questsNumActors = new int[128]
-	questsInLair = new bool[128]
-	questsLocations = new string[128]
-	questsKeywords = new string[128]
-endfunction
-
 int function GetQuestCount()
-	return maxQuests
+	return currentQuestCount
 endfunction
 
 int function GetRandomQuestIndex()
-	return Utility.RandomInt(0, maxQuests) - 1
+	if currentQuestCount == 0
+		return 0
+	endif
+	return Utility.RandomInt(1, currentQuestCount) - 1
 endfunction
 
-function AddQuest(Quest newQuest, string name, int numActors, bool inLair, string locations = "", string keywords = "")
-	quests[maxQuests] = newQuest
-	questsName[maxQuests] = name
-	questsNumActors[maxQuests] = numActors
-	questsInLair[maxQuests] = inLair
-	questsLocations[maxQuests] = locations
-	questsKeywords[maxQuests] = keywords
-	maxQuests = maxQuests + 1
+function AddQuest(quest newQuest, string newQuestName, bool newPlayerMustBeFirstAgressor, bool newPlayerMustBeFirstVictim, int newQuestsNumAgressors, int newQuestsNumVictims, string[] newRequirements)
+	if currentQuestCount > 99
+		Debug.trace("[EL_QuestStore].AddQuest maximum number of quests reached. Not adding " + newQuestName)
+		return
+	endif
+
+	int index = currentQuestCount
+	currentQuestCount += 1
+	string requirementsString = JoinRequirements(newRequirements)
+
+	quests[index] = newQuest
+	questsInLair[index] = StringUtil.Find(requirementsString, "|inLair|") == -1
+	questsName[index] = newQuestName
+	questsNumVictims[index] = newQuestsNumVictims
+	questsNumAgressors[index] = newQuestsNumAgressors
+	questsRequirements[index] = requirementsString
+	PlayerMustBeFirstVictim[index] = newPlayerMustBeFirstVictim
+	PlayerMustBeFirstAgressor[index] = newPlayerMustBeFirstAgressor
+	return
+endfunction
+
+string function JoinRequirements(string[] requirementsArray)
+	string newRequirements = ""
+	int count = requirementsArray.Length
+	if count == 0
+		return ""
+	endif
+	int index = 0
+	while index < count
+	   newRequirements += requirementsArray[index]
+	   index += 1
+	endwhile
+	newRequirements += "|"
+	return newRequirements
 endfunction
 
 Quest function GetQuestByIndex(int index)
@@ -53,18 +82,26 @@ string function GetNameByIndex(int index)
 	return questsName[index]
 endfunction
 
-int function GetNumActorsByIndex(int index)
-	return questsNumActors[index]
+int function GetNumVictimActorsByIndex(int index)
+	return questsNumVictims[index]
+endfunction
+
+int function GetNumAgressiveActorsByIndex(int index)
+	return questsNumAgressors[index]
 endfunction
 
 bool function GetInLairByIndex(int index)
 	return questsInLair[index]
 endfunction
 
-string function GetLocationsByIndex(int index)
-	return questsLocations[index]
+bool function GetPlayerMustBeFirstVictimByIndex(int index)
+	return PlayerMustBeFirstVictim[index]
 endfunction
 
-string function GetKeywordsByIndex(int index)
-	return questsKeywords[index]
+bool function GetPlayerMustBeFirstAgressorByIndex(int index)
+	return PlayerMustBeFirstAgressor[index]
+endfunction
+
+string function GetRequirementsByIndex(int index)
+	return questsRequirements[index]
 endfunction

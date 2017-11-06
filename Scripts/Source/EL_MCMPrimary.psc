@@ -17,7 +17,13 @@ endFunction
 ; @implements SKI_ConfigBase
 event OnConfigInit()
 	{Called when this config menu is initialized}
-	
+	pages[0] = "Options"
+	pages[1] = "Status"
+	pages[2] = "Evilynn's Lair"
+	pages[3] = "Rape Quests"
+	pages[4] = "Story Quests"
+	pages[5] = "Torture Quests"
+	pages[6] = "Debug & Tests"
 	; ...
 endEvent
 
@@ -37,10 +43,12 @@ event OnPageReset(string page)
 		SetPageStatus()
 	elseif page == "Evilynn's Lair"
 		SetPageEvilynnsLair()
-	elseif page == "Victim Scenes"
-		SetPageVictimScenes()
-	elseif page == "Partner Scenes"
-		SetPagePartnerScenes()
+	elseif page == "Rape Quests"
+		SetPageRapeQuests()
+	elseif page == "Story Quests"
+		SetPageStoryQuests()
+	elseif page == "Torture Quests"
+		SetPageTortureQuests()
 	elseif page == "Debug & Tests"
 		SetPageDebug()
 	endif
@@ -87,74 +95,83 @@ function SetPageDebug()
 	SetCursorFillMode(TOP_TO_BOTTOM)
 	AddHeaderOption("Debug & Tests")
 	AddEmptyOption()
-	AddTextOptionST("ADD_SCENE", "Add a Scene", "")
+	AddTextOptionST("SET_AS_VICTIM", "Set Player to Victim", "")
+	AddTextOptionST("SET_AS_PARTNER", "Set Player to Partner", "")
+	
 	AddTextOptionST("PLAY_SCENE", "Play a Scene", "")
 	AddTextOptionST("TELEPORT_TO_START", "Teleport to Start", "")
 endFunction
 
-function SetPageVictimScenes()
+function SetPageRapeQuests()
 	SetCursorFillMode(LEFT_TO_RIGHT)
-	if EL_PlayerRole.GetValue() != 1
-		AddTextOption("Player is not Evilynns Victim", "")
-		return
-	endif
-	EL_TortureStore questStore = EL_VictimStore as EL_TortureStore
-	int victimQuestCount = questStore.GetQuestCount()
-	if victimQuestCount < 0
+	addQuestList(EL_QuestsRape as EL_QuestStore)
+endfunction
+
+function SetPageStoryQuests()
+	SetCursorFillMode(LEFT_TO_RIGHT)
+	addQuestList(EL_QuestsStory as EL_QuestStore)
+endfunction
+
+function SetPageTortureQuests()
+	SetCursorFillMode(LEFT_TO_RIGHT)
+	addQuestList(EL_QuestsTorture as EL_QuestStore)
+endfunction
+
+function addQuestList(EL_QuestStore questStore)
+	int questCount = questStore.GetQuestCount()
+	if questCount < 0
 		AddTextOption("No quests loaded", "")
 		return
 	endif
+	AddTextOption("Number\tName", "")
+	AddTextOption("#V/#A\tIn Lair\tRequirements", "")
 	int x = 0
 	string questInfo
-	while x < victimQuestCount
+	while x < questCount
 		questInfo = ""
-		questInfo = questInfo + questStore.GetNumActorsByIndex(x)
-		questInfo = questInfo + " - " + questStore.GetInLairByIndex(x)
-		questInfo = questInfo + " - " + questStore.GetLocationsByIndex(x)
-		questInfo = questInfo + " - " + questStore.GetKeywordsByIndex(x)
-
-		AddTextOption(questStore.GetNameByIndex(x), "")
+		questInfo += questStore.GetNumVictimActorsByIndex(x) + "/" + questStore.GetNumAgressiveActorsByIndex(x) 
+		questInfo += "\t" + questStore.GetInLairByIndex(x) as string
+		questInfo += "\t" + questStore.GetRequirementsByIndex(x)
+		AddTextOption( x + "\t" + questStore.GetNameByIndex(x), "")
 		AddTextOption(questInfo, "")
 		x = x + 1
 	endwhile
-	AddTextOption("", "")
 endfunction
 
-function SetPagePartnerScenes()
-	SetCursorFillMode(LEFT_TO_RIGHT)
-	if EL_PlayerRole.GetValue() != 2
-		AddTextOption("Player is not Evilynns Partner", "")
-		return
-	endif
-	EL_TortureStore questStore = EL_PartnerStore as EL_TortureStore
-	int partnerQuestCount = questStore.GetQuestCount()
-	if partnerQuestCount < 0
-		AddTextOption("No quests loaded", "")
-		return
-	endif
-	int x = 0
-	string questInfo
-	while x < partnerQuestCount
-		questInfo = ""
-		questInfo = questInfo + questStore.GetNumActorsByIndex(x)
-		questInfo = questInfo + " - " + questStore.GetInLairByIndex(x)
-		questInfo = questInfo + " - " + questStore.GetLocationsByIndex(x)
-		questInfo = questInfo + " - " + questStore.GetKeywordsByIndex(x)
+state SET_AS_VICTIM
+	event OnSelectST()
+		EL_PlayerRole.SetValue(1)
+		EL_EvilynnsVictim.Start()
+	endEvent
 
-		AddTextOption(questStore.GetNameByIndex(x), "")
-		AddTextOption(questInfo, "")
-		x = x + 1
-	endwhile
-	AddTextOption("", "")
-endfunction
+	event OnDefaultST()
+		; SetTextOptionValueST(false)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
+
+state SET_AS_PARTNER
+	event OnSelectST()
+		EL_PlayerRole.SetValue(2)
+		EL_EvilynnsPartner.Start()
+	endEvent
+
+	event OnDefaultST()
+		; SetTextOptionValueST(false)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
 
 state PLAY_SCENE
 	event OnSelectST()
-		EL_TortureStore questStore = EL_VictimStore as EL_TortureStore
-		int questIndex = questStore.GetRandomQuestIndex()
-		Quest curQuest = questStore.GetQuestByIndex(questIndex)
-		curQuest.Start()
-		EL_VicTortPlayBall
+		EL_QuestStore questStore = EL_QuestsTorture as EL_QuestStore
+		;int questIndex = questStore.GetRandomQuestIndex()
+		;Quest curQuest = questStore.GetQuestByIndex(questIndex)
+		;curQuest.Start()
 	endEvent
 
 	event OnDefaultST()
@@ -254,10 +271,11 @@ endState
 ObjectReference Property EL_LairNorthDoorClutter  Auto  
 ObjectReference Property EL_LairEastDoorClutter  Auto  
 ObjectReference Property El_LairWestDoorClutter  Auto 
-Quest Property EL_PartnerStore  Auto  
-Quest Property EL_VictimStore  Auto 
-Quest Property EL_VicTortPlayBall  Auto 
+Quest Property EL_EvilynnsPartner  Auto  
+Quest Property EL_EvilynnsVictim  Auto  
+Quest Property EL_QuestsRape  Auto 
+Quest Property EL_QuestsStory  Auto 
+Quest Property EL_QuestsTorture  Auto 
 GlobalVariable Property EL_PlayerRole  Auto  
 ObjectReference Property EL_AlignmentQuestMarker  Auto  
-
-Actor Property PlayerRef  Auto  
+Actor Property PlayerRef  Auto 
