@@ -2,4 +2,4 @@ Quest Starter:
 Tamriel: SaarthalExterior - 22, 22
 
 Lair:
-Cell 19, 0 - Elevation -4540
+Cell 14, -19, elv 12889
