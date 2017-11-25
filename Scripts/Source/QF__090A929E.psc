@@ -12,29 +12,27 @@ ReferenceAlias Property Alias_Evilynn Auto
 ReferenceAlias Property Alias_Player Auto
 ;END ALIAS PROPERTY
 
-;BEGIN FRAGMENT Fragment_3
-Function Fragment_3()
-;BEGIN CODE
-debug.notification("moved to last stage! success!!!!")
-SetObjectiveCompleted(10)
-SetObjectiveDisplayed(20)
-;END CODE
-EndFunction
-;END FRAGMENT
-
 ;BEGIN FRAGMENT Fragment_0
 Function Fragment_0()
 ;BEGIN CODE
 SetObjectiveDisplayed(0)
 EL_VictimStore.Start()
 EL_EvilynnStore.Start()
-utility.wait(10)
-
 actor[] victims = new actor[1]
 victims[0] = Alias_Player.GetActorRef()
 actor[] aggressors = new actor[1]
 aggressors[0] = Alias_Evilynn.GetActorRef()
 (EL_MainQuestManager as EL_QuestManager).RandomVictimPlayerQuest((Self as Quest), 10, "torture",  victims, aggressors)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_3
+Function Fragment_3()
+;BEGIN CODE
+debug.notification("moved to last stage! success!!!!")
+SetObjectiveCompleted(10)
+SetObjectiveDisplayed(20)
 ;END CODE
 EndFunction
 ;END FRAGMENT

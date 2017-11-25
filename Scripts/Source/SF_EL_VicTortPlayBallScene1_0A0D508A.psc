@@ -1,27 +1,33 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 10
+;NEXT FRAGMENT INDEX 26
 Scriptname SF_EL_VicTortPlayBallScene1_0A0D508A Extends Scene Hidden
 
 ;BEGIN FRAGMENT Fragment_0
 Function Fragment_0()
 ;BEGIN CODE
-ObjectReference cameramMarker1 = Alias_Camera1.GetReference()
 ObjectReference victimMarker = Alias_VictimMarker.GetReference()
-actor camerman1 = cameramMarker1.PlaceActorAtMe(EL_GhostCamera)
-actor victim1 = Alias_VictimOne.GetRef()
-
+actor camerman1 = CameraMarker1.PlaceActorAtMe(EL_GhostCamera)
+actor victim1 = Alias_VictimOne.GetActorRef()
+camerman1.SetLookAt(victim1, true)
 Game.DisablePlayerControls(True, True,True,True, True,True, True, True)
 SceneUtility.DoFadeOut(3.0)
-SceneUtility.ForceMoveTo(camerman1, cameramMarker1)
+SceneUtility.ForceMoveTo(camerman1, CameraMarker1)
 SceneUtility.ForceMoveTo(victim1, victimMarker)
 
 camerman1.StopTranslation() ; stop any existing translation that may be taking place
 
-camerman1.SetPosition(cameramMarker1.GetPositionX(), cameramMarker1.GetPositionY(), cameramMarker1.GetPositionZ()) ; set position
-camerman1.SetAngle(cameramMarker1.GetAngleX(), cameramMarker1.GetAngleY(), cameramMarker1.GetAngleZ()) ; set rotation
+camerman1.SetPosition(CameraMarker1.GetPositionX(),CameraMarker1.GetPositionY(), CameraMarker1.GetPositionZ()) ; set position
+camerman1.SetAngle(CameraMarker1.GetAngleX(), CameraMarker1.GetAngleY(), CameraMarker1.GetAngleZ()) ; set rotation
 Game.SetCameraTarget(camerman1) ; set target
 Game.ForceFirstPerson() ;toggle to first person. Force the game to update the camera when we..
 Game.ForceThirdPerson() ;force third person
+utility.wait(10)
+camerman1.PathToReference(CameraMarker2, 10)
+utility.wait(10)
+camerman1.PathToReference(CameraMarker3, 10)
+utility.wait(10)
+Game.EnablePlayerControls()
+Game.SetCameraTarget(victim1)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -39,3 +45,8 @@ EL_SceneUtilityScript function get()
     return (EL_SceneUtility as EL_SceneUtilityScript)
   endFunction
 endProperty
+
+
+ObjectReference Property CameraMarker1 Auto
+ObjectReference Property CameraMarker2 Auto
+ObjectReference Property CameraMarker3 Auto

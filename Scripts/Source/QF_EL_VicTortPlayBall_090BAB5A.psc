@@ -2,25 +2,44 @@
 ;NEXT FRAGMENT INDEX 10
 Scriptname QF_EL_VicTortPlayBall_090BAB5A Extends Quest Hidden
 
-;BEGIN ALIAS PROPERTY AggressorOne
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_AggressorOne Auto
-;END ALIAS PROPERTY
-
 ;BEGIN ALIAS PROPERTY VictimMarker
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_VictimMarker Auto
-;END ALIAS PROPERTY
-
-;BEGIN ALIAS PROPERTY Camera1
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Camera1 Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN ALIAS PROPERTY VictimOne
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_VictimOne Auto
 ;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY CameraMarker3
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_CameraMarker3 Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY AggressorOne
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_AggressorOne Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY CameraMarker1
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_CameraMarker1 Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY CameraMarker2
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_CameraMarker2 Auto
+;END ALIAS PROPERTY
+
+;BEGIN FRAGMENT Fragment_7
+Function Fragment_7()
+;BEGIN CODE
+;WARNING: Unable to load fragment source from function Fragment_7 in script QF_EL_VicTortPlayBall_090BAB5A
+;Source NOT loaded
+;END CODE
+EndFunction
+;END FRAGMENT
 
 ;BEGIN FRAGMENT Fragment_3
 Function Fragment_3()
@@ -35,19 +54,38 @@ SetStage(10)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_2
-Function Fragment_2()
-;BEGIN CODE
-SetObjectiveCompleted(10)
-SetStage(1000)
-;END CODE
-EndFunction
-;END FRAGMENT
-
 ;BEGIN FRAGMENT Fragment_1
 Function Fragment_1()
 ;BEGIN CODE
 SetObjectiveDisplayed(10)
+;debug.notification("start scene")
+;EL_VicTortPlayBallScene1.Start()
+debug.notification("start move test")
+
+EL_ItemMovement IM = Quest.GetQuest("EL_VicTortPlayBall") as EL_ItemMovement
+
+IM.SummonItem("fork", -464.0, 1376.00, 48.00)
+
+bool toggle = false
+while (true)
+if toggle
+	IM.MoveToMarker()
+else
+	IM.Move()
+endif
+Utility.Wait(15.0)
+IM.Reset()
+endWhile
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_2
+Function Fragment_2()
+;BEGIN CODE
+debug.notification("end scene")
+SetObjectiveCompleted(10)
+SetStage(1000)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -64,3 +102,4 @@ endProperty
 ActorBase Property EL_GhostCamera  Auto  
 
 Scene Property EL_VicTortPlayBallScene1  Auto  
+

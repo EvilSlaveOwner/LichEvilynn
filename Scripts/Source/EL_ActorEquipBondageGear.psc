@@ -91,7 +91,7 @@ EndEvent
 
 ; ### Behaviour Handling ###
 String __behaviour = ""
-String Property behaviour
+String Property behaviour Hidden
 	String Function get()
 		return __behaviour
 	EndFunction

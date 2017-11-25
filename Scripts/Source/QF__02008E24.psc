@@ -1,25 +1,10 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 29
+;NEXT FRAGMENT INDEX 33
 Scriptname QF__02008E24 Extends Quest Hidden
 
-;BEGIN ALIAS PROPERTY DreamscapeKey
+;BEGIN ALIAS PROPERTY RugMarker1
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_DreamscapeKey Auto
-;END ALIAS PROPERTY
-
-;BEGIN ALIAS PROPERTY Evilynn
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Evilynn Auto
-;END ALIAS PROPERTY
-
-;BEGIN ALIAS PROPERTY Bandit2
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Bandit2 Auto
-;END ALIAS PROPERTY
-
-;BEGIN ALIAS PROPERTY Lynn
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Lynn Auto
+ReferenceAlias Property Alias_RugMarker1 Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN ALIAS PROPERTY Bandit1
@@ -27,9 +12,14 @@ ReferenceAlias Property Alias_Lynn Auto
 ReferenceAlias Property Alias_Bandit1 Auto
 ;END ALIAS PROPERTY
 
-;BEGIN ALIAS PROPERTY RugMarker1
+;BEGIN ALIAS PROPERTY Bandit2
 ;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_RugMarker1 Auto
+ReferenceAlias Property Alias_Bandit2 Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY JailDoor
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_JailDoor Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN ALIAS PROPERTY SoulStone
@@ -42,6 +32,30 @@ ReferenceAlias Property Alias_SoulStone Auto
 ReferenceAlias Property Alias_Player Auto
 ;END ALIAS PROPERTY
 
+;BEGIN ALIAS PROPERTY Lynn
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_Lynn Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY Evilynn
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_Evilynn Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY DreamscapeKey
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_DreamscapeKey Auto
+;END ALIAS PROPERTY
+
+;BEGIN FRAGMENT Fragment_22
+Function Fragment_22()
+;BEGIN CODE
+Game.DisablePlayerControls(true)
+SetObjectiveDisplayed(120)
+;END CODE
+EndFunction
+;END FRAGMENT
+
 ;BEGIN FRAGMENT Fragment_26
 Function Fragment_26()
 ;BEGIN CODE
@@ -53,14 +67,17 @@ EL_PlayerRole.SetValue(2) ; Evilynns Partner
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_25
-Function Fragment_25()
+;BEGIN FRAGMENT Fragment_0
+Function Fragment_0()
 ;BEGIN CODE
-Game.DisablePlayerControls(true)
-Alias_Evilynn.TryToEnable()
-Alias_Evilynn.GetActorRef().MoveTo(EL_EvilynnStartMarker)
-Alias_Player.GetActorRef().MoveTo(EL_PlayerStartMarker)
-EL_BeginQuestAlignmentEvilynnEvil.Start()
+Alias_Bandit1.GetActorRef().Enable()
+Alias_Bandit2.GetActorRef().Enable()
+SetObjectiveCompleted(5)
+SetObjectiveDisplayed(10)
+Alias_Lynn.TryToEnable()
+SoulStone.TryToDisable()
+(Alias_Lynn as EL_ActorState).ChangeState("Crying")
+Game.EnablePlayerControls()
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -83,27 +100,6 @@ elseif EL_PlayerRole.GetValue() == 2
 else
     debug.notification("Unknown Player Status")
 endif
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_16
-Function Fragment_16()
-;BEGIN CODE
-SetObjectiveCompleted(10)
-SetObjectiveDisplayed(40)
-Alias_Lynn.GetActorRef().SetDontMove(true)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_21
-Function Fragment_21()
-;BEGIN CODE
-Game.DisablePlayerControls(true)
-SetObjectiveCompleted(200)
-SetObjectiveCompleted(220)
-SetStage(230)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -141,6 +137,57 @@ SetStage(10)
 EndFunction
 ;END FRAGMENT
 
+;BEGIN FRAGMENT Fragment_16
+Function Fragment_16()
+;BEGIN CODE
+SetObjectiveCompleted(10)
+SetObjectiveDisplayed(40)
+Alias_Lynn.GetActorRef().SetDontMove(true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_18
+Function Fragment_18()
+;BEGIN CODE
+SetObjectiveDisplayed(100)
+SetObjectiveCompleted(40)
+Alias_JailDoor.GetReference().SetOpen(false)
+Alias_JailDoor.GetReference().BlockActivation()
+Game.DisablePlayerControls(true)
+Alias_Bandit1.TryToDisable()
+Alias_Bandit2.TryToDisable()
+Alias_Lynn.TryToDisable()
+SetObjectiveCompleted(100)
+SetStage(110)
+(Alias_Lynn as EL_ActorState).ChangeState("")
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_21
+Function Fragment_21()
+;BEGIN CODE
+Game.DisablePlayerControls(true)
+SetObjectiveCompleted(200)
+SetObjectiveCompleted(220)
+SetStage(230)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_25
+Function Fragment_25()
+;BEGIN CODE
+Game.DisablePlayerControls(true)
+Alias_Evilynn.TryToEnable()
+Alias_Evilynn.GetActorRef().MoveTo(EL_EvilynnStartMarker)
+Alias_Player.GetActorRef().MoveTo(EL_PlayerStartMarker)
+EL_BeginQuestAlignmentEvilynnEvil.Start()
+;END CODE
+EndFunction
+;END FRAGMENT
+
 ;BEGIN FRAGMENT Fragment_19
 Function Fragment_19()
 ;BEGIN CODE
@@ -154,13 +201,14 @@ EL_PlayerRole.SetValue(1) ; Evilynns Victim
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_22
-Function Fragment_22()
+;BEGIN FRAGMENT Fragment_30
+Function Fragment_30()
 ;BEGIN CODE
 Game.DisablePlayerControls(true)
-SetObjectiveDisplayed(120)
-Alias_Evilynn.TryToDisable()
 SetObjectiveCompleted(120)
+SetObjectiveDisplayed(130)
+Alias_Evilynn.TryToDisable()
+SetObjectiveCompleted(130)
 int choice = EL_LastChanceMessageBox.Show()
 if choice == 1 ; allow cheating
     EL_AllowCheat.SetValue(1)
@@ -185,39 +233,6 @@ Alias_Lynn.TryToDisable()
 Alias_Bandit1.TryToDisable()
 Alias_Bandit2.TryToDisable()
 SetStage(210)
-(Alias_Lynn as EL_ActorState).ChangeState("")
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_0
-Function Fragment_0()
-;BEGIN CODE
-Alias_Bandit1.GetActorRef().Enable()
-Alias_Bandit2.GetActorRef().Enable()
-SetObjectiveCompleted(5)
-SetObjectiveDisplayed(10)
-Alias_Lynn.TryToEnable()
-SoulStone.TryToDisable()
-Alias_Lynn.GetActorRef().MoveTo(RugMarker)
-debug.SendAnimationEvent(Alias_Lynn.GetActorRef(), "ZazAPC057")
-(Alias_Lynn as EL_ActorState).ChangeState("Crying")
-Game.EnablePlayerControls()
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_18
-Function Fragment_18()
-;BEGIN CODE
-SetObjectiveDisplayed(100)
-SetObjectiveCompleted(40)
-Game.DisablePlayerControls(true)
-Alias_Bandit1.TryToDisable()
-Alias_Bandit2.TryToDisable()
-Alias_Lynn.TryToDisable()
-SetObjectiveCompleted(100)
-SetStage(110)
 (Alias_Lynn as EL_ActorState).ChangeState("")
 ;END CODE
 EndFunction
