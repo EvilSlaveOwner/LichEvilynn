@@ -6,6 +6,9 @@ EL_CaptiveMovement function GetApi() Global
 endfunction
 
 function GoToCell(actor captive)
+	
+	captive.EvaluatePackage()
+	return
 	EL_Utility.Log("Sending captive " + zbfUtil.GetObjectName(captive) + " to her cell.", "EL_CaptiveMovement")
 	ObjectReference marker = GetActorCellMarker(captive)
 	if marker == none
