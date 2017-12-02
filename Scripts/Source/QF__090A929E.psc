@@ -12,17 +12,19 @@ ReferenceAlias Property Alias_Evilynn Auto
 ReferenceAlias Property Alias_Player Auto
 ;END ALIAS PROPERTY
 
-;BEGIN FRAGMENT Fragment_0
-Function Fragment_0()
+;BEGIN FRAGMENT Fragment_2
+Function Fragment_2()
 ;BEGIN CODE
-SetObjectiveDisplayed(0)
-EL_VictimStore.Start()
-EL_EvilynnStore.Start()
-actor[] victims = new actor[1]
-victims[0] = Alias_Player.GetActorRef()
-actor[] aggressors = new actor[1]
-aggressors[0] = Alias_Evilynn.GetActorRef()
-(EL_MainQuestManager as EL_QuestManager).RandomVictimPlayerQuest((Self as Quest), 10, "torture",  victims, aggressors)
+SetObjectiveDisplayed(10)
+Quest TravelToLair = Game.GetFormFromFile(0x050D5085, "LichEvilynn.esp") as Quest
+TravelToLair.Start()
+
+
+;actor[] victims = new actor[1]
+;victims[0] = Alias_Player.GetActorRef()
+;actor[] aggressors = new actor[1]
+;aggressors[0] = Alias_Evilynn.GetActorRef()
+;(EL_MainQuestManager as EL_QuestManager).RandomVictimPlayerQuest((Self as Quest), 20, "torture",  victims, aggressors)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -30,26 +32,27 @@ EndFunction
 ;BEGIN FRAGMENT Fragment_3
 Function Fragment_3()
 ;BEGIN CODE
-debug.notification("moved to last stage! success!!!!")
 SetObjectiveCompleted(10)
 SetObjectiveDisplayed(20)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_2
-Function Fragment_2()
+;BEGIN FRAGMENT Fragment_0
+Function Fragment_0()
 ;BEGIN CODE
-debug.notification("moved to next stage!")
-SetObjectiveCompleted(0)
-SetObjectiveDisplayed(10)
-utility.wait(10)
+EL_VictimStore.Start()
+EL_EvilynnStore.Start()
+EL_Possessed.GetApi().SetPossessed(PlayerRef)
+SetStage(10)
 
-actor[] victims = new actor[1]
-victims[0] = Alias_Player.GetActorRef()
-actor[] aggressors = new actor[1]
-aggressors[0] = Alias_Evilynn.GetActorRef()
-(EL_MainQuestManager as EL_QuestManager).RandomVictimPlayerQuest((Self as Quest), 20, "torture",  victims, aggressors)
+
+
+;actor[] victims = new actor[1]
+;victims[0] = Alias_Player.GetActorRef()
+;actor[] aggressors = new actor[1]
+;aggressors[0] = Alias_Evilynn.GetActorRef()
+;(EL_MainQuestManager as EL_QuestManager).RandomVictimPlayerQuest((Self as Quest), 10, "torture",  victims, aggressors)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -60,7 +63,6 @@ Quest Property EL_VictimStore  Auto
 
 Quest Property EL_EvilynnStore  Auto  
 
-Quest Property EL_EvilynnsVictim  Auto  
-
-
 Quest Property EL_MainQuestManager  Auto  
+
+Actor Property PlayerRef  Auto  

@@ -1,32 +1,6 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 75
+;NEXT FRAGMENT INDEX 77
 Scriptname SF_EL_BeginQuestAlignmentEvi_0906BA69 Extends Scene Hidden
-
-;BEGIN FRAGMENT Fragment_24
-Function Fragment_24()
-;BEGIN CODE
-string Message1 = "With another of her insanely cruel laughs, you feel her presence fade and control of your body returns to you."
-Debug.MessageBox(Message1)
-GetOwningQuest().SetStage(120)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_67
-Function Fragment_67()
-;BEGIN CODE
-(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_72
-Function Fragment_72()
-;BEGIN CODE
-Game.DisablePlayerControls(true)
-;END CODE
-EndFunction
-;END FRAGMENT
 
 ;BEGIN FRAGMENT Fragment_35
 Function Fragment_35()
@@ -39,33 +13,6 @@ Debug.MessageBox(Message1)
 Utility.Wait(2)
 Debug.MessageBox(Message2)
 Game.GetPlayer().AddToFaction(EL_Posessed)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_31
-Function Fragment_31()
-;BEGIN CODE
-Game.GetPlayer().RemoveFromFaction(EL_PlayerSexEnd)
-Game.DisablePlayerControls(true)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_13
-Function Fragment_13()
-;BEGIN CODE
-string Message1 = "Suddenly, you stop breathing.\nYou just simply stop."
-string Message2 = "Within a very short time,\nyou can feel the need to for air.\nYou have the over-powering need to gasp for it,\nbut nothing happens.\n\nYou begin to black out."
-string Message3 = "Suddenly you can breathe again,\nbut it is with an unnatural calmness\nand not the gasping and gulping\n for precious air that would normally happen.\nSoon enough, though,\nyour breathing is fully restored"
-Utility.Wait(1)
-Debug.MessageBox(Message1)
-Utility.Wait(3)
-Debug.MessageBox(Message2)
-(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
-Utility.Wait(5)
-Debug.MessageBox(Message3)
-(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeIn(0.0)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -93,20 +40,56 @@ Utility.Wait(1)
 EndFunction
 ;END FRAGMENT
 
+;BEGIN FRAGMENT Fragment_48
+Function Fragment_48()
+;BEGIN CODE
+Utility.Wait(2)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_24
+Function Fragment_24()
+;BEGIN CODE
+string Message1 = "With another of her insanely cruel laughs, you feel her presence fade and control of your body returns to you."
+Debug.MessageBox(Message1)
+GetOwningQuest().SetStage(130)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_72
+Function Fragment_72()
+;BEGIN CODE
+Game.DisablePlayerControls(true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_13
+Function Fragment_13()
+;BEGIN CODE
+string Message1 = "Suddenly, you stop breathing.\nYou just simply stop."
+string Message2 = "Within a very short time,\nyou can feel the need to for air.\nYou have the over-powering need to gasp for it,\nbut nothing happens.\n\nYou begin to black out."
+string Message3 = "Suddenly you can breathe again,\nbut it is with an unnatural calmness\nand not the gasping and gulping\n for precious air that would normally happen.\nSoon enough, though,\nyour breathing is fully restored"
+Utility.Wait(1)
+Debug.MessageBox(Message1)
+Utility.Wait(3)
+Debug.MessageBox(Message2)
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
+Utility.Wait(5)
+Debug.MessageBox(Message3)
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeIn(0.0)
+;END CODE
+EndFunction
+;END FRAGMENT
+
 ;BEGIN FRAGMENT Fragment_8
 Function Fragment_8()
 ;BEGIN CODE
 string Message1 = "You feel as though a thousand dragon's claws rip into your soul as you are dragged from pure bliss back into your body."
 Debug.MessageBox(Message1)
 Utility.Wait(1)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_48
-Function Fragment_48()
-;BEGIN CODE
-Utility.Wait(2)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -135,6 +118,23 @@ Function Fragment_15()
 ;BEGIN CODE
 Game.DisablePlayerControls(true)
 (Alias_Player as EL_AlignmentForceMasturbationAlias).MasturbationGood(Game.GetPlayer(), RugMarker1)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_31
+Function Fragment_31()
+;BEGIN CODE
+Game.GetPlayer().RemoveFromFaction(EL_PlayerSexEnd)
+Game.DisablePlayerControls(true)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_67
+Function Fragment_67()
+;BEGIN CODE
+(Quest.GetQuest("EL_SceneUtility") as EL_SceneUtilityScript).DoFadeOut(0.0)
 ;END CODE
 EndFunction
 ;END FRAGMENT

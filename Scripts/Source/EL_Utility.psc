@@ -24,8 +24,12 @@ endfunction
 ; log message
 function ELLog(string messageStr, string prefix = "EL_LichEvilynn")
 	string logLine = "[" + prefix + "] " + messageStr
-	Debug.Notification(logLine)
-	Debug.Trace(logLine)
+	if EL_ShowDebugNotifications.GetValue() == 1
+		Debug.Notification(logLine)
+	endif
+	if EL_ShowDebugLogs.GetValue() == 1
+		Debug.Trace(logLine)
+	endif
 endfunction
 
 ; hotkeys
@@ -63,3 +67,6 @@ Function ForceThirdPerson() native global
 
 ; Set first person camera
 Function ForceFirstPerson() native global
+
+GlobalVariable Property EL_ShowDebugLogs  Auto 
+GlobalVariable Property EL_ShowDebugNotifications  Auto 

@@ -58,48 +58,60 @@ function SetPageHome()
 	SetCursorFillMode(TOP_TO_BOTTOM)
 	AddHeaderOption("Options")
 	AddEmptyOption()
-	AddTextOptionST("KILL_SWITCH1", "DO NOT PRESS THIS BUTTON", "")
+	AddTextOptionST("NA1", "Not currently in use", "")
 endFunction
 
 function SetPageOptions()
 	SetCursorFillMode(TOP_TO_BOTTOM)
 	AddHeaderOption("Options")
 	AddEmptyOption()
-	AddTextOptionST("KILL_SWITCH2", "DO NOT PRESS THIS BUTTON", "")
+	AddTextOptionST("NA2", "Not currently in use", "")
 endFunction
 
 function SetPageStatus()
 	SetCursorFillMode(TOP_TO_BOTTOM)
 	AddHeaderOption("Status")
 	AddEmptyOption()
-	AddTextOption("Player Role", EL_PlayerRole.GetValue())
-	AddTextOption("1", "Player is Evilynn's Victim")
-	AddTextOption("2", "Player is Evilynn's Partner")
+	int playerRole = EL_PlayerRole.GetValue() as int
+	if playerRole == 0
+		AddTextOption("Player Role", "Not Decided")
+	elseif playerRole == 1
+		AddTextOption("Player Role", "Evilynn's Victim")
+	elseif playerRole == 2
+		AddTextOption("Player Role", "Evilynn's Partner")
+	endif
 endFunction
 
 function SetPageEvilynnsLair()
 	SetCursorFillMode(LEFT_TO_RIGHT)
 	AddHeaderOption("First Room")
 	AddEmptyOption()
-	
-	EL_LairNorthDoorClutterEnabled = EL_LairNorthDoorClutter.IsEnabled()
-	EL_LairEastDoorClutterEnabled = EL_LairEastDoorClutter.IsEnabled()
-	EL_LairWestDoorClutterEnabled = El_LairWestDoorClutter.IsEnabled()
-	
-	AddToggleOptionST("CLEAN_NORTH", "Clean North Area", EL_LairNorthDoorClutterEnabled)
-	AddToggleOptionST("CLEAN_EAST", "Clean East Area", EL_LairEastDoorClutterEnabled)
-	AddToggleOptionST("CLEAN_WEST", "Clean West Area", EL_LairWestDoorClutterEnabled)
+	AddToggleOptionST("EAST_WING_OPEN", "Open East Wing", EL_LairAccessController.GetApi().EastWingOpen())
+	AddToggleOptionST("NORTH_WING_OPEN", "Open North Wing", EL_LairAccessController.GetApi().NorthWingOpen())
+	AddToggleOptionST("WEST_WING_OPEN", "Open West Wing", EL_LairAccessController.GetApi().WestWingOpen())	
+	AddToggleOptionST("SOUTH_WING_OPEN", "Open South Wing", EL_LairAccessController.GetApi().SouthWingOpen())
+	AddEmptyOption()
+	AddEmptyOption()
+	AddToggleOptionST("FLOOR_TWO_OPEN", "Open Floor 2 (East)", EL_LairAccessController.GetApi().FloorTwoOpen())
+	AddToggleOptionST("BASEMENT_OPEN", "Open Basements", EL_LairAccessController.GetApi().BasementOpen())
+	AddToggleOptionST("FLOOR_THREE_OPEN", "Open Floor 3 (West)", EL_LairAccessController.GetApi().FloorThreeOpen())                                
+
 endFunction
 
 function SetPageDebug()
-	SetCursorFillMode(TOP_TO_BOTTOM)
+	SetCursorFillMode(LEFT_TO_RIGHT)
 	AddHeaderOption("Debug & Tests")
 	AddEmptyOption()
-	AddTextOptionST("SET_AS_VICTIM", "Set Player to Victim", "")
-	AddTextOptionST("SET_AS_PARTNER", "Set Player to Partner", "")
-	
-	AddTextOptionST("PLAY_SCENE", "Play a Scene", "")
-	AddTextOptionST("TELEPORT_TO_START", "Teleport to Start", "")
+	AddTextOptionST("TELEPORT_TO_START", "Teleport to Intro Quest", "")
+	AddToggleOptionST("SET_AS_VICTIM", "Set Player to Victim", EL_PlayerRole.GetValue() == 1)
+	AddTextOptionST("TELEPORT_TO_LAIR", "Teleport to Lair", "")
+	AddToggleOptionST("SET_AS_PARTNER", "Set Player to Partner", EL_PlayerRole.GetValue() == 2)
+	AddEmptyOption()
+	AddEmptyOption()
+	AddToggleOptionST("SET_SHOW_NOTIFICATIONS", "Show Debug Notifications", EL_ShowDebugNotifications.GetValue() == 1)
+	AddToggleOptionST("SET_SHOW_DEBUG", "Enable Debugging", EL_ShowDebugDialog.GetValue() == 1)
+	AddToggleOptionST("SET_SHOW_DEBUG_LOGS", "Save Script Logs", EL_ShowDebugLogs.GetValue() == 1)
+	; AddToggleOptionST("SET_ALLOW_CHEAT", "Allow Cheating", EL_AllowCheat.GetValue() == 1)
 endFunction
 
 function SetPageRapeQuests()
@@ -138,6 +150,60 @@ function addQuestList(EL_QuestStore questStore)
 	endwhile
 endfunction
 
+
+state SET_SHOW_NOTIFICATIONS
+	event OnSelectST()
+		EL_ShowDebugNotifications.SetValue(1)
+	endEvent
+
+	event OnDefaultST()
+		EL_ShowDebugNotifications.SetValue(0)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
+
+state SET_SHOW_DEBUG_LOGS
+	event OnSelectST()
+		EL_ShowDebugLogs.SetValue(1)
+	endEvent
+
+	event OnDefaultST()
+		EL_ShowDebugLogs.SetValue(0)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
+
+state SET_SHOW_DEBUG
+	event OnSelectST()
+		EL_ShowDebugDialog.SetValue(1)
+	endEvent
+
+	event OnDefaultST()
+		EL_ShowDebugDialog.SetValue(0)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
+ 
+state SET_ALLOW_CHEAT
+	event OnSelectST()
+		EL_AllowCheat.SetValue(1)
+	endEvent
+
+	event OnDefaultST()
+		EL_AllowCheat.SetValue(0)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
+
+
 state SET_AS_VICTIM
 	event OnSelectST()
 		EL_PlayerRole.SetValue(1)
@@ -166,116 +232,148 @@ state SET_AS_PARTNER
 	endEvent
 endState
 
-state PLAY_SCENE
-	event OnSelectST()
-		EL_QuestStore questStore = EL_QuestsTorture as EL_QuestStore
-		;int questIndex = questStore.GetRandomQuestIndex()
-		;Quest curQuest = questStore.GetQuestByIndex(questIndex)
-		;curQuest.Start()
-	endEvent
-
-	event OnDefaultST()
-		; SetTextOptionValueST(false)
-	endEvent
-
-	event OnHighlightST()
-	endEvent
-endState
-
 state TELEPORT_TO_START
 	event OnSelectST()
 		PlayerREF.MoveTo(EL_AlignmentQuestMarker)
 	endEvent
 endState
 
-
-state CLEAN_NORTH
+state TELEPORT_TO_LAIR              
 	event OnSelectST()
-		EL_LairNorthDoorClutterEnabled = !EL_LairNorthDoorClutterEnabled
-		SetToggleOptionValueST(EL_LairNorthDoorClutterEnabled)
-		if EL_LairNorthDoorClutterEnabled
-			EL_LairNorthDoorClutter.Enable(true)
-		else
-			EL_LairNorthDoorClutter.Disable(true)
-		endif
-	endEvent
-
-	event OnDefaultST()
-		EL_LairNorthDoorClutterEnabled = true
-		SetToggleOptionValueST(EL_LairNorthDoorClutterEnabled)
-		if EL_LairNorthDoorClutterEnabled
-			EL_LairNorthDoorClutter.Enable(true)
-		else
-			EL_LairNorthDoorClutter.Disable(true)
-		endif
-	endEvent
-
-	event OnHighlightST()
-		SetInfoText("Clean north side of room")
+		PlayerREF.MoveTo(EL_LairEntranceMarker)
 	endEvent
 endState
 
-state CLEAN_EAST
+state NORTH_WING_OPEN
 	event OnSelectST()
-		EL_LairEastDoorClutterEnabled = !EL_LairEastDoorClutterEnabled
-		SetToggleOptionValueST(EL_LairEastDoorClutterEnabled)
-		if EL_LairEastDoorClutterEnabled
-			EL_LairEastDoorClutter.Enable(true)
-		else
-			EL_LairEastDoorClutter.Disable(true)
-		endif
+		bool open = !EL_LairAccessController.GetApi().NorthWingOpen()
+		SetToggleOptionValueST(open)
+		EL_LairAccessController.GetApi().NorthWing(open)
 	endEvent
 
 	event OnDefaultST()
-		EL_LairEastDoorClutterEnabled = false
-		SetToggleOptionValueST(EL_LairEastDoorClutterEnabled)
-		if EL_LairEastDoorClutterEnabled
-			EL_LairEastDoorClutter.Enable(true)
-		else
-			EL_LairEastDoorClutter.Disable(true)
-		endif
+		SetToggleOptionValueST(false)
+		EL_LairAccessController.GetApi().NorthWing(false)
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Clean east side of room")
+		SetInfoText("Located in the east and west wings, check north end of long hallways")
 	endEvent
 endState
 
-state CLEAN_WEST
+state SOUTH_WING_OPEN
 	event OnSelectST()
-		EL_LairWestDoorClutterEnabled = !EL_LairWestDoorClutterEnabled
-		SetToggleOptionValueST(EL_LairWestDoorClutterEnabled)
-		if EL_LairWestDoorClutterEnabled
-			EL_LairWestDoorClutter.Enable(true)
-		else
-			EL_LairWestDoorClutter.Disable(true)
-		endif
+		bool open = !EL_LairAccessController.GetApi().SouthWingOpen()
+		SetToggleOptionValueST(open)
+		EL_LairAccessController.GetApi().SouthWing(open)
 	endEvent
 
 	event OnDefaultST()
-		EL_LairWestDoorClutterEnabled = false
-		SetToggleOptionValueST(EL_LairWestDoorClutterEnabled)
-		if EL_LairWestDoorClutterEnabled
-			EL_LairWestDoorClutter.Enable(true)
-		else
-			EL_LairWestDoorClutter.Disable(true)
-		endif
+		SetToggleOptionValueST(false)
+		EL_LairAccessController.GetApi().SouthWing(false)
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Clean west side of room")
+		SetInfoText("Located in the east and west wings, check large southern rooms")
+	endEvent
+endState
+
+state EAST_WING_OPEN
+	event OnSelectST()
+		bool open = !EL_LairAccessController.GetApi().EastWingOpen()
+		SetToggleOptionValueST(open)
+		EL_LairAccessController.GetApi().EastWing(open)
+	endEvent
+
+	event OnDefaultST()
+		SetToggleOptionValueST(false)
+		EL_LairAccessController.GetApi().EastWing(false)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("Located in east side of main room")
+	endEvent
+endState
+
+state WEST_WING_OPEN
+	event OnSelectST()
+		bool open = !EL_LairAccessController.GetApi().WestWingOpen()
+		SetToggleOptionValueST(open)
+		EL_LairAccessController.GetApi().WestWing(open)
+	endEvent
+
+	event OnDefaultST()
+		SetToggleOptionValueST(false)
+		EL_LairAccessController.GetApi().WestWing(false)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("Located in west side of main room")
+	endEvent
+endState
+
+state FLOOR_TWO_OPEN
+	event OnSelectST()
+		bool open = !EL_LairAccessController.GetApi().FloorTwoOpen()
+		SetToggleOptionValueST(open)
+		EL_LairAccessController.GetApi().FloorTwo(open)
+	endEvent
+
+	event OnDefaultST()
+		SetToggleOptionValueST(false)
+		EL_LairAccessController.GetApi().FloorTwo(false)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("Located in south east corner of main room")
+	endEvent
+endState
+
+state FLOOR_THREE_OPEN
+	event OnSelectST()
+		bool open = !EL_LairAccessController.GetApi().FloorThreeOpen()
+		SetToggleOptionValueST(open)
+		EL_LairAccessController.GetApi().FloorThree(open)
+	endEvent
+
+	event OnDefaultST()
+		SetToggleOptionValueST(false)
+		EL_LairAccessController.GetApi().FloorThree(false)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("Located in south west corner of main room")
+	endEvent
+endState
+	
+state BASEMENT_OPEN
+	event OnSelectST()
+		bool open = !EL_LairAccessController.GetApi().BasementOpen()
+		SetToggleOptionValueST(open)
+		EL_LairAccessController.GetApi().Basement(open)
+	endEvent
+
+	event OnDefaultST()
+		SetToggleOptionValueST(false)
+		EL_LairAccessController.GetApi().Basement(false)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("Located in entrance hallway. Two basements (east and west)")
 	endEvent
 endState
 
 
-ObjectReference Property EL_LairNorthDoorClutter  Auto  
-ObjectReference Property EL_LairEastDoorClutter  Auto  
-ObjectReference Property El_LairWestDoorClutter  Auto 
 Quest Property EL_EvilynnsPartner  Auto  
 Quest Property EL_EvilynnsVictim  Auto  
 Quest Property EL_QuestsRape  Auto 
 Quest Property EL_QuestsStory  Auto 
 Quest Property EL_QuestsTorture  Auto 
-GlobalVariable Property EL_PlayerRole  Auto  
-ObjectReference Property EL_AlignmentQuestMarker  Auto  
+GlobalVariable Property EL_PlayerRole  Auto 
+GlobalVariable Property EL_AllowCheat  Auto 
+GlobalVariable Property EL_ShowDebugDialog  Auto 
+GlobalVariable Property EL_ShowDebugLogs  Auto 
+GlobalVariable Property EL_ShowDebugNotifications  Auto 
+ObjectReference Property EL_AlignmentQuestMarker  Auto
+ObjectReference Property EL_LairEntranceMarker  Auto 
 Actor Property PlayerRef  Auto 

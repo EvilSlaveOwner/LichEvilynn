@@ -4,5 +4,5 @@ int secsPerTick = 1
 ObjectReference NextMarker
 
 event AfterAssign()
-	Actor slave = GetActor()
+	;Actor slave = GetActor()
 endevent
