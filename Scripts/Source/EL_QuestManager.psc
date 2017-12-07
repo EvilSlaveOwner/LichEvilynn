@@ -20,6 +20,17 @@ EL_QuestStore rape
 EL_QuestStore story
 EL_QuestStore torture
 
+EL_Screen function Get() Global
+	return Game.GetFormFromFile(0x050D21B8, "LichEvilynn.esp") as EL_Screen
+endfunction
+
+; fixes strange bug where a quest fragment can't update it's own quest stage without causing problems starting scenes.
+function SetQuestStage(Quest theQuest, int stage) Global
+	theQuest.SetStage(stage)
+endfunction
+
+
+
 function load()
 	if isLoaded
 		return

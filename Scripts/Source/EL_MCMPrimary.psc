@@ -20,10 +20,10 @@ event OnConfigInit()
 	pages[0] = "Options"
 	pages[1] = "Status"
 	pages[2] = "Evilynn's Lair"
-	pages[3] = "Rape Quests"
-	pages[4] = "Story Quests"
-	pages[5] = "Torture Quests"
-	pages[6] = "Debug & Tests"
+	;pages[3] = "Rape Quests"
+	;pages[4] = "Story Quests"
+	;pages[5] = "Torture Quests"
+	pages[3] = "Debug & Tests"
 	; ...
 endEvent
 
@@ -103,15 +103,15 @@ function SetPageDebug()
 	AddHeaderOption("Debug & Tests")
 	AddEmptyOption()
 	AddTextOptionST("TELEPORT_TO_START", "Teleport to Intro Quest", "")
-	AddToggleOptionST("SET_AS_VICTIM", "Set Player to Victim", EL_PlayerRole.GetValue() == 1)
+	AddToggleOptionST("SET_AS_VICTIM", "Set Player to Victim", EL_PlayerRole.GetValue() as int == 1)
 	AddTextOptionST("TELEPORT_TO_LAIR", "Teleport to Lair", "")
-	AddToggleOptionST("SET_AS_PARTNER", "Set Player to Partner", EL_PlayerRole.GetValue() == 2)
+	AddToggleOptionST("SET_AS_PARTNER", "Set Player to Partner", EL_PlayerRole.GetValue() as int == 2)
 	AddEmptyOption()
 	AddEmptyOption()
-	AddToggleOptionST("SET_SHOW_NOTIFICATIONS", "Show Debug Notifications", EL_ShowDebugNotifications.GetValue() == 1)
-	AddToggleOptionST("SET_SHOW_DEBUG", "Enable Debugging", EL_ShowDebugDialog.GetValue() == 1)
-	AddToggleOptionST("SET_SHOW_DEBUG_LOGS", "Save Script Logs", EL_ShowDebugLogs.GetValue() == 1)
-	; AddToggleOptionST("SET_ALLOW_CHEAT", "Allow Cheating", EL_AllowCheat.GetValue() == 1)
+	AddToggleOptionST("SET_SHOW_NOTIFICATIONS", "Show Debug Notifications", EL_ShowDebugNotifications.GetValue() == 1.0)
+	AddToggleOptionST("SET_SHOW_DEBUG", "Enable Debugging", EL_ShowDebugDialog.GetValue() == 1.0)
+	AddToggleOptionST("SET_SHOW_DEBUG_LOGS", "Save Script Logs", EL_ShowDebugLogs.GetValue() == 1.0)
+	; AddToggleOptionST("SET_ALLOW_CHEAT", "Allow Cheating", EL_AllowCheat.GetValue() as int == 1)
 endFunction
 
 function SetPageRapeQuests()
@@ -153,11 +153,11 @@ endfunction
 
 state SET_SHOW_NOTIFICATIONS
 	event OnSelectST()
-		EL_ShowDebugNotifications.SetValue(1)
+		EL_ShowDebugNotifications.SetValue(1.0)
 	endEvent
 
 	event OnDefaultST()
-		EL_ShowDebugNotifications.SetValue(0)
+		EL_ShowDebugNotifications.SetValue(0.0)
 	endEvent
 
 	event OnHighlightST()
@@ -166,11 +166,11 @@ endState
 
 state SET_SHOW_DEBUG_LOGS
 	event OnSelectST()
-		EL_ShowDebugLogs.SetValue(1)
+		EL_ShowDebugLogs.SetValue(1.0)
 	endEvent
 
 	event OnDefaultST()
-		EL_ShowDebugLogs.SetValue(0)
+		EL_ShowDebugLogs.SetValue(0.0)
 	endEvent
 
 	event OnHighlightST()
@@ -179,11 +179,11 @@ endState
 
 state SET_SHOW_DEBUG
 	event OnSelectST()
-		EL_ShowDebugDialog.SetValue(1)
+		EL_ShowDebugDialog.SetValue(1.0)
 	endEvent
 
 	event OnDefaultST()
-		EL_ShowDebugDialog.SetValue(0)
+		EL_ShowDebugDialog.SetValue(0.0)
 	endEvent
 
 	event OnHighlightST()

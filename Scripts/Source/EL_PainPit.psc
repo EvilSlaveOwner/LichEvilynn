@@ -146,13 +146,14 @@ function MoveVictimToStart(Actor victim, int slot)
 endfunction
 
 function StartHover(actor victim, int slot)
-	; Debug.SendAnimationEvent(victim, "JumpFall")
-	; victim.SetMotionType(victim.Motion_Keyframed)
+	victim.SetMotionType(victim.Motion_Keyframed)
 	EL_Utility.Log("Moving up..", "EL_PainPit")
 	victimsVehicle[slot].TranslateTo(victimsStart[slot].X + 50, victimsStart[slot].Y, victimsStart[slot].Z, victimsStart[slot].GetAngleX(), victimsStart[slot].GetAngleY(), victimsStart[slot].GetAngleZ(), 15, 0.0)
-	EL_Utility.Log("Moving up finished!", "EL_PainPit")
 	utility.wait(10.0) ; change to use OnTranslationComplete later... also check orbit link below!
+	EL_Utility.Log("Moving up finished!", "EL_PainPit")
 	victimsVehicle[slot].TranslateTo(victimsMarker[slot].X, victimsMarker[slot].Y, victimsMarker[slot].Z, victimsMarker[slot].GetAngleX(), victimsMarker[slot].GetAngleY(), victimsMarker[slot].GetAngleZ(), 25, 0.0)
+	utility.wait(10.0)
+	Debug.SendAnimationEvent(victim, "JumpFall")
 endfunction
 
 ; https://www.creationkit.com/index.php?title=Spatial_functions_and_snippets

@@ -1,14 +1,45 @@
 Scriptname EL_SceneUtilityScript extends Quest
 
+
+
+
+;=================================
+
+
+; OLD CODE, DO NOT USE
+
+
+
+;=================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;**************************************
 ; Player and cameraman actors
 ;**************************************
 Actor Property PlayerREF Auto
 Actor Property CameramanREF Auto
 
-;**************************************
-; ImageSpaceModifiers for doing fade out/in
-;**************************************
+
 ImageSpaceModifier Property FadeToBlack auto
 ImageSpaceModifier Property FadeFromBlack auto
 ;**************************************

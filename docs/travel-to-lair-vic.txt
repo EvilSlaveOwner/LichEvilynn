@@ -1,0 +1,185 @@
+Alias_PathHunterBedroll.TryToDisable()
+
+
+EL_Movement.AliasJumpDirectlyTo(Alias_EvilynnInvisible, Alias_PathStart)
+
+EL_Movement.AliasJumpDirectlyTo(Alias_EvilynnInvisible, Alias_Player)
+
+Alias_NextLocation.TryToClear()
+Alias_NextLocation.ForceRefTo(Alias_PathHunterCampLook.GetReference())
+
+
+
+
+ReferenceAlias Property Alias_Campfire Auto
+ReferenceAlias Property Alias_PathHunterBedroll Auto
+ReferenceAlias Property Alias_PathStopOne Auto
+ReferenceAlias Property Alias_NextLocation Auto
+ReferenceAlias Property Alias_PathSitMarkerBunny Auto
+ReferenceAlias Property Alias_PathStart Auto
+ReferenceAlias Property Alias_PathEvilynnSitMarker Auto
+ReferenceAlias Property Alias_PathLookAtOne Auto
+ReferenceAlias Property Alias_Player Auto
+ReferenceAlias Property Alias_Bunny Auto
+ReferenceAlias Property Alias_PathStandNearFire Auto
+ReferenceAlias Property Alias_PathHunterCampLook Auto
+ReferenceAlias Property Alias_EvilynnInvisible Auto
+Quest Property EL_TravelToLairVic  Auto 
+
+
+================================================
+
+E-Head:
+It looks like this is Saarthal. I can teleport closer. It to the south. I think.
+
+E-Head:
+It's around here somewhere...
+
+E:
+Hail the fire! It's freezing out here. Do you mind if I take a few minutes to warm up?
+
+B:
+I don’t have anything to share other than the fire, but your welcome to stay. 
+Good company is always welcome. If you don’t mind satisfying my curiosity. 
+Who are you? What are you doing out here? You don't look like a hunter.
+
+E:
+I'm Lynn, an adventurer. I just cleaned out the lair of an ancient ghost farther up this valley.
+
+B:
+That's exciting! I thought about becoming an adventurer, but I decided to do something safer. Leatherworking and hunting are my trades, though in these dangerous times I sometime think I may as well be an adventurer.
+
+E:
+There are awards to adventuring, both financial and spiritual.
+You help make the world a better, safer place, and it also helps put a little jingle in your purse.
+I already made one trip back to town to sell off what I found in the ghost’s lair, and now I'm heading back in.
+
+B:
+Heading back in? Why? 
+
+E:
+After killing a monster, you can find many things worth selling laying around. More than you can carry in one trip. 
+So, after defeating them, you search for the most valuable gear, and you take it back to town and sell it. Then you head back for the next round.
+It's often worth making two or even three trips. The profit on the second and third is much lower, but so is the risk.
+
+B:
+That's interesting. What did the ghost look like? What kind of treasure did you find?
+
+E:
+The ghost? She was some ancient mage. She hovered midair and you could see through her just like in all the ghost stories.
+As for the treasure, I found quite a few pieces of jewelry, some silver candlesticks, and a few potions. I already sold them.
+I there is more to sell, but none of is as nice as what I've already sold.
+If you're interested, you could come with me. Save me from making that third trip. You can keep half of what you carry out.
+
+B:
+That sounds exciting. I'd love to come.
+
+E:
+Well, I've had a long day. Let’s to head out in the morning.
+
+E-Head:
+Of course, I'm interested in Sara. She has a beautiful body.
+Should I wear you and fuck her, or wear her and fuck you?
+I'm raping both of you at the same time either way...
+I have a fun decision to make tomorrow.
+
+
+============================================================
+
+0 start
+10: Evilynn is looking for her Lair.
+	start scene / trip
+	bunny is on bedroll.
+	meet bunny/sara
+20(6):
+	bunny stands up.
+	some dialog....
+	Evilynn moves to fire.
+30(8): Evilynn is showing an unhealthy interest in Sara.
+	Evilynn - warm hands at the fire.
+	Bunny sits facing her.
+	some dialog...	
+40:
+	Evilynn sits facing bunny/sara
+	some dialog...	
+50:
+	player lays down
+	bunny lays down
+	wait 10
+	screen fades...
+	Evilynn says (reverb):
+		Of course I'm interested in Sara. She has a beautiful body.
+		Should I wear you and fuck her, or wear her and fuck you?
+		I have a fun decision to make tomorrow.
+	wait 10
+60:
+	both stand.
+	disable campfire/related.
+	fade in
+	set 20 complete
+	end scene + change stage 60
+70:	Evilynn and Sara head to the ghosts lair.
+=================== wait for now =======================
+	walk to lair.
+	some dialog.
+		
+So how did you find out about this ghost how did you know where to find her?
+
+I was doing some research at the college and found an old spell Clinton opens a path to her lair. You probably walked past it several times without even seeing it. I'll show you when we get there.
+
+It's not much farther. Do you see the engraving on the ground over there?  There's a spell that you cast on it that opens the way in.
+
+Walk up and cast spell.. 
+
+Wow! It wasn't visible! I couldn't tell it was there at all! Let's go in!
+
+TP both inside....
+
+-----
+
+Next Quest...
+
+The main room is up ahead. It has a strange device with crystals all over it. I'm going to let the college know about it. They will probably pay me a fortune for it!
+
+Why are there so many jail cells? Whoever owned this place was either a jailer or a very evil person. I'm glad they're gone.
+
+Cells start open..
+Hunter looks in the cell (doesnt go through the door)
+EL blasts hunter with a gust of wind from behind... And the cell door closes locking the hunter in.
+
+What do you think you're doing! Let me out!
+
+You know it's kind of funny. You're exactly right. I am a very evil person. I wasn't a jailer. These cells or for my toys.
+
+Who are you!
+
+EL leaves player, who is still unable to move or speak...
+
+I'm Evelyn. Welcome to my home. You will spend the rest of your life here. Now I'm going to get to know you better.
+
+EL invades hunter.. MB scene plays.
+
+I think I'll name you xxx. That was fun, but more importantly you have a sister. And she's on her way to meet you. Don't worry I'll take good care of her. 
+
+We have some time to kill and you and Dolly have a very important lesson to learn.
+
+PPit for both.
+
+First I'm going to watch the two of you fuck. Pretend to enjoy it.
+
+Then I'll wear one of you, and rape the other.
+
+Begin!
+
+SL nice Scene.
+
+EL posses hunter.
+
+SL Rough scene
+
+Fade to black...
+
+Sister quest starts..
+
+
+

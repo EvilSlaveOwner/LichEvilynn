@@ -1,0 +1,107 @@
+LocationPlayer
+Start			PathStopOne
+EndPhase1		Alias_LocationPlayer.ForceRefTo(Alias_PathHunterCampLook.GetReference())
+StartPhase4		Alias_LocationPlayer.ForceRefTo(Alias_PathStandNearFire.GetReference())
+StartPhase11	Alias_LocationFurniturePlayer.ForceRefTo(Alias_PathEvilynnSitMarker.GetReference())
+
+
+LocationBunny
+Start			PathHunterBedroll
+
+LocationFurniturePlayer
+Start			PlayerSit
+
+
+LocationFurnitureBunny
+Start			BunnySit
+
+
+
+Alias_Bunny.GetActorRef().PlayIdle(IdleWarmHandsCrouched)
+
+Idle Property IdleWarmHandsCrouched  Auto  
+Idle Property IdleWarmHandsStanding  Auto  
+
+Debug.SendAnimationEvent(Alias_Bunny.GetRef(), "IdleStop")
+Debug.SendAnimationEvent(Alias_Player.GetRef(), "IdleStop")
+
+
+Alias_Player.GetActorRef().PlayIdle(IdleWarmHandsStanding)
+
+StartPhase7		Start Warming Hands
+
+
+Player
+Start		Moving to PathStopOne
+Phase2Start	Moving to PathHunterCampLook
+Phase3		Dialog/HeadTrack
+Phase4Start	PathStandNearFire
+Phase5		Move to fire
+Phase6		Idle WarmHandsStand
+Phase7		Dialog
+Phase8		...
+Phase9		Wait 2 Sevonds
+Phase10Start	Idle WarmHandsStandEND
+Phase11		Sit PlayerSit
+Phase17		LayDown
+
+Bunny
+Start		Sit BunnySit
+Phase2Start	Idle WarmHandsCrouched
+Phase3Start	Idle WarmHandsCrouchedEND
+Phase3		HeadTrack
+Phase4		Dialog
+Phase5		Wait 2 seconds
+Phase6		Dialog
+Phase7		
+Phase8		Dialog
+Phase9		Wait 2 Sevonds
+Phase10		Bunny Sits
+Phase11		Sit PlayerSit
+Phase17		LayDown
+
+
+
+
+
+==============================
+
+
+EL_BreathingSnd
+EL_FearBreathingSnd
+EL_FlirtyLaughSnd
+EL_HappyWhistleSnd
+EL_InsaneLaughSnd
+EL_NormalLaughSnd
+EL_TortureSnd
+EL_ScreamingMixedSnd
+EL_WeepingSnd
+
+
+
+
+(FIXED??) "Your body is mine" - wrong sound, did I fail to copy it?
+
+============
+Bunny is sitting when the player walks up?
+Lynn never asks her name
+
+"there are rewards" is missing subtitles?
+
+neither lays down
+bunny stays sitting the entier time.
+player warms his hands the entier time.
+stops after "head out in the morning"
+
+
+
+
+
+
+
+
+
+
+
+
+

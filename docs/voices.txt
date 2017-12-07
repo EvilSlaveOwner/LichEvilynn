@@ -1,0 +1,18 @@
+EL_Evilynn:
+	EnglishBritish/Amy
+	pitch +20%
+
+	<speak>
+	<prosody pitch="+10%" rate="90%" volume="+0dB">
+	Hi! My name is Evilynn.
+	</prosody>
+	</speak>
+
+
+EL_Bunny:
+	EnglishBritish/Emma
+	<speak>
+	<prosody pitch="0%" rate="0%" volume="0%">
+	Hi! My name is Bunny.
+	</prosody>
+	</speak>
