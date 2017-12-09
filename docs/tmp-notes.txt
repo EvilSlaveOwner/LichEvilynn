@@ -1,107 +1,45 @@
-LocationPlayer
-Start			PathStopOne
-EndPhase1		Alias_LocationPlayer.ForceRefTo(Alias_PathHunterCampLook.GetReference())
-StartPhase4		Alias_LocationPlayer.ForceRefTo(Alias_PathStandNearFire.GetReference())
-StartPhase11	Alias_LocationFurniturePlayer.ForceRefTo(Alias_PathEvilynnSitMarker.GetReference())
+both are still on the ground in the moring as well?
+cast spell on it - also has the wrong audio
 
 
-LocationBunny
-Start			PathHunterBedroll
-
-LocationFurniturePlayer
-Start			PlayerSit
-
-
-LocationFurnitureBunny
-Start			BunnySit
-
-
-
-Alias_Bunny.GetActorRef().PlayIdle(IdleWarmHandsCrouched)
-
-Idle Property IdleWarmHandsCrouched  Auto  
-Idle Property IdleWarmHandsStanding  Auto  
-
-Debug.SendAnimationEvent(Alias_Bunny.GetRef(), "IdleStop")
-Debug.SendAnimationEvent(Alias_Player.GetRef(), "IdleStop")
-
-
-Alias_Player.GetActorRef().PlayIdle(IdleWarmHandsStanding)
-
-StartPhase7		Start Warming Hands
-
-
-Player
-Start		Moving to PathStopOne
-Phase2Start	Moving to PathHunterCampLook
-Phase3		Dialog/HeadTrack
-Phase4Start	PathStandNearFire
-Phase5		Move to fire
-Phase6		Idle WarmHandsStand
-Phase7		Dialog
-Phase8		...
-Phase9		Wait 2 Sevonds
-Phase10Start	Idle WarmHandsStandEND
-Phase11		Sit PlayerSit
-Phase17		LayDown
-
-Bunny
-Start		Sit BunnySit
-Phase2Start	Idle WarmHandsCrouched
-Phase3Start	Idle WarmHandsCrouchedEND
-Phase3		HeadTrack
-Phase4		Dialog
-Phase5		Wait 2 seconds
-Phase6		Dialog
-Phase7		
-Phase8		Dialog
-Phase9		Wait 2 Sevonds
-Phase10		Bunny Sits
-Phase11		Sit PlayerSit
-Phase17		LayDown
+"i'm glad i phased it out of time is still happeneing!!?
 
 
 
 
 
-==============================
-
-
-EL_BreathingSnd
-EL_FearBreathingSnd
-EL_FlirtyLaughSnd
-EL_HappyWhistleSnd
-EL_InsaneLaughSnd
-EL_NormalLaughSnd
-EL_TortureSnd
-EL_ScreamingMixedSnd
-EL_WeepingSnd
-
-
-
-
-(FIXED??) "Your body is mine" - wrong sound, did I fail to copy it?
 
 ============
-Bunny is sitting when the player walks up?
-Lynn never asks her name
+========
 
-"there are rewards" is missing subtitles?
+LairCastOnStone
+TravelToLairMarker1
+TravelToLairMarker2
+TravelToLairMarker3
+TravelToLairMarker4
 
-neither lays down
-bunny stays sitting the entier time.
-player warms his hands the entier time.
-stops after "head out in the morning"
+ReferenceAlias Property Bunny Auto
+
+ReferenceAlias Property LocationPlayer Auto
+ReferenceAlias Property TravelToLairMarker1 Auto
+ReferenceAlias Property TravelToLairMarker2 Auto
+ReferenceAlias Property TravelToLairMarker3 Auto
+ReferenceAlias Property TravelToLairMarker4 Auto
+ReferenceAlias Property Player Auto
+ReferenceAlias Property Evilynn Auto
+ReferenceAlias Property LairCastOnStone Auto
 
 
+LocationPlayer.ForceRefTo(TravelToLairMarker2.GetReference())
 
+LocationPlayer.ForceRefTo(TravelToLairMarker3.GetReference())
+LocationPlayer.ForceRefTo(TravelToLairMarker4.GetReference())
+LocationPlayer.ForceRefTo(LairCastOnStone.GetReference())
 
+Stage 150 = Inside lair start.
 
-
-
-
-
-
+EL_VicTravelToLair__001560BF_1
+EL_VicTravelToLair__0015ED2C_1
 
 
 

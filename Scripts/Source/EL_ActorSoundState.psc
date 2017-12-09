@@ -10,6 +10,9 @@ Sound EL_InsaneLaughSnd
 Sound EL_NormalLaughSnd
 Sound EL_TortureSnd
 Sound EL_ScreamingMixedSnd
+Sound EL_ShortGiggleSnd
+Sound EL_LongGiggleSnd
+Sound EL_LoopGiggleSnd
 
 int iEL_WeepingSnd
 int iEL_BreathingSnd
@@ -20,12 +23,21 @@ int iEL_InsaneLaughSnd
 int iEL_NormalLaughSnd
 int iEL_TortureSnd
 int iEL_ScreamingMixedSnd
+int iEL_ShortGiggleSnd
+int iEL_LongGiggleSnd
+int iEL_LoopGiggleSnd
 
 Faction EL_MakingSound
 
+
+
+
 event OnInit()
 	EL_MakingSound = Game.GetFormFromFile(0x051476B7, "LichEvilynn.esp") as Faction
-	
+
+	EL_ShortGiggleSnd = Game.GetFormFromFile(0x0514D44E, "LichEvilynn.esp") as Sound
+	EL_LongGiggleSnd = Game.GetFormFromFile(0x0514D44F, "LichEvilynn.esp") as Sound
+	EL_LoopGiggleSnd = Game.GetFormFromFile(0x0514D450, "LichEvilynn.esp") as Sound
 	EL_BreathingSnd = Game.GetFormFromFile(0x050E3A85, "LichEvilynn.esp") as Sound
 	EL_FearBreathingSnd = Game.GetFormFromFile(0x0503A7F, "LichEvilynn.esp") as Sound
 	EL_FlirtyLaughSnd = Game.GetFormFromFile(0x051476B3, "LichEvilynn.esp") as Sound
@@ -177,6 +189,66 @@ State NormalLaugh
 	EndFunction
 EndState
 
+State ShortGiggle
+	Function StartBehaviour()
+		if (iEL_ShortGiggleSnd > 0)
+			Sound.StopInstance(iEL_ShortGiggleSnd)
+		endif
+		iEL_ShortGiggleSnd = EL_ShortGiggleSnd.Play(GetActorReference())
+		GetActorReference().AddToFaction(EL_MakingSound)
+	EndFunction
+
+	Function BehaviourOnUpdate()
+		; nothing currently.
+		; RegisterForSingleUpdate(5)
+	EndFunction
+
+	Function EndBehaviour()
+		Sound.StopInstance(iEL_ShortGiggleSnd)
+		GetActorReference().RemoveFromFaction(EL_MakingSound)
+	EndFunction
+EndState
+
+State LongGiggle
+	Function StartBehaviour()
+		if (iEL_LongGiggleSnd > 0)
+			Sound.StopInstance(iEL_LongGiggleSnd)
+		endif
+		iEL_LongGiggleSnd = EL_LongGiggleSnd.Play(GetActorReference())
+		GetActorReference().AddToFaction(EL_MakingSound)
+	EndFunction
+
+	Function BehaviourOnUpdate()
+		; nothing currently.
+		; RegisterForSingleUpdate(5)
+	EndFunction
+
+	Function EndBehaviour()
+		Sound.StopInstance(iEL_LongGiggleSnd)
+		GetActorReference().RemoveFromFaction(EL_MakingSound)
+	EndFunction
+EndState
+
+State LoopGiggle
+	Function StartBehaviour()
+		if (iEL_LoopGiggleSnd > 0)
+			Sound.StopInstance(iEL_LoopGiggleSnd)
+		endif
+		iEL_LoopGiggleSnd = EL_LoopGiggleSnd.Play(GetActorReference())
+		GetActorReference().AddToFaction(EL_MakingSound)
+	EndFunction
+
+	Function BehaviourOnUpdate()
+		; nothing currently.
+		; RegisterForSingleUpdate(5)
+	EndFunction
+
+	Function EndBehaviour()
+		Sound.StopInstance(iEL_LoopGiggleSnd)
+		GetActorReference().RemoveFromFaction(EL_MakingSound)
+	EndFunction
+EndState
+
 State Torture
 	Function StartBehaviour()
 		if (iEL_TortureSnd > 0)
@@ -232,6 +304,12 @@ Function ChangeState(string newState)
 		behaviour = "InsaneLaugh"
 	elseif (newState == "NormalLaugh")
 		behaviour = "NormalLaugh"
+	elseif (newState == "ShortGiggle")
+		behaviour = "ShortGiggle"
+	elseif (newState == "LongGiggle")
+		behaviour = "LongGiggle"
+	elseif (newState == "LoopGiggle")
+		behaviour = "LoopGiggle"
 	elseif (newState == "Torture")
 		behaviour = "Torture"
 	elseif (newState == "ScreamingMixed")

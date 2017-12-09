@@ -4,7 +4,7 @@ EL_Screen function Get() Global
 	return Game.GetFormFromFile(0x051244EE, "LichEvilynn.esp") as EL_Screen
 endfunction
 
-float FadeOutDuration = 22.0
+float FadeOutDuration = 900.0
 float FadedAt = 0.0
 bool IsFadedOut = false
 

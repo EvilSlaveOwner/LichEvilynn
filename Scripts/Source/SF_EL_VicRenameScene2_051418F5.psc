@@ -27,6 +27,8 @@ GetOwningQuest().SetObjectiveCompleted(20)
 GetOwningQuest().SetStage(100)
 EL_QuestQueue.Unlock()
 EL_Scene.StopScene(0)
+Utility.Wait(5.0)
+(Player as EL_ActorSoundState).ChangeState("")
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -36,3 +38,5 @@ EndFunction
 Actor Property PlayerRef  Auto  
 
 Alias Property Evilynn  Auto  
+
+ReferenceAlias Property Player  Auto  
