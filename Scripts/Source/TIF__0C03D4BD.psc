@@ -7,7 +7,7 @@ Function Fragment_1(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
 Game.GetPlayer().RemoveFromFaction(EL_PlayerLastAlignmentChoice)
-Game.DisablePlayerControls(true)
+EL_PlayerControl.Lock()
 GetOwningQuest().Setstage(220)
 ;END CODE
 EndFunction

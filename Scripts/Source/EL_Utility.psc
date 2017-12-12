@@ -51,10 +51,10 @@ endfunction
 ; log message
 function RunLog(string messageStr, string prefix = "EL_LichEvilynn")
 	string logLine = "[" + prefix + "] " + messageStr
-	if EL_ShowDebugNotifications.GetValue() == 1
+	if (EL_ShowDebugNotifications.GetValue() as int) == 1
 		Debug.Notification(logLine)
 	endif
-	if EL_ShowDebugLogs.GetValue() == 1
+	if (EL_ShowDebugLogs.GetValue() as int) == 1
 		Debug.Trace(logLine)
 	endif
 endfunction
@@ -62,7 +62,9 @@ endfunction
 ; hotkeys
 event OnKeyDown(int keyCode)
 	if Utility.IsInMenuMode() || UI.IsMenuOpen("Console") || UI.IsMenuOpen("Loading Menu")
-		Log("Ignoring keyCode " + keyCode + ", in menu, console, or loading.", "EL_Utility")
+		if keyCode != CancelScreenFade
+			Log("Ignoring keyCode " + keyCode + ", in menu, console, or loading.", "EL_Utility")
+		endif
 		return
 	endif
 	if keyCode == CancelScreenFade

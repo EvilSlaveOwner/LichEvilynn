@@ -10,25 +10,25 @@ EL_Scene.StartScene(0)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_1
-Function Fragment_1()
-;BEGIN CODE
-PlayerRef.GetBaseObject().SetName("Dolly")
-GetOwningQuest().SetObjectiveDisplayed(20)
-;END CODE
-EndFunction
-;END FRAGMENT
-
 ;BEGIN FRAGMENT Fragment_0
 Function Fragment_0()
 ;BEGIN CODE
 GetOwningQuest().SetObjectiveCompleted(10)
 GetOwningQuest().SetObjectiveCompleted(20)
-GetOwningQuest().SetStage(100)
-EL_QuestQueue.Unlock()
 EL_Scene.StopScene(0)
+EL_QuestQueue.Unlock()
 Utility.Wait(5.0)
 (Player as EL_ActorSoundState).ChangeState("")
+GetOwningQuest().SetStage(100)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_1
+Function Fragment_1()
+;BEGIN CODE
+PlayerRef.GetBaseObject().SetName("Dolly")
+GetOwningQuest().SetObjectiveDisplayed(20)
 ;END CODE
 EndFunction
 ;END FRAGMENT

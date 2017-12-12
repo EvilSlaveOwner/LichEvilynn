@@ -7,7 +7,6 @@ Function Fragment_0(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
 GetOwningQuest().SetStage(100)
-Game.DisablePlayerControls(true)
 ;END CODE
 EndFunction
 ;END FRAGMENT

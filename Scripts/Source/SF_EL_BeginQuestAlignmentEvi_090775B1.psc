@@ -1,6 +1,16 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 20
+;NEXT FRAGMENT INDEX 29
 Scriptname SF_EL_BeginQuestAlignmentEvi_090775B1 Extends Scene Hidden
+
+;BEGIN FRAGMENT Fragment_4
+Function Fragment_4()
+;BEGIN CODE
+string Message1 = "With very confusing and mixed feelings you realize that you enjoyed the orgasm as much as Evilynn did."
+Debug.MessageBox(Message1)
+Game.GetPlayer().RemoveFromFaction(EL_PlayerSexEnd)
+;END CODE
+EndFunction
+;END FRAGMENT
 
 ;BEGIN FRAGMENT Fragment_5
 Function Fragment_5()
@@ -32,19 +42,16 @@ EndFunction
 ;BEGIN FRAGMENT Fragment_1
 Function Fragment_1()
 ;BEGIN CODE
-Game.DisablePlayerControls(true)
+;(Alias_Evilynn as EL_ActorAnimationState).ChangeState("HornyRandomStanding")
 (Alias_Player as EL_AlignmentForceMasturbationAlias).MasturbationEvil(Game.GetPlayer(), RugMarker1)
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_4
-Function Fragment_4()
+;BEGIN FRAGMENT Fragment_20
+Function Fragment_20()
 ;BEGIN CODE
-Game.DisablePlayerControls(true)
-string Message1 = "With very confusing and mixed feelings you realize that you enjoyed the orgasm as much as Evilynn did."
-Debug.MessageBox(Message1)
-Game.GetPlayer().RemoveFromFaction(EL_PlayerSexEnd)
+;(Alias_Evilynn as EL_ActorAnimationState).ChangeState("")
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -60,3 +67,5 @@ Faction Property EL_PlayerSexEnd  Auto
 Faction Property EL_PlayerLastAlignmentFG2  Auto  
 
 Actor Property Evilynn  Auto  
+
+ReferenceAlias Property Alias_Evilynn  Auto  

@@ -1,13 +1,12 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 10
+;NEXT FRAGMENT INDEX 11
 Scriptname SF_EL_VicTravelToLairBefore_051476AC Extends Scene Hidden
 
 ;BEGIN FRAGMENT Fragment_8
 Function Fragment_8()
 ;BEGIN CODE
-Alias_Evilynn.TryToDisable()
-Alias_Evilynn.GetRef().Delete()
 GetOwningQuest().SetStage(10)
+GetOwningQuest().SetObjectiveDisplayed(10)
 ;END CODE
 EndFunction
 ;END FRAGMENT

@@ -19,11 +19,10 @@ Bunny.GetActorRef().SetLookAt(LairDoor.GetRef())
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_17
-Function Fragment_17()
+;BEGIN FRAGMENT Fragment_3
+Function Fragment_3()
 ;BEGIN CODE
-Debug.SendAnimationEvent(Bunny.GetRef(), "IdleStop")
-Utility.Wait(1.0)
+LocationPlayer.ForceRefTo(TravelToLairMarker4.GetReference())
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -44,24 +43,6 @@ Function Fragment_10()
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_0
-Function Fragment_0()
-;BEGIN CODE
-GetOwningQuest().SetObjectiveCompleted(70)
-GetOwningQuest().SetStage(100)
-Bunny.GetActorRef().ClearLookAt()
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_3
-Function Fragment_3()
-;BEGIN CODE
-LocationPlayer.ForceRefTo(TravelToLairMarker4.GetReference())
-;END CODE
-EndFunction
-;END FRAGMENT
-
 ;BEGIN FRAGMENT Fragment_1
 Function Fragment_1()
 ;BEGIN CODE
@@ -71,6 +52,25 @@ Debug.SendAnimationEvent(Player.GetRef(), "IdleStop")
 Utility.Wait(1.5)
 EL_Screen.FadeIn()
 Utility.Wait(0.3)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_17
+Function Fragment_17()
+;BEGIN CODE
+Debug.SendAnimationEvent(Bunny.GetRef(), "IdleStop")
+Utility.Wait(1.0)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_0
+Function Fragment_0()
+;BEGIN CODE
+GetOwningQuest().SetObjectiveCompleted(70)
+GetOwningQuest().SetStage(100)
+Bunny.GetActorRef().ClearLookAt()
 ;END CODE
 EndFunction
 ;END FRAGMENT

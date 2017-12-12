@@ -2,11 +2,12 @@
 ;NEXT FRAGMENT INDEX 4
 Scriptname QF__090A929E Extends Quest Hidden
 
-;BEGIN FRAGMENT Fragment_2
-Function Fragment_2()
+;BEGIN FRAGMENT Fragment_3
+Function Fragment_3()
 ;BEGIN CODE
-EL_VicRenameQuest.Start()
-EL_VicRenameQuest.SetStage(0)
+SetObjectiveCompleted(10)
+Quest TravelToLair = Game.GetFormFromFile(0x050D5085, "LichEvilynn.esp") as Quest
+EL_QuestQueue.AddQuest(TravelToLair, 0, 0, 0, 30)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -14,7 +15,7 @@ EndFunction
 ;BEGIN FRAGMENT Fragment_0
 Function Fragment_0()
 ;BEGIN CODE
-SetObjectiveCompleted(0)
+SetObjectiveDisplayed(0)
 EL_VictimStore.Start()
 EL_EvilynnStore.Start()
 EL_Possessed.GetApi().SetPossessed(PlayerRef)
@@ -23,12 +24,12 @@ SetStage(10)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_3
-Function Fragment_3()
+;BEGIN FRAGMENT Fragment_2
+Function Fragment_2()
 ;BEGIN CODE
-SetObjectiveCompleted(10)
-Quest TravelToLair = Game.GetFormFromFile(0x050D5085, "LichEvilynn.esp") as Quest
-EL_QuestQueue.AddQuest(TravelToLair, 0, 0, 0, 30)
+Utility.Wait(3.0)
+EL_VicRenameQuest.Start()
+EL_VicRenameQuest.SetStage(0)
 ;END CODE
 EndFunction
 ;END FRAGMENT

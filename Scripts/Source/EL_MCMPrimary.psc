@@ -103,15 +103,15 @@ function SetPageDebug()
 	AddHeaderOption("Debug & Tests")
 	AddEmptyOption()
 	AddTextOptionST("TELEPORT_TO_START", "Teleport to Intro Quest", "")
-	AddToggleOptionST("SET_AS_VICTIM", "Set Player to Victim", EL_PlayerRole.GetValue() as int == 1)
+	AddToggleOptionST("SET_AS_VICTIM", "Set Player to Victim", (EL_PlayerRole.GetValue()) as int == 1)
 	AddTextOptionST("TELEPORT_TO_LAIR", "Teleport to Lair", "")
-	AddToggleOptionST("SET_AS_PARTNER", "Set Player to Partner", EL_PlayerRole.GetValue() as int == 2)
+	AddToggleOptionST("SET_AS_PARTNER", "Set Player to Partner", (EL_PlayerRole.GetValue() as int) == 2)
 	AddEmptyOption()
 	AddEmptyOption()
-	AddToggleOptionST("SET_SHOW_NOTIFICATIONS", "Show Debug Notifications", EL_ShowDebugNotifications.GetValue() == 1.0)
-	AddToggleOptionST("SET_SHOW_DEBUG", "Enable Debugging", EL_ShowDebugDialog.GetValue() == 1.0)
-	AddToggleOptionST("SET_SHOW_DEBUG_LOGS", "Save Script Logs", EL_ShowDebugLogs.GetValue() == 1.0)
-	; AddToggleOptionST("SET_ALLOW_CHEAT", "Allow Cheating", EL_AllowCheat.GetValue() as int == 1)
+	AddToggleOptionST("SET_SHOW_NOTIFICATIONS", "Show Debug Notifications", (EL_ShowDebugNotifications.GetValue() as int) == 1)
+	AddToggleOptionST("SET_SHOW_DEBUG", "Enable Debugging", (EL_ShowDebugDialog.GetValue() as int) == 1.0)
+	AddToggleOptionST("SET_SHOW_DEBUG_LOGS", "Save Script Logs", (EL_ShowDebugLogs.GetValue() as int) == 1.0)
+	; AddToggleOptionST("SET_ALLOW_CHEAT", "Allow Cheating", (EL_AllowCheat.GetValue() as int) == 1)
 endFunction
 
 function SetPageRapeQuests()
@@ -192,11 +192,11 @@ endState
  
 state SET_ALLOW_CHEAT
 	event OnSelectST()
-		EL_AllowCheat.SetValue(1)
+		EL_AllowCheat.SetValue(1.0)
 	endEvent
 
 	event OnDefaultST()
-		EL_AllowCheat.SetValue(0)
+		EL_AllowCheat.SetValue(0.0)
 	endEvent
 
 	event OnHighlightST()
@@ -206,7 +206,7 @@ endState
 
 state SET_AS_VICTIM
 	event OnSelectST()
-		EL_PlayerRole.SetValue(1)
+		EL_PlayerRole.SetValue(1.0)
 		EL_EvilynnsVictim.Start()
 	endEvent
 
@@ -220,7 +220,7 @@ endState
 
 state SET_AS_PARTNER
 	event OnSelectST()
-		EL_PlayerRole.SetValue(2)
+		EL_PlayerRole.SetValue(2.0)
 		EL_EvilynnsPartner.Start()
 	endEvent
 

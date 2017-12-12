@@ -1,0 +1,1 @@
+Scriptname EL_ActorManageEquipment extends ReferenceAlias  
