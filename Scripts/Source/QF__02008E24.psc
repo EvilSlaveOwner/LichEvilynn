@@ -7,6 +7,11 @@ Scriptname QF__02008E24 Extends Quest Hidden
 ReferenceAlias Property Alias_LynnStart Auto
 ;END ALIAS PROPERTY
 
+;BEGIN ALIAS PROPERTY chest
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_chest Auto
+;END ALIAS PROPERTY
+
 ;BEGIN ALIAS PROPERTY Player
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_Player Auto

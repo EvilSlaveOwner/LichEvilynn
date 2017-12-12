@@ -13,7 +13,7 @@ EL_LairPhaseController function Get() Global
 	return Game.GetFormFromFile(0x05167999, "LichEvilynn.esp") as EL_LairPhaseController
 endfunction
 
-function PhaseIn(float duration = 0.0)
+function PhaseIn(float duration = 10.0)
 	GoToState("PhasedIn")
 	EL_Utility.Log("Phasing in called.", "EL_LairPhaseController")
 	RunPhaseIn()
@@ -33,7 +33,7 @@ function PhaseOut()
 endFunction
 
 state PhasedIn
-	function PhaseIn(float duration = 0.0)
+	function PhaseIn(float duration = 10.0)
 	EndFunction
 	event OnUpdate()
 		PhaseOut()

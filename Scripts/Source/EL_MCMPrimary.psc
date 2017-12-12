@@ -17,8 +17,8 @@ endFunction
 ; @implements SKI_ConfigBase
 event OnConfigInit()
 	{Called when this config menu is initialized}
-	pages[0] = "Options"
 	pages[1] = "Status"
+	pages[0] = "Options"
 	pages[2] = "Evilynn's Lair"
 	;pages[3] = "Rape Quests"
 	;pages[4] = "Story Quests"
@@ -56,16 +56,22 @@ endEvent
 
 function SetPageHome()
 	SetCursorFillMode(TOP_TO_BOTTOM)
-	AddHeaderOption("Options")
+	AddHeaderOption("Use at your own risk.")
 	AddEmptyOption()
-	AddTextOptionST("NA1", "Not currently in use", "")
+	AddHeaderOption("Only use with a backup save.")
+	AddEmptyOption()
+	AddHeaderOption("It's early alpha, expect bugs.")
+	AddEmptyOption()
 endFunction
 
 function SetPageOptions()
 	SetCursorFillMode(TOP_TO_BOTTOM)
 	AddHeaderOption("Options")
 	AddEmptyOption()
-	AddTextOptionST("NA2", "Not currently in use", "")
+	AddToggleOptionST("SET_SHOW_NOTIFICATIONS", "Show Debug Notifications", (EL_ShowDebugNotifications.GetValue() as int) == 1)
+	AddToggleOptionST("SET_SHOW_DEBUG", "Enable Debugging", (EL_ShowDebugDialog.GetValue() as int) == 1.0)
+	AddToggleOptionST("SET_SHOW_DEBUG_LOGS", "Save Script Logs", (EL_ShowDebugLogs.GetValue() as int) == 1.0)
+	AddToggleOptionST("SET_ALLOW_CHEAT", "Allow Cheating", (EL_AllowCheat.GetValue() as int) == 1)
 endFunction
 
 function SetPageStatus()
@@ -100,18 +106,26 @@ endFunction
 
 function SetPageDebug()
 	SetCursorFillMode(LEFT_TO_RIGHT)
-	AddHeaderOption("Debug & Tests")
+	AddHeaderOption("Debug & Tests - MAY BREAK GAME")
 	AddEmptyOption()
 	AddTextOptionST("TELEPORT_TO_START", "Teleport to Intro Quest", "")
 	AddToggleOptionST("SET_AS_VICTIM", "Set Player to Victim", (EL_PlayerRole.GetValue()) as int == 1)
 	AddTextOptionST("TELEPORT_TO_LAIR", "Teleport to Lair", "")
 	AddToggleOptionST("SET_AS_PARTNER", "Set Player to Partner", (EL_PlayerRole.GetValue() as int) == 2)
+	AddTextOptionST("UNLOCK_PLAYER", "Unlock Player (turn on movement)", "")
 	AddEmptyOption()
 	AddEmptyOption()
-	AddToggleOptionST("SET_SHOW_NOTIFICATIONS", "Show Debug Notifications", (EL_ShowDebugNotifications.GetValue() as int) == 1)
-	AddToggleOptionST("SET_SHOW_DEBUG", "Enable Debugging", (EL_ShowDebugDialog.GetValue() as int) == 1.0)
-	AddToggleOptionST("SET_SHOW_DEBUG_LOGS", "Save Script Logs", (EL_ShowDebugLogs.GetValue() as int) == 1.0)
-	; AddToggleOptionST("SET_ALLOW_CHEAT", "Allow Cheating", (EL_AllowCheat.GetValue() as int) == 1)
+	AddEmptyOption()
+	AddHeaderOption("Skip to Quests (for testing ONLY)")
+	AddEmptyOption()
+	AddHeaderOption("Victim Path")
+	AddHeaderOption("Partner Path")
+	AddTextOptionST("START_RENAMEPLAYER", "Rename Player (vic path)", "")
+	AddEmptyOption()
+	AddTextOptionST("START_GOTOLAIRVIC", "Go to Lair (vic path)", "")
+	AddEmptyOption()
+	AddTextOptionST("START_LAIRVICBUNNY", "Sara arrives at lair (vic path)", "")
+	AddEmptyOption()
 endFunction
 
 function SetPageRapeQuests()
@@ -208,6 +222,67 @@ state SET_AS_VICTIM
 	event OnSelectST()
 		EL_PlayerRole.SetValue(1.0)
 		EL_EvilynnsVictim.Start()
+	endEvent
+
+	event OnDefaultST()
+		; SetTextOptionValueST(false)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
+
+state UNLOCK_PLAYER
+	event OnSelectST()
+		EL_PlayerControl.UnLock()
+	endEvent
+
+	event OnDefaultST()
+		; SetTextOptionValueST(false)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
+
+state START_GOTOLAIRVIC
+	event OnSelectST()
+		EL_PlayerRole.SetValue(1.0)
+		EL_Possessed.GetApi().SetPossessed(PlayerRef)
+		EL_TravelToLairVic.Get().Start()
+		EL_TravelToLairVic.Get().SetStage(0)
+	endEvent
+
+	event OnDefaultST()
+		; SetTextOptionValueST(false)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
+
+state START_RENAMEPLAYER
+	event OnSelectST()
+		EL_PlayerRole.SetValue(1.0)
+		EL_Possessed.GetApi().SetPossessed(PlayerRef)
+		EL_VicRename.Get().Start()
+		EL_VicRename.Get().SetStage(0)
+	endEvent
+
+	event OnDefaultST()
+		; SetTextOptionValueST(false)
+	endEvent
+
+	event OnHighlightST()
+	endEvent
+endState
+
+state START_LAIRVICBUNNY
+	event OnSelectST()
+		EL_PlayerRole.SetValue(1.0)
+		EL_Possessed.GetApi().SetPossessed(PlayerRef)
+		EL_LairVicBunny.Get().Start()
+		EL_LairVicBunny.Get().SetStage(0)
 	endEvent
 
 	event OnDefaultST()

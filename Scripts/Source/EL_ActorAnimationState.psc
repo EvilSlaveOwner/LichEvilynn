@@ -1,5 +1,41 @@
 Scriptname EL_ActorAnimationState extends ReferenceAlias  
 
+; IdleNervous
+; IdleLockPick
+; IdleLookFar
+; IdleNocturnal_LookLeft
+; IdleNocturnal_LookRight
+; IdlePointClose
+; IdlePointFar_01
+; IdleSearchBody
+; IdleSearchingChest
+; IdleSearchingTable
+; IdleSilentBow
+; IdleSurrender
+; IdleTake
+; IdleGive
+; IdleWave
+; IdleWipeBrow
+; IdleStudy
+; IdleSalute
+; IdlePickup_Ground
+; IdleLaugh
+; IdleGetAttention
+; IdleExamine
+; IdleComeThisWay
+; IdleCleanSword
+; IdleBracedPain
+; IdleBook_Reading
+; IdleBook_TurnManyPages
+; IdleBook_TurnOnePage
+; IdleBookSitting_Reading
+; IdleBookSitting_TurnManyPages
+; IdleApplaud2
+; IdleApplaud3
+; IdleApplaud4
+; IdleApplaud5
+; IdleApplaud6
+; IdleApplaudSarcastic
 string theAnimation = ""
 string endZaZAnimation = "OffsetStop"
 int animationNumber = -1
@@ -33,6 +69,16 @@ function setupHorny()
 	hornyStandingAni[0] = hornyAni[0]
 	hornyStandingAni[1] = hornyAni[2]
 endfunction
+
+State IdleByName
+	Function StartBehaviour()
+		Debug.SendAnimationEvent(GetRef(), theAnimation)
+	EndFunction
+
+	Function EndBehaviour()
+		Debug.SendAnimationEvent(GetRef(), endZaZAnimation)
+	EndFunction
+EndState
 
 State Horny
 	Function StartBehaviour()
@@ -91,6 +137,16 @@ State HornyRandomStanding
 		Debug.SendAnimationEvent(GetRef(), endZaZAnimation)
 	EndFunction
 EndState
+
+Function ChangeByName(string newAnimation)
+	theAnimation = newAnimation
+	if (theAnimation != "")
+		behaviour = "IdleByName"
+	else
+		behaviour = ""
+	endif
+EndFunction
+
 
 Function ChangeState(string newState, int newAnimationNumber = -1)
 	animationNumber = newAnimationNumber

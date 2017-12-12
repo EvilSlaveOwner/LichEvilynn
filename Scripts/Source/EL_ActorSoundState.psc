@@ -13,6 +13,8 @@ Sound EL_ScreamingMixedSnd
 Sound EL_ShortGiggleSnd
 Sound EL_LongGiggleSnd
 Sound EL_LoopGiggleSnd
+Sound EL_ChokeSnd
+Sound EL_CoughSnd
 
 int iEL_WeepingSnd
 int iEL_BreathingSnd
@@ -26,6 +28,8 @@ int iEL_ScreamingMixedSnd
 int iEL_ShortGiggleSnd
 int iEL_LongGiggleSnd
 int iEL_LoopGiggleSnd
+int iEL_ChokeSnd
+int iEL_CoughSnd
 
 Faction EL_MakingSound
 
@@ -47,7 +51,50 @@ event OnInit()
 	EL_ScreamingMixedSnd = Game.GetFormFromFile(0x050E3A81, "LichEvilynn.esp") as Sound
 	EL_TortureSnd = Game.GetFormFromFile(0x050E3A83, "LichEvilynn.esp") as Sound
 	EL_WeepingSnd = Game.GetFormFromFile(0x050949BD, "LichEvilynn.esp") as Sound
+	EL_ChokeSnd = Game.GetFormFromFile(0x0516D749, "LichEvilynn.esp") as Sound
+	EL_CoughSnd = Game.GetFormFromFile(0x0516D74A, "LichEvilynn.esp") as Sound
 endevent
+
+State Choke
+	Function StartBehaviour()
+		if (iEL_ChokeSnd > 0)
+			Sound.StopInstance(iEL_ChokeSnd)
+		endif
+		iEL_ChokeSnd = EL_ChokeSnd.Play(GetActorReference())
+		GetActorReference().AddToFaction(EL_MakingSound)
+	EndFunction
+
+	Function BehaviourOnUpdate()
+		; nothing currently.
+		; RegisterForSingleUpdate(5)
+	EndFunction
+
+	Function EndBehaviour()
+		Sound.StopInstance(iEL_ChokeSnd)
+		GetActorReference().RemoveFromFaction(EL_MakingSound)
+	EndFunction
+EndState
+
+State Cough
+	Function StartBehaviour()
+		if (iEL_CoughSnd > 0)
+			Sound.StopInstance(iEL_CoughSnd)
+		endif
+		iEL_CoughSnd = EL_CoughSnd.Play(GetActorReference())
+		GetActorReference().AddToFaction(EL_MakingSound)
+	EndFunction
+
+	Function BehaviourOnUpdate()
+		; nothing currently.
+		; RegisterForSingleUpdate(5)
+	EndFunction
+
+	Function EndBehaviour()
+		Sound.StopInstance(iEL_CoughSnd)
+		GetActorReference().RemoveFromFaction(EL_MakingSound)
+	EndFunction
+EndState
+
 
 State Crying
 	Function StartBehaviour()
@@ -314,6 +361,10 @@ Function ChangeState(string newState)
 		behaviour = "Torture"
 	elseif (newState == "ScreamingMixed")
 		behaviour = "ScreamingMixed"
+	elseif (newState == "Choke")
+		behaviour = "Choke"
+	elseif (newState == "Cough")
+		behaviour = "Cough"
 	elseif (newState == "")
 		behaviour = ""
 	else

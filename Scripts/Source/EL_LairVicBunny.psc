@@ -24,7 +24,7 @@ event OnInit()
 endevent
 
 function EquipStartingGear()
-	EL_ActorEquipGear bunnyGear = Alias_Bunny as EL_ActorEquipGear
+	EL_ActorManageEquipment bunnyGear = Alias_Bunny as EL_ActorManageEquipment
 	int currItem = Gear.Length
 	while currItem
 		currItem -= 1

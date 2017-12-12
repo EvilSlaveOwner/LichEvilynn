@@ -1,5 +1,9 @@
 Scriptname EL_Possessed extends Quest  
 
+EL_Possessed Function Get() Global
+	return Game.GetFormFromFile(0x050A92A1, "LichEvilynn.esp") as EL_Possessed
+endfunction
+
 EL_Possessed Function GetApi() Global
 	return Game.GetFormFromFile(0x050A92A1, "LichEvilynn.esp") as EL_Possessed
 endfunction
