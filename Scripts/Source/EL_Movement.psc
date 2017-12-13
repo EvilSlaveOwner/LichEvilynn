@@ -44,3 +44,12 @@ bool function MoveDirectlyTo(ObjectReference theObject, ObjectReference toObject
 	theObject.MoveTo(toObject, xOffest, yOffset, zOffset, matchRotation)
 	return true
 endfunction
+
+function RotateToFace(ObjectReference theObject, ObjectReference toObject, float speed = 0.0) Global
+	float zOffset = theObject.GetHeadingAngle(toObject)
+	if speed == 0.0
+		theObject.SetAngle(theObject.GetAngleX(), theObject.GetAngleY(), theObject.GetAngleZ() + zOffset)
+		return
+	endif
+	theObject.TranslateTo(theObject.GetPositionX(), theObject.GetPositionY(), theObject.GetPositionZ(), theObject.GetAngleX(), theObject.GetAngleY(), theObject.GetAngleZ() + zOffset, speed)
+endfunction

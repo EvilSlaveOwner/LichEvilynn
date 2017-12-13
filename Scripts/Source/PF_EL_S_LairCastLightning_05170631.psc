@@ -2,12 +2,4 @@
 ;NEXT FRAGMENT INDEX 3
 Scriptname PF_EL_S_LairCastLightning_05170631 Extends Package Hidden
 
-;BEGIN FRAGMENT Fragment_2
-Function Fragment_2(Actor akActor)
-;BEGIN CODE
-EL_LairPhaseController.Get().PhaseIn(-1.0)
-;END CODE
-EndFunction
-;END FRAGMENT
-
 ;END FRAGMENT CODE - Do not edit anything between this and the begin comment

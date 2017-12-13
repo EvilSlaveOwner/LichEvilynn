@@ -65,7 +65,7 @@ function SetPageHome()
 endFunction
 
 function SetPageOptions()
-	SetCursorFillMode(TOP_TO_BOTTOM)
+	SetCursorFillMode(LEFT_TO_RIGHT)
 	AddHeaderOption("Options")
 	AddEmptyOption()
 	AddToggleOptionST("SET_SHOW_NOTIFICATIONS", "Show Debug Notifications", (EL_ShowDebugNotifications.GetValue() as int) == 1)
@@ -120,11 +120,11 @@ function SetPageDebug()
 	AddEmptyOption()
 	AddHeaderOption("Victim Path")
 	AddHeaderOption("Partner Path")
-	AddTextOptionST("START_RENAMEPLAYER", "Rename Player (vic path)", "")
+	AddTextOptionST("START_RENAMEPLAYER", "Rename Player", "")
 	AddEmptyOption()
-	AddTextOptionST("START_GOTOLAIRVIC", "Go to Lair (vic path)", "")
+	AddTextOptionST("START_GOTOLAIRVIC", "Go to Lair", "")
 	AddEmptyOption()
-	AddTextOptionST("START_LAIRVICBUNNY", "Sara arrives at lair (vic path)", "")
+	AddTextOptionST("START_LAIRVICBUNNY", "Sara arrives at lair", "")
 	AddEmptyOption()
 endFunction
 
