@@ -2,14 +2,14 @@
 ;NEXT FRAGMENT INDEX 7
 Scriptname QF_EL_LairBunnyVic_05158F94 Extends Quest Hidden
 
-;BEGIN ALIAS PROPERTY Bunny
-;ALIAS PROPERTY TYPE ReferenceAlias
-ReferenceAlias Property Alias_Bunny Auto
-;END ALIAS PROPERTY
-
 ;BEGIN ALIAS PROPERTY Player
 ;ALIAS PROPERTY TYPE ReferenceAlias
 ReferenceAlias Property Alias_Player Auto
+;END ALIAS PROPERTY
+
+;BEGIN ALIAS PROPERTY Bunny
+;ALIAS PROPERTY TYPE ReferenceAlias
+ReferenceAlias Property Alias_Bunny Auto
 ;END ALIAS PROPERTY
 
 ;BEGIN ALIAS PROPERTY LairEntranceMarker
@@ -24,6 +24,7 @@ Debug.Notification("Start Lair Bunny Vic!")
 EL_LairScene.SceneStart(0)
 EL_Screen.FadeOut()
 SetStage(10)
+EL_LairLightMainRoom.Get().Reset()
 ;END CODE
 EndFunction
 ;END FRAGMENT

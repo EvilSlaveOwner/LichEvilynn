@@ -1,6 +1,6 @@
 EL_Evilynn:
 	EnglishBritish/Amy
-	pitch +10%
+	pitch +20%
 
 	<speak>
 	<prosody pitch="+10%" rate="90%" volume="+0dB">

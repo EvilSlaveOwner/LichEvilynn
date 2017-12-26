@@ -1,7 +1,7 @@
 Scriptname EL_CaptiveMovement extends Quest  
 
 ; Fetch CaptiveMovement API
-EL_CaptiveMovement function GetApi() Global
+EL_CaptiveMovement function Get() Global
 	return Game.GetFormFromFile(0x050F545D, "LichEvilynn.esp") as EL_CaptiveMovement
 endfunction
 

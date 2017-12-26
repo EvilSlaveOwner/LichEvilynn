@@ -1,34 +1,14 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 184
+;NEXT FRAGMENT INDEX 187
 Scriptname SF_EL_TravelToLairVicTest_0513001F Extends Scene Hidden
 
-;BEGIN FRAGMENT Fragment_107
-Function Fragment_107()
+;BEGIN FRAGMENT Fragment_155
+Function Fragment_155()
 ;BEGIN CODE
-EL_Screen.FadeOut()
-Utility.Wait(3.0)
-Debug.MessageBox("Evilynn closes her eyes and  falls into a contented sleep.\n\nYou can hear yourself and Susan breathing, but even with Evilynn sleeping, you are completely helpless.\n\nYou try with all your might and, you can't even twitch an eyelid.")
-Utility.Wait(3.0)
-Debug.MessageBox("You spend hours laying in the dark, a captive in your own body.\n\nYour fury and terror keeping you awake.\n\nDreading what tomorrow will bring.")
-Utility.Wait(3.0)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_94
-Function Fragment_94()
-;BEGIN CODE
+Alias_LocationFurnitureBunny.ForceRefTo(Alias_PathSitMarkerBunny.GetReference())
 Alias_LocationFurniturePlayer.ForceRefTo(Alias_PathEvilynnSitMarker.GetReference())
-Debug.SendAnimationEvent(Alias_Player.GetRef(), "IdleStop")
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_86
-Function Fragment_86()
-;BEGIN CODE
-GetOwningQuest().SetStage(15)
-Alias_Bunny.GetActorRef().PlayIdle(IdleWarmHandsCrouched)
+Debug.SendAnimationEvent(Alias_Player.GetRef(), "IdleWarmHandsCrouched")
+Utility.Wait(0.2)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -46,21 +26,50 @@ EL_Utility.Log("End main scene, phase 1.", "EL_TravelToLairVic")
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_155
-Function Fragment_155()
+;BEGIN FRAGMENT Fragment_37
+Function Fragment_37()
 ;BEGIN CODE
-Alias_LocationFurnitureBunny.ForceRefTo(Alias_PathSitMarkerBunny.GetReference())
-Alias_LocationFurniturePlayer.ForceRefTo(Alias_PathEvilynnSitMarker.GetReference())
-Debug.SendAnimationEvent(Alias_Player.GetRef(), "IdleWarmHandsCrouched")
-Utility.Wait(0.2)
+;Alias_Bunny.GetActorRef().SetHeadTracking()
+(Alias_Player as EL_ActorSoundState).ChangeState("")
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_4
-Function Fragment_4()
+;BEGIN FRAGMENT Fragment_107
+Function Fragment_107()
 ;BEGIN CODE
-GetOwningQuest().setstage(60)
+EL_Screen.FadeOut()
+Utility.Wait(3.0)
+Debug.MessageBox("Evilynn closes her eyes and  falls into a contented sleep.\n\nYou can hear yourself and Sara breathing, but even with Evilynn sleeping, you are completely helpless.\n\nYou try with all your might and, you can't even twitch an eyelid.")
+Utility.Wait(3.0)
+Debug.MessageBox("You spend hours laying in the dark, a captive in your own body.\n\nYour fury and terror keeping you awake.\n\nDreading what tomorrow will bring.")
+Utility.Wait(3.0)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_103
+Function Fragment_103()
+;BEGIN CODE
+Alias_LocationFurnitureBunny.ForceRefTo(Alias_PathHunterBedroll.GetReference())
+Alias_LocationFurniturePlayer.ForceRefTo(Alias_PathEvilynnSleepMarker.GetReference())
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_54
+Function Fragment_54()
+;BEGIN CODE
+Debug.SendAnimationEvent(Alias_Bunny.GetRef(), "IdleStop")
+GetOwningQuest().setstage(30)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_147
+Function Fragment_147()
+;BEGIN CODE
+Debug.SendAnimationEvent(Alias_Player.GetRef(), "IdleWarmHandsStanding")
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -82,11 +91,28 @@ Alias_LocationPlayer.ForceRefTo(Alias_PathStandNearFire.GetReference())
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_54
-Function Fragment_54()
+;BEGIN FRAGMENT Fragment_94
+Function Fragment_94()
 ;BEGIN CODE
-Debug.SendAnimationEvent(Alias_Bunny.GetRef(), "IdleStop")
-GetOwningQuest().setstage(30)
+Alias_LocationFurniturePlayer.ForceRefTo(Alias_PathEvilynnSitMarker.GetReference())
+Debug.SendAnimationEvent(Alias_Player.GetRef(), "IdleStop")
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_4
+Function Fragment_4()
+;BEGIN CODE
+GetOwningQuest().setstage(60)
+;END CODE
+EndFunction
+;END FRAGMENT
+
+;BEGIN FRAGMENT Fragment_86
+Function Fragment_86()
+;BEGIN CODE
+GetOwningQuest().SetStage(15)
+Alias_Bunny.GetActorRef().PlayIdle(IdleWarmHandsCrouched)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -97,32 +123,6 @@ Function Fragment_32()
 EL_Utility.Log("Starting main scene.", "EL_TravelToLairVic")
 Utility.Wait(0.3)
 EL_Screen.FadeIn()
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_37
-Function Fragment_37()
-;BEGIN CODE
-;Alias_Bunny.GetActorRef().SetHeadTracking()
-(Alias_Player as EL_ActorSoundState).ChangeState("")
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_103
-Function Fragment_103()
-;BEGIN CODE
-Alias_LocationFurnitureBunny.ForceRefTo(Alias_PathHunterBedroll.GetReference())
-Alias_LocationFurniturePlayer.ForceRefTo(Alias_PathEvilynnSleepMarker.GetReference())
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_147
-Function Fragment_147()
-;BEGIN CODE
-Debug.SendAnimationEvent(Alias_Player.GetRef(), "IdleWarmHandsStanding")
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -150,7 +150,7 @@ ReferenceAlias Property Alias_LocationFurnitureBunny Auto
 ReferenceAlias Property Alias_LocationFurniturePlayer Auto
 ReferenceAlias Property Alias_LocationPlayer Auto
 
-Quest Property EL_TravelToLairVic  Auto 
+Quest Property EL_TravelToLairVicQ  Auto 
 ReferenceAlias Property Alias_PathEvilynnLayDown Auto
 
 Idle Property IdleWarmHandsCrouched  Auto  

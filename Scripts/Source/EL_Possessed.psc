@@ -25,7 +25,7 @@ function SetPossessed(actor victim)
 	;EL().Disable(true)
 endfunction
 
-function ClearPosession(Actor victim, ObjectReference PlaceAt = none)
+function ClearPosession(ObjectReference PlaceAt = none)
 	EL_Utility.Log("Clearing possessed actor.", "EL_Possessed")
 	;if PlaceAt == none
 	;	PlaceAt = CurrentVictim()

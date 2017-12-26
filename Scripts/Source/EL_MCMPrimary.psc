@@ -25,14 +25,14 @@ event OnConfigInit()
 	;pages[5] = "Torture Quests"
 	pages[3] = "Debug & Tests"
 	; ...
-endEvent
+endevent
 
 ; @implements SKI_QuestBase
 event OnVersionUpdate(int a_version)
 	{Called when a version update of this script has been detected}
 
 	; ...
-endEvent
+endevent
 
 event OnPageReset(string page)
 	if page == ""
@@ -52,7 +52,7 @@ event OnPageReset(string page)
 	elseif page == "Debug & Tests"
 		SetPageDebug()
 	endif
-endEvent
+endevent
 
 function SetPageHome()
 	SetCursorFillMode(TOP_TO_BOTTOM)
@@ -69,8 +69,8 @@ function SetPageOptions()
 	AddHeaderOption("Options")
 	AddEmptyOption()
 	AddToggleOptionST("SET_SHOW_NOTIFICATIONS", "Show Debug Notifications", (EL_ShowDebugNotifications.GetValue() as int) == 1)
-	AddToggleOptionST("SET_SHOW_DEBUG", "Enable Debugging", (EL_ShowDebugDialog.GetValue() as int) == 1.0)
-	AddToggleOptionST("SET_SHOW_DEBUG_LOGS", "Save Script Logs", (EL_ShowDebugLogs.GetValue() as int) == 1.0)
+	AddToggleOptionST("SET_SHOW_DEBUG", "Enable Debugging", (EL_ShowDebugDialog.GetValue() as int) == 1)
+	AddToggleOptionST("SET_SHOW_DEBUG_LOGS", "Save Script Logs", (EL_ShowDebugLogs.GetValue() as int) == 1)
 	AddToggleOptionST("SET_ALLOW_CHEAT", "Allow Cheating", (EL_AllowCheat.GetValue() as int) == 1)
 endFunction
 
@@ -93,15 +93,21 @@ function SetPageEvilynnsLair()
 	AddHeaderOption("First Room")
 	AddEmptyOption()
 	AddToggleOptionST("EAST_WING_OPEN", "Open East Wing", EL_LairAccessController.GetApi().EastWingOpen())
-	AddToggleOptionST("NORTH_WING_OPEN", "Open North Wing", EL_LairAccessController.GetApi().NorthWingOpen())
 	AddToggleOptionST("WEST_WING_OPEN", "Open West Wing", EL_LairAccessController.GetApi().WestWingOpen())	
-	AddToggleOptionST("SOUTH_WING_OPEN", "Open South Wing", EL_LairAccessController.GetApi().SouthWingOpen())
 	AddEmptyOption()
 	AddEmptyOption()
+
 	AddToggleOptionST("FLOOR_TWO_OPEN", "Open Floor 2 (East)", EL_LairAccessController.GetApi().FloorTwoOpen())
 	AddToggleOptionST("BASEMENT_OPEN", "Open Basements", EL_LairAccessController.GetApi().BasementOpen())
-	AddToggleOptionST("FLOOR_THREE_OPEN", "Open Floor 3 (West)", EL_LairAccessController.GetApi().FloorThreeOpen())                                
-
+	AddToggleOptionST("FLOOR_THREE_OPEN", "Open Floor 3 (West)", EL_LairAccessController.GetApi().FloorThreeOpen())     
+	AddEmptyOption()
+	AddEmptyOption()
+	AddEmptyOption()
+	
+	AddToggleOptionST("SET_MAIN_LIGHTS", "Main Room Lights", EL_LairMainRoomLights.GetValueInt() == 1)
+	AddToggleOptionST("SET_MAIN_CELL_LIGHTS", "Main Room Lights: Cell", EL_LairMainRoomCellsLights.GetValueInt() == 1)
+	AddToggleOptionST("SET_MAIN_CENTER_LIGHTS", "Main Room Lights: Center", EL_LairMainRoomCenterLights.GetValueInt() == 1)
+	AddEmptyOption()
 endFunction
 
 function SetPageDebug()
@@ -168,82 +174,82 @@ endfunction
 state SET_SHOW_NOTIFICATIONS
 	event OnSelectST()
 		EL_ShowDebugNotifications.SetValue(1.0)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		EL_ShowDebugNotifications.SetValue(0.0)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
 
 state SET_SHOW_DEBUG_LOGS
 	event OnSelectST()
 		EL_ShowDebugLogs.SetValue(1.0)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		EL_ShowDebugLogs.SetValue(0.0)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
 
 state SET_SHOW_DEBUG
 	event OnSelectST()
 		EL_ShowDebugDialog.SetValue(1.0)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		EL_ShowDebugDialog.SetValue(0.0)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
  
 state SET_ALLOW_CHEAT
 	event OnSelectST()
 		EL_AllowCheat.SetValue(1.0)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		EL_AllowCheat.SetValue(0.0)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
 
 
 state SET_AS_VICTIM
 	event OnSelectST()
 		EL_PlayerRole.SetValue(1.0)
 		EL_EvilynnsVictim.Start()
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		; SetTextOptionValueST(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
 
 state UNLOCK_PLAYER
 	event OnSelectST()
 		EL_PlayerControl.UnLock()
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		; SetTextOptionValueST(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
 
 state START_GOTOLAIRVIC
 	event OnSelectST()
@@ -251,15 +257,15 @@ state START_GOTOLAIRVIC
 		EL_Possessed.GetApi().SetPossessed(PlayerRef)
 		EL_TravelToLairVic.Get().Start()
 		EL_TravelToLairVic.Get().SetStage(0)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		; SetTextOptionValueST(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
 
 state START_RENAMEPLAYER
 	event OnSelectST()
@@ -267,15 +273,15 @@ state START_RENAMEPLAYER
 		EL_Possessed.GetApi().SetPossessed(PlayerRef)
 		EL_VicRename.Get().Start()
 		EL_VicRename.Get().SetStage(0)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		; SetTextOptionValueST(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
 
 state START_LAIRVICBUNNY
 	event OnSelectST()
@@ -283,160 +289,165 @@ state START_LAIRVICBUNNY
 		EL_Possessed.GetApi().SetPossessed(PlayerRef)
 		EL_LairVicBunny.Get().Start()
 		EL_LairVicBunny.Get().SetStage(0)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		; SetTextOptionValueST(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
 
 state SET_AS_PARTNER
 	event OnSelectST()
 		EL_PlayerRole.SetValue(2.0)
 		EL_EvilynnsPartner.Start()
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		; SetTextOptionValueST(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
-	endEvent
-endState
+	endevent
+endstate
 
 state TELEPORT_TO_START
 	event OnSelectST()
 		PlayerREF.MoveTo(EL_AlignmentQuestMarker)
-	endEvent
-endState
+	endevent
+endstate
 
 state TELEPORT_TO_LAIR              
 	event OnSelectST()
 		PlayerREF.MoveTo(EL_LairEntranceMarker)
-	endEvent
-endState
+	endevent
+endstate
 
-state NORTH_WING_OPEN
+state SET_MAIN_LIGHTS
 	event OnSelectST()
-		bool open = !EL_LairAccessController.GetApi().NorthWingOpen()
-		SetToggleOptionValueST(open)
-		EL_LairAccessController.GetApi().NorthWing(open)
-	endEvent
+		bool on = !EL_LairMainRoomLights.GetValueInt() == 1
+		SetToggleOptionValueST(on)
+		EL_LairLightMainRoom.Get().Room(on)
+	endevent
 
 	event OnDefaultST()
 		SetToggleOptionValueST(false)
-		EL_LairAccessController.GetApi().NorthWing(false)
-	endEvent
+		EL_LairLightMainRoom.Get().Room(false)
+	endevent
+endstate
 
-	event OnHighlightST()
-		SetInfoText("Located in the east and west wings, check north end of long hallways")
-	endEvent
-endState
-
-state SOUTH_WING_OPEN
+state SET_MAIN_CELL_LIGHTS
 	event OnSelectST()
-		bool open = !EL_LairAccessController.GetApi().SouthWingOpen()
-		SetToggleOptionValueST(open)
-		EL_LairAccessController.GetApi().SouthWing(open)
-	endEvent
+		bool on = !EL_LairMainRoomCellsLights.GetValueInt() == 1
+		SetToggleOptionValueST(on)
+		EL_LairLightMainRoom.Get().Cells(on)
+	endevent
 
 	event OnDefaultST()
 		SetToggleOptionValueST(false)
-		EL_LairAccessController.GetApi().SouthWing(false)
-	endEvent
+		EL_LairLightMainRoom.Get().Cells(false)
+	endevent
+endstate
 
-	event OnHighlightST()
-		SetInfoText("Located in the east and west wings, check large southern rooms")
-	endEvent
-endState
+state SET_MAIN_CENTER_LIGHTS
+	event OnSelectST()
+		bool on = !EL_LairMainRoomCenterLights.GetValueInt() == 1
+		SetToggleOptionValueST(on)
+		EL_LairLightMainRoom.Get().Center(on)
+	endevent
+
+	event OnDefaultST()
+		SetToggleOptionValueST(false)
+		EL_LairLightMainRoom.Get().Center(false)
+	endevent
+endstate
 
 state EAST_WING_OPEN
 	event OnSelectST()
 		bool open = !EL_LairAccessController.GetApi().EastWingOpen()
 		SetToggleOptionValueST(open)
 		EL_LairAccessController.GetApi().EastWing(open)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		SetToggleOptionValueST(false)
 		EL_LairAccessController.GetApi().EastWing(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
 		SetInfoText("Located in east side of main room")
-	endEvent
-endState
+	endevent
+endstate
 
 state WEST_WING_OPEN
 	event OnSelectST()
 		bool open = !EL_LairAccessController.GetApi().WestWingOpen()
 		SetToggleOptionValueST(open)
 		EL_LairAccessController.GetApi().WestWing(open)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		SetToggleOptionValueST(false)
 		EL_LairAccessController.GetApi().WestWing(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
 		SetInfoText("Located in west side of main room")
-	endEvent
-endState
+	endevent
+endstate
 
 state FLOOR_TWO_OPEN
 	event OnSelectST()
 		bool open = !EL_LairAccessController.GetApi().FloorTwoOpen()
 		SetToggleOptionValueST(open)
 		EL_LairAccessController.GetApi().FloorTwo(open)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		SetToggleOptionValueST(false)
 		EL_LairAccessController.GetApi().FloorTwo(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
 		SetInfoText("Located in south east corner of main room")
-	endEvent
-endState
+	endevent
+endstate
 
 state FLOOR_THREE_OPEN
 	event OnSelectST()
 		bool open = !EL_LairAccessController.GetApi().FloorThreeOpen()
 		SetToggleOptionValueST(open)
 		EL_LairAccessController.GetApi().FloorThree(open)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		SetToggleOptionValueST(false)
 		EL_LairAccessController.GetApi().FloorThree(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
 		SetInfoText("Located in south west corner of main room")
-	endEvent
-endState
+	endevent
+endstate
 	
 state BASEMENT_OPEN
 	event OnSelectST()
 		bool open = !EL_LairAccessController.GetApi().BasementOpen()
 		SetToggleOptionValueST(open)
 		EL_LairAccessController.GetApi().Basement(open)
-	endEvent
+	endevent
 
 	event OnDefaultST()
 		SetToggleOptionValueST(false)
 		EL_LairAccessController.GetApi().Basement(false)
-	endEvent
+	endevent
 
 	event OnHighlightST()
 		SetInfoText("Located in entrance hallway. Two basements (east and west)")
-	endEvent
-endState
+	endevent
+endstate
 
 
 Quest Property EL_EvilynnsPartner  Auto  
@@ -449,6 +460,9 @@ GlobalVariable Property EL_AllowCheat  Auto
 GlobalVariable Property EL_ShowDebugDialog  Auto 
 GlobalVariable Property EL_ShowDebugLogs  Auto 
 GlobalVariable Property EL_ShowDebugNotifications  Auto 
+GlobalVariable Property EL_LairMainRoomLights  Auto
+GlobalVariable Property EL_LairMainRoomCellsLights  Auto
+GlobalVariable Property EL_LairMainRoomCenterLights  Auto
 ObjectReference Property EL_AlignmentQuestMarker  Auto
 ObjectReference Property EL_LairEntranceMarker  Auto 
 Actor Property PlayerRef  Auto 
