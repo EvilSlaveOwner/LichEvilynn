@@ -1,22 +1,6 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 153
+;NEXT FRAGMENT INDEX 168
 Scriptname SF_EL_LairVicBunnyScene1_0516D736 Extends Scene Hidden
-
-;BEGIN FRAGMENT Fragment_142
-Function Fragment_142()
-;BEGIN CODE
-(Bunny as EL_ActorSoundState).ChangeState("Crying")
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_146
-Function Fragment_146()
-;BEGIN CODE
-(Bunny as EL_ActorSoundState).ChangeState("")
-;END CODE
-EndFunction
-;END FRAGMENT
 
 ;BEGIN FRAGMENT Fragment_4
 Function Fragment_4()
@@ -31,18 +15,18 @@ Player.GetActorRef().SetLookAt(Bunny.GetActorRef())
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_144
-Function Fragment_144()
+;BEGIN FRAGMENT Fragment_155
+Function Fragment_155()
 ;BEGIN CODE
-(Bunny as EL_ActorSoundState).ChangeState("Crying")
+EL_LairScene.Get(0).MoveVictimMove(0, EL_LairVicBunny.GetMainRoomCenter1() , EL_LairVicBunny.GetFEast())
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_134
-Function Fragment_134()
+;BEGIN FRAGMENT Fragment_2
+Function Fragment_2()
 ;BEGIN CODE
-EL_LairScene.Get(0).SetAttack(0, Bunny.GetReference())
+EL_LairScene.Get(0).MoveVictimMove(1, EL_LairVicBunny.GetStart1() , EL_LairVicBunny.GetFNorth())
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -50,33 +34,22 @@ EndFunction
 ;BEGIN FRAGMENT Fragment_136
 Function Fragment_136()
 ;BEGIN CODE
-Debug.MessageBox("The dark and terrifying presence leaves your mind and you sob in relief.\n\nOr, at least you attempt to.\n\nTo your horror, you realize that you still can't move. Her presence has faded, and you still can't control your own body!")
-EL_Possessed.Get().ClearPosession()
+;Debug.MessageBox("The dark and terrifying presence leaves your mind and you sob in relief.\n\nOr, at least you attempt to.\n\nTo your horror, you realize that you still can't move. Her presence has faded, and you still can't control your own body!")
+;EL_Possessed.Get().ClearPosession()
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_140
-Function Fragment_140()
+;BEGIN FRAGMENT Fragment_0
+Function Fragment_0()
 ;BEGIN CODE
-EL_Movement.MoveDirectlyTo(Evilynn.GetReference(), Throne)
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_6
-Function Fragment_6()
-;BEGIN CODE
-EL_LairScene.Get(0).MoveVictimMove(0, EL_LairVicBunny.GetMainRoomCenter1() , EL_LairVicBunny.GetFNorth())
-EL_LairScene.Get(0).MoveVictimMove(1, EL_LairVicBunny.GetMainRoomCenter2() , EL_LairVicBunny.GetFNorth())
-;END CODE
-EndFunction
-;END FRAGMENT
-
-;BEGIN FRAGMENT Fragment_131
-Function Fragment_131()
-;BEGIN CODE
-Bunny.GetActorRef().SetLookAt(Player.GetRef())
+EL_Screen.FadeOut()
+EL_Movement.AliasMoveDirectlyTo(Bunny, LairEntranceMarker, 100.0)
+EL_Movement.AliasMoveDirectlyTo(Player, LairEntranceMarker)
+Evilynn.TryToEnable()
+Utility.Wait(2.0)
+EL_Screen.FadeIn()
+Utility.Wait(2.0)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -97,32 +70,28 @@ getowningquest().setstage(20)
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_0
-Function Fragment_0()
+;BEGIN FRAGMENT Fragment_6
+Function Fragment_6()
 ;BEGIN CODE
-EL_Screen.FadeOut()
-EL_Movement.AliasMoveDirectlyTo(Bunny, LairEntranceMarker, 100.0)
-EL_Movement.AliasMoveDirectlyTo(Player, LairEntranceMarker)
-Evilynn.TryToEnable()
-Utility.Wait(2.0)
-EL_Screen.FadeIn()
-Utility.Wait(2.0)
+EL_LairScene.Get(0).MoveVictimMove(0, EL_LairVicBunny.GetMainRoomCenter1() , EL_LairVicBunny.GetFNorth())
+EL_LairScene.Get(0).MoveVictimMove(1, EL_LairVicBunny.GetMainRoomCenter2() , EL_LairVicBunny.GetFNorth())
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_149
-Function Fragment_149()
+;BEGIN FRAGMENT Fragment_134
+Function Fragment_134()
 ;BEGIN CODE
-(Bunny as EL_ActorSoundState).ChangeState("")
+EL_LairScene.Get(0).SetAttack(0, Bunny.GetReference())
 ;END CODE
 EndFunction
 ;END FRAGMENT
 
-;BEGIN FRAGMENT Fragment_2
-Function Fragment_2()
+;BEGIN FRAGMENT Fragment_131
+Function Fragment_131()
 ;BEGIN CODE
-EL_LairScene.Get(0).MoveVictimMove(1, EL_LairVicBunny.GetStart1() , EL_LairVicBunny.GetFNorth())
+Bunny.GetActorRef().SetLookAt(Player.GetRef())
+Player.GetActorRef().SetLookAt(Bunny.GetRef())
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -143,3 +112,5 @@ ReferenceAlias Property Cell1Door  Auto
 SPELL Property EL_BoltHarmless  Auto  
 
 ObjectReference Property Throne  Auto  
+
+SPELL Property theSpell  Auto  

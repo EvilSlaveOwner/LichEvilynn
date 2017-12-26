@@ -18,7 +18,6 @@ EVENT onLoad()
 	SELF.setGhost()
 	SELF.Enable(true)
 	GetDressed()
-	RegisterForSingleUpdate(0.3)
 ENDEVENT
 
 event OnInit()
@@ -30,23 +29,9 @@ event OnInit()
 	Gear[4] = Gear5
 	Gear[5] = Gear6
 	Gear[6] = Gear7
-	RegisterForSingleUpdate(0.3)
 endevent
 
 event OnUpdate()
-	if IsPossessingLastValue == EL_IsPossessing.GetValue() as int
-		RegisterForSingleUpdate(0.3)
-		return
-	endif
-	IsPossessingLastValue = EL_IsPossessing.GetValue() as int
-	if IsPossessingLastValue == 1
-		EL_Utility.Log("Disabling Evilynn because someone is possessed. (Skipping)", "EL_EvilynnActorScript")
-		Disable(true)
-	else
-		Enable(true)
-		GhostFlash(0.3)	
-	endif
-	RegisterForSingleUpdate(0.3)
 endevent
 
 FUNCTION GhostFlash(FLOAT time)
