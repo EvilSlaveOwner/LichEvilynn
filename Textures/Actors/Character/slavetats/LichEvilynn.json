@@ -1,0 +1,21 @@
+[
+	{"name": "EL_AfterEffect1", "section":"Lich Evilynn", "texture":"LichEvilynn\\AfterEffect1.dds", "area":"Body"},
+	{"name": "EL_AfterEffect2", "section":"Lich Evilynn", "texture":"LichEvilynn\\AfterEffect2.dds", "area":"Body"},
+	{"name": "EL_AfterEffect3", "section":"Lich Evilynn", "texture":"LichEvilynn\\AfterEffect3.dds", "area":"Body"},
+	{"name": "EL_AfterEffect4", "section":"Lich Evilynn", "texture":"LichEvilynn\\AfterEffect4.dds", "area":"Body"},
+	{"name": "EL_BatteredHead", "section":"Lich Evilynn", "texture":"LichEvilynn\\BatteredHead.dds", "area":"Face"},
+	{"name": "EL_CutsMarks1", "section":"Lich Evilynn", "texture":"LichEvilynn\\CutsMarks1.dds", "area":"Body"},
+	{"name": "EL_CutsMarks2", "section":"Lich Evilynn", "texture":"LichEvilynn\\CutsMarks2.dds", "area":"Body"},
+	{"name": "EL_CutsMarks3", "section":"Lich Evilynn", "texture":"LichEvilynn\\CutsMarks3.dds", "area":"Body"},
+	{"name": "EL_Dirt1", "section":"Lich Evilynn", "texture":"LichEvilynn\\Dirt1.dds", "area":"Body"},
+	{"name": "EL_Dirt2", "section":"Lich Evilynn", "texture":"LichEvilynn\\Dirt2.dds", "area":"Body"},
+	{"name": "EL_Dirt3", "section":"Lich Evilynn", "texture":"LichEvilynn\\Dirt3.dds", "area":"Body"},
+	{"name": "EL_Scarred1", "section":"Lich Evilynn", "texture":"LichEvilynn\\Scarred1.dds", "area":"Body"},
+	{"name": "EL_Scarred2", "section":"Lich Evilynn", "texture":"LichEvilynn\\Scarred2.dds", "area":"Body"},
+	{"name": "EL_Scarred3", "section":"Lich Evilynn", "texture":"LichEvilynn\\Scarred3.dds", "area":"Body"},
+	{"name": "EL_SobHead1", "section":"Lich Evilynn", "texture":"LichEvilynn\\SobHead1.dds", "area":"Face"},
+	{"name": "EL_SobHead2", "section":"Lich Evilynn", "texture":"LichEvilynn\\SobHead2.dds", "area":"Face"},
+	{"name": "EL_Tears1", "section":"Lich Evilynn", "texture":"LichEvilynn\\TearsHead1.dds", "area":"Face"},
+	{"name": "EL_Tears2", "section":"Lich Evilynn", "texture":"LichEvilynn\\TearsHead2.dds", "area":"Face"},
+	{"name": "EL_Tears3", "section":"Lich Evilynn", "texture":"LichEvilynn\\TearsHead3.dds", "area":"Face"}
+]

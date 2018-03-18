@@ -1,0 +1,34 @@
+Crawing Animation: https://www.nexusmods.com/skyrim/mods/33097
+Immersive Animated Poses: https://www.nexusmods.com/skyrim/mods/81568?tab=description
+
+
+
+Player.GetActorRef().ClearLookAt()
+
+Bunny.GetActorRef().ClearKeepOffsetFromActor()
+
+Bunny.GetActorRef().EvaluatePackage()
+
+Bunny.GetActorRef().KeepOffsetFromActor(Player.GetActorRef(), -50.0, -100.0, 0.0, afCatchUpRadius = 300.00, afFollowRadius = 50.0)
+
+EL_LairScene.Get(0).MoveVictimMove(0, EL_LairVicBunny.GetMainRoomCenter1() , EL_LairVicBunny.GetFNorth())
+EL_LairScene.Get(0).MoveVictimMove(1, EL_LairVicBunny.GetMainRoomCenter2() , EL_LairVicBunny.GetFNorth())
+GetMainRoomEntrance1
+EL_LairScene.Get(0).MoveVictimMove(0, EL_LairVicBunny.GetMainRoomEntrance1() , EL_LairVicBunny.GetFNorth())
+EL_LairScene.Get(0).MoveVictimMove(1, EL_LairVicBunny.GetMainRoomEntrance2() , EL_LairVicBunny.GetFNorth())
+
+Player 1:
+-65.0
+1865.0
+0.0
+
+Bunny 1:
+75.0
+1865.0
+0.0
+
+
+Player.GetActorRef().PathToReference(Bunny.GetRef(), 0.75)
+
+EL_Captives.GetCaptiveScript(Player).SetAvanceQuestOnEnd(Self as Quest, 30)
+EL_LairVicBunnyScene1.Get().EL_LairVicBunnyScene1Rape.Start()

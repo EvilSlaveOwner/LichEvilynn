@@ -3,3 +3,6 @@ Tamriel: SaarthalExterior - 22, 22
 
 Lair:
 Cell 14, -19, elv 12889
+
+
+EL_LairPhaseController.Get().PhaseIn(-1.0)

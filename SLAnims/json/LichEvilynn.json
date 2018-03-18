@@ -1,0 +1,51 @@
+{
+  "animations": [
+    {
+      "actors": [
+        {
+          "add_cum": 1,
+          "stages": [
+            {
+              "id": "EL_LongFaceSit_A1_S1"
+            },
+            {
+              "id": "EL_LongFaceSit_A1_S2"
+            }
+          ],
+          "type": "Female"
+        },
+        {
+          "add_cum": 2,
+          "stages": [
+            {
+              "id": "EL_LongFaceSit_A2_S1",
+              "silent": true
+            },
+            {
+              "id": "EL_LongFaceSit_A2_S2",
+              "silent": true
+            }
+          ],
+          "type": "Female"
+        }
+      ],
+      "id": "EL_LongFaceSit",
+      "name": "Lich Evilynn Long Face Sit",
+      "sound": "Squishing",
+      "stages": [
+        {
+          "number": 1,
+          "sound": "Squishing",
+          "timer": 15.0
+        },
+        {
+          "number": 2,
+          "sound": "Squishing",
+          "timer": 45.0
+        }
+      ],
+      "tags": "LichEvilynn,Aggrssive,Forced,Rough,Sex,FaceSit,Oral,FF"
+    }
+  ],
+  "name": "LichEvilynn"
+}

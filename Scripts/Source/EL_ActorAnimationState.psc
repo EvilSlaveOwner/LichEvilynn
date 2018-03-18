@@ -38,6 +38,12 @@ Scriptname EL_ActorAnimationState extends ReferenceAlias
 ; IdleApplaudSarcastic
 string theAnimation = ""
 string endZaZAnimation = "OffsetStop"
+string endLoopAnimation = "IdleStop_Loose"
+string endAnimation = "IdleForceDefaultState"
+string lastAnimation = ""
+string[] animationList
+string[] animationStop
+bool SkipEndingPrevious = false
 int animationNumber = -1
 actor theActor
 
@@ -48,12 +54,21 @@ endfunction
 
 event OnInit()
 	theActor = Self.GetActorRef()
-	setupHorny()
+	Setup()
+	SetupHorny()
 endevent
+
+function Setup()
+	animationList = new string[25]
+	animationStop = new string[25]
+	int i = 0
+	animationList[i] = "IdleSearchingChest"
+	animationStop[i] = "IdleForceDefaultState"
+endfunction
 
 string[] hornyAni
 string[] hornyStandingAni
-function setupHorny()
+function SetupHorny()
 	hornyAni = new string[10]
 	hornyAni[0] = "ZaZAPCHorFA" ; standing
 	hornyAni[1] = "ZaZAPCHorFB" ; standing bend at waist
@@ -70,13 +85,29 @@ function setupHorny()
 	hornyStandingAni[1] = hornyAni[2]
 endfunction
 
+function StopLastAnimation()
+	if lastAnimation == "" || SkipEndingPrevious
+		return
+	endif
+	string StopAnimation = "OffsetStop" ; default stop animation
+	int iStopAnimation = animationList.Find(lastAnimation)
+	if iStopAnimation >= 0
+		StopAnimation = animationStop[iStopAnimation]
+	endif
+	EL_Utility.Log("Ending Animation " + lastAnimation + " with " + StopAnimation, "EL_ActorAnimationState")
+	Debug.SendAnimationEvent(GetRef(), StopAnimation)
+	lastAnimation = ""
+endfunction
+
 State IdleByName
 	Function StartBehaviour()
+		EL_Utility.Log("Starting " + theAnimation + " Animation.", "EL_ActorAnimationState")
+		lastAnimation = theAnimation
 		Debug.SendAnimationEvent(GetRef(), theAnimation)
 	EndFunction
 
 	Function EndBehaviour()
-		Debug.SendAnimationEvent(GetRef(), endZaZAnimation)
+		StopLastAnimation()
 	EndFunction
 EndState
 
@@ -91,54 +122,65 @@ State Horny
 		else
 			theAnimation = hornyAni[animationNumber]
 		endif
+		EL_Utility.Log("Starting " + theAnimation + " Animation.", "EL_ActorAnimationState")
+		lastAnimation = theAnimation
 		Debug.SendAnimationEvent(GetRef(), theAnimation)
 	EndFunction
 
 	Function EndBehaviour()
-		Debug.SendAnimationEvent(GetRef(), endZaZAnimation)
+		StopLastAnimation()
 	EndFunction
 EndState
 
 State HornyRandom
 	Function StartBehaviour()
 		theAnimation = GetRandom(hornyAni)
+		EL_Utility.Log("Starting " + theAnimation + " Animation.", "EL_ActorAnimationState")
+		lastAnimation = theAnimation
 		Debug.SendAnimationEvent(GetRef(), theAnimation)
 		RegisterForSingleUpdate(15)
 	EndFunction
 
 	Function BehaviourOnUpdate()
-		Debug.SendAnimationEvent(GetRef(), endZaZAnimation)
+		if !SkipEndingPrevious
+			Debug.SendAnimationEvent(GetRef(), endZaZAnimation)
+		endif
 		theAnimation = GetRandom(hornyAni)
+		lastAnimation = theAnimation
 		Debug.SendAnimationEvent(GetRef(), theAnimation)
 		RegisterForSingleUpdate(15)
 	EndFunction
 
 	Function EndBehaviour()
-		Debug.SendAnimationEvent(GetRef(), endZaZAnimation)
+		StopLastAnimation()
 	EndFunction
 EndState
 
 State HornyRandomStanding
 	Function StartBehaviour()
 		theAnimation = GetRandom(hornyStandingAni)
+		EL_Utility.Log("Starting " + theAnimation + " Animation.", "EL_ActorAnimationState")
+		lastAnimation = theAnimation
 		Debug.SendAnimationEvent(GetRef(), theAnimation)
 		RegisterForSingleUpdate(15)
 	EndFunction
 
 	Function BehaviourOnUpdate()
-		Debug.SendAnimationEvent(GetRef(), endZaZAnimation)
+		StopLastAnimation()
 		theAnimation = GetRandom(hornyStandingAni)
 		Utility.Wait(0.2)
+		lastAnimation = theAnimation
 		Debug.SendAnimationEvent(GetRef(), theAnimation)
 		RegisterForSingleUpdate(15)
 	EndFunction
 
 	Function EndBehaviour()
-		Debug.SendAnimationEvent(GetRef(), endZaZAnimation)
+		StopLastAnimation()
 	EndFunction
 EndState
 
-Function ChangeByName(string newAnimation)
+Function ChangeByName(string newAnimation, bool doSkipEndPrevious = false)
+	SkipEndingPrevious = doSkipEndPrevious
 	theAnimation = newAnimation
 	if (theAnimation != "")
 		behaviour = "IdleByName"
@@ -148,7 +190,8 @@ Function ChangeByName(string newAnimation)
 EndFunction
 
 
-Function ChangeState(string newState, int newAnimationNumber = -1)
+Function ChangeState(string newState, int newAnimationNumber = -1, bool doSkipEndPrevious = false)
+	SkipEndingPrevious = doSkipEndPrevious
 	animationNumber = newAnimationNumber
 	if (newState == "HornyRandom")
 		behaviour = "HornyRandom"

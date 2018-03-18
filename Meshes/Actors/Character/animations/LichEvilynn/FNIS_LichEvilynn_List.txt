@@ -1,0 +1,7 @@
+Version V1.0
+
+' EL_LongFaceSit
+s EL_LongFaceSit_A1_S1 EL_LongFaceSit_A1_S1.hkx
++ EL_LongFaceSit_A1_S2 EL_LongFaceSit_A1_S2.hkx
+s EL_LongFaceSit_A2_S1 EL_LongFaceSit_A2_S1.hkx
++ EL_LongFaceSit_A2_S2 EL_LongFaceSit_A2_S2.hkx

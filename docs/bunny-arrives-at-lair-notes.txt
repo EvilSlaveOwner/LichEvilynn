@@ -1,3 +1,37 @@
+E:
+[Serious] I'll watch your back while you check the room for danger. Once we know the room is safe we can look for treasure.
+
+B:
+[Thinking] There is a throne with prison cells to the left and right.
+[Disturbed] I suspect prisoners were forced to fight to the death for the lord's entertainment right where I'm standing.
+
+E:
+[Aroused] Back up. I'm going to cast a spell on you.
+[Amused] I suppose I can give you one last chance. If you want out, just raise you hand, or say "No".
+[Amused] This will be fun. Let's see what's left in here...
+[Aroused] Oh, that will be a fun surprise for later. 
+[Excited] I'm going to take your weapons and clothes, then I'm going to relax the paralysis spell on you.
+[Amused] You will not be able to resist me effectively...
+[Aroused] ...but you will squirm pleasantly!
+[Happy] It's nice when a plan comes together so perfectly.
+[Happy] I planned this the moment I saw you, and you made it easy.
+[Happy] I'm going to take my time and savor every moment.
+
+B:  
+[Scared] That wasn't funny! You took that joke way to far!
+[Angry] I've never been so scared.
+[Angry] You can take your training and shove it! I'm leaving!
+
+E:
+[Amused] You're welcome to try. Leaving this place without my permission is impossible.
+[Aroused] You're welcome to try. Leaving this place without my permission is impossible.  
+  
+  
+======================
+
+
+
+
 E
 Hold up! Never assume a place like this is safe.
 

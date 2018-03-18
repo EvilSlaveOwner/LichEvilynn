@@ -71,3 +71,4 @@ bool lockPlayer = false
 int Property sceneThread Auto
 Actor Property PlayerREF Auto
 GlobalVariable Property EL_PlayerInScene Auto
+

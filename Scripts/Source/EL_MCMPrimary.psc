@@ -119,7 +119,7 @@ function SetPageDebug()
 	AddTextOptionST("TELEPORT_TO_LAIR", "Teleport to Lair", "")
 	AddToggleOptionST("SET_AS_PARTNER", "Set Player to Partner", (EL_PlayerRole.GetValue() as int) == 2)
 	AddTextOptionST("UNLOCK_PLAYER", "Unlock Player (turn on movement)", "")
-	AddEmptyOption()
+	AddToggleOptionST("DEBUG_SHORTCIRCUIT", "For Debugging only", (EL_Debug_ShortCircuit.GetValue() as int) == 1)
 	AddEmptyOption()
 	AddEmptyOption()
 	AddHeaderOption("Skip to Quests (for testing ONLY)")
@@ -131,6 +131,8 @@ function SetPageDebug()
 	AddTextOptionST("START_GOTOLAIRVIC", "Go to Lair", "")
 	AddEmptyOption()
 	AddTextOptionST("START_LAIRVICBUNNY", "Sara arrives at lair", "")
+	AddEmptyOption()
+	AddTextOptionST("START_TAKEVICBUNNY", "Evilynn takes Sara", "")
 	AddEmptyOption()
 endFunction
 
@@ -191,6 +193,19 @@ state SET_SHOW_DEBUG_LOGS
 
 	event OnDefaultST()
 		EL_ShowDebugLogs.SetValue(0.0)
+	endevent
+
+	event OnHighlightST()
+	endevent
+endstate
+
+state DEBUG_SHORTCIRCUIT
+	event OnSelectST()
+		EL_Debug_ShortCircuit.SetValue(1.0)
+	endevent
+
+	event OnDefaultST()
+		EL_Debug_ShortCircuit.SetValue(0.0)
 	endevent
 
 	event OnHighlightST()
@@ -289,6 +304,22 @@ state START_LAIRVICBUNNY
 		EL_Possessed.GetApi().SetPossessed(PlayerRef)
 		EL_LairVicBunny.Get().Start()
 		EL_LairVicBunny.Get().SetStage(0)
+	endevent
+
+	event OnDefaultST()
+		; SetTextOptionValueST(false)
+	endevent
+
+	event OnHighlightST()
+	endevent
+endstate
+
+state START_TAKEVICBUNNY
+event OnSelectST()
+		EL_PlayerRole.SetValue(1.0)
+		EL_Possessed.GetApi().SetPossessed(PlayerRef)
+		EL_LairVicBunny.Get().Start()
+		EL_LairVicBunny.Get().SetStage(19)
 	endevent
 
 	event OnDefaultST()
@@ -458,6 +489,7 @@ Quest Property EL_QuestsTorture  Auto
 GlobalVariable Property EL_PlayerRole  Auto 
 GlobalVariable Property EL_AllowCheat  Auto 
 GlobalVariable Property EL_ShowDebugDialog  Auto 
+GlobalVariable Property EL_Debug_ShortCircuit Auto
 GlobalVariable Property EL_ShowDebugLogs  Auto 
 GlobalVariable Property EL_ShowDebugNotifications  Auto 
 GlobalVariable Property EL_LairMainRoomLights  Auto

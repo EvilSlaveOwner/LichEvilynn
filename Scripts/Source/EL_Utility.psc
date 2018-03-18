@@ -1,5 +1,6 @@
 Scriptname EL_Utility extends Quest  
 
+Actor PlayerRef
 int property ToggleFreeCamera auto hidden
 int property CancelScreenFade auto hidden
 EL_Utility Function Get() Global
@@ -11,15 +12,60 @@ EL_Utility Function GetApi() Global
 endfunction
 
 event OnInit()
+	SetupSexLab()
 	SetDefaults()
 endevent
 
+; sexlab stuff
+sslSystemConfig Config
+sslActorLibrary ActorLib
+sslActorStats Stats
+Faction sslAnimatingFaction
+function SetupSexLab()
+	; Reset function Libraries - SexLabQuestFramework
+	if !Config || !ActorLib || !Stats
+		Form SexLabQuestFramework = Game.GetFormFromFile(0xD62, "SexLab.esm")
+		if SexLabQuestFramework
+			Config   = SexLabQuestFramework as sslSystemConfig
+			ActorLib = SexLabQuestFramework as sslActorLibrary
+			Stats    = SexLabQuestFramework as sslActorStats
+		endIf
+	endIf
+	sslAnimatingFaction = Config.AnimatingFaction
+endfunction
+
 function SetDefaults()
+	PlayerRef = Game.GetPlayer()
 	ToggleFreeCamera = 81 ; NUM 3
 	CancelScreenFade = 1 ; Escape
 	RegisterForKey(CancelScreenFade)
 	RegisterForKey(ToggleFreeCamera)
 endfunction
+
+; Lock/Unlock Actor
+function LockActor(Actor theActor)
+	if !theActor
+		return
+	endIf
+	ActorUtil.AddPackageOverride(theActor, EL_DoNothingInScene, 100, 1)
+	theActor.SetFactionRank(EL_IsInScene, 1)
+	theActor.EvaluatePackage()
+	; Disable movement
+	if theActor != PlayerRef
+		theActor.SetRestrained(true)
+		theActor.SetDontMove(true)
+	endIf
+	theActor.EvaluatePackage()
+endfunction
+
+function UnLockActor(Actor theActor)
+	theActor.RemoveFromFaction(EL_IsInScene)
+	ActorUtil.RemovePackageOverride(theActor, EL_DoNothingInScene)
+	theActor.SetFactionRank(EL_IsInScene, 0)
+	theActor.EvaluatePackage()
+endfunction
+
+
 
 ; logging
 function Log(string messageStr, string prefix = "EL_LichEvilynn") Global
@@ -61,6 +107,9 @@ endfunction
 
 ; hotkeys
 event OnKeyDown(int keyCode)
+	if sslAnimatingFaction && PlayerRef.GetFactionRank(sslAnimatingFaction) >= 0
+		return
+	endif
 	if Utility.IsInMenuMode() || UI.IsMenuOpen("Console") || UI.IsMenuOpen("Loading Menu")
 		if keyCode != CancelScreenFade
 			Log("Ignoring keyCode " + keyCode + ", in menu, console, or loading.", "EL_Utility")
@@ -104,3 +153,7 @@ Function ForceFirstPerson() native global
 
 GlobalVariable Property EL_ShowDebugLogs  Auto 
 GlobalVariable Property EL_ShowDebugNotifications  Auto 
+Faction Property EL_IsInScene Auto
+Package Property EL_DoNothingInScene Auto
+ 
+Actor Property PlayerRef  Auto  

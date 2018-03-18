@@ -1,24 +1,8 @@
-05 Nov 09:18:41 Skyrim has crashed while setting up FootIK. Some things you can try to fix this problem:
+12 Mar 23:09:05 Skyrim has crashed while setting up FootIK. Some things you can try to fix this problem:
 1. Reduce the amount of installed animations.
 2. Try reload the save until it works.
 
-05 Nov 10:35:13 Skyrim has crashed while setting up FootIK. Some things you can try to fix this problem:
-1. Reduce the amount of installed animations.
-2. Try reload the save until it works.
-
-05 Nov 19:39:07 Skyrim has crashed while setting up FootIK. Some things you can try to fix this problem:
-1. Reduce the amount of installed animations.
-2. Try reload the save until it works.
-
-05 Nov 19:52:42 Skyrim has crashed while setting up FootIK. Some things you can try to fix this problem:
-1. Reduce the amount of installed animations.
-2. Try reload the save until it works.
-
-05 Nov 20:18:10 Skyrim has crashed while setting up FootIK. Some things you can try to fix this problem:
-1. Reduce the amount of installed animations.
-2. Try reload the save until it works.
-
-05 Nov 20:29:08 Skyrim has crashed while setting up FootIK. Some things you can try to fix this problem:
+13 Mar 22:11:04 Skyrim has crashed while setting up FootIK. Some things you can try to fix this problem:
 1. Reduce the amount of installed animations.
 2. Try reload the save until it works.
 

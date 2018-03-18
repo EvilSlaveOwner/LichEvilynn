@@ -1,6 +1,7 @@
 [Serious]
 [Thinking]
 [Alarmed]
+[Angry]
 [Calm]
 [Boasting]
 [Relaxed]

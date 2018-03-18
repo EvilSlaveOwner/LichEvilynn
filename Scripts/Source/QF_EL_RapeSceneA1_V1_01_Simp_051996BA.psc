@@ -1,5 +1,5 @@
 ;BEGIN FRAGMENT CODE - Do not edit anything between this and the end comment
-;NEXT FRAGMENT INDEX 4
+;NEXT FRAGMENT INDEX 6
 Scriptname QF_EL_RapeSceneA1_V1_01_Simp_051996BA Extends Quest Hidden
 
 ;BEGIN ALIAS PROPERTY Mistress01
@@ -16,8 +16,7 @@ ReferenceAlias Property Alias_Victim01 Auto
 Function Fragment_0()
 ;BEGIN CODE
 EL_Utility.Log("Start", "EL_RapeSceneM1_V1_01")
-Utility.Wait(3)
-EL_RapeSceneM1_V1_01.Get().EndScene()
+EL_Scene.StartScene(0)
 ;END CODE
 EndFunction
 ;END FRAGMENT
@@ -30,4 +29,14 @@ EL_Utility.Log("Reset", "EL_RapeSceneM1_V1_01")
 EndFunction
 ;END FRAGMENT
 
+;BEGIN FRAGMENT Fragment_4
+Function Fragment_4()
+;BEGIN CODE
+EL_RapeSceneM1_V1_01.Get().EndScene()
+;END CODE
+EndFunction
+;END FRAGMENT
+
 ;END FRAGMENT CODE - Do not edit anything between this and the begin comment
+
+Scene Property Rape_M1_V1_01  Auto  

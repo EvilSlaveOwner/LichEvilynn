@@ -19,7 +19,7 @@ endevent
 
 function ToggleDebugLever1()
 	Actor newVictim = DebugLever1Marker.PlaceAtMe(testActors[Utility.RandomInt(0, 4)], 1) as Actor
-	newVictim.AddToFaction(EL_Factions.GetApi().IsVictim())
+	newVictim.AddToFaction(EL_Factions.Get().IsVictim)
 endfunction
 
 ActorBase Property EL_TestActor01  Auto

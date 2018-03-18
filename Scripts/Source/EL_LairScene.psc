@@ -66,6 +66,14 @@ ObjectReference  function GetAttack(int num = 0)
 	return Attack[num].GetReference()
 endfunction
 
+ObjectReference  function GetMistress(int num = 0)
+	return Mistress[num].GetReference()
+endfunction
+
+ObjectReference  function GetVictim(int num = 0)
+	return Victim[num].GetReference()
+endfunction
+
 function SetMistressLook(int num = 0, ObjectReference item)
 	MistressLook[num].ForceRefTo(item)
 endfunction
@@ -84,6 +92,16 @@ endfunction
 
 function SetAttack(int num = 0, ObjectReference item)
 	Attack[num].ForceRefTo(item)
+endfunction
+
+function SetMistress(int num = 0, ObjectReference item)
+	EL_Utility.Log("Adding mistress " + num + " name " + item.GetBaseObject().GetName() + ".", "EL_Scene")
+	Mistress[num].ForceRefTo(item)
+endfunction
+function SetVictim(int num = 0, ObjectReference item)
+	SetStartingVariables()
+	EL_Utility.Log("Adding victim " + num + " name " + item.GetBaseObject().GetName() + ".", "EL_Scene")
+	Victim[num].ForceRefTo(item)
 endfunction
 
 function MoveMistressMove(int num, float[] posisition, float[] rotation)
@@ -119,9 +137,12 @@ function MoveVictimUse(int num, float[] posisition, float[] rotation)
 endfunction
 
 function MoveMarker(ObjectReference marker, float toX, float toY, float toZ, float toAngleX = 0.0, float toAngleY = 0.0, float toAngleZ = 0.0)
+	EL_Utility.Log("MoveMarker: " + marker.GetName() + " to " + toX + "," + toY + "," + toZ + " " + toAngleX + "," + toAngleY + "," + toAngleZ, "EL_LairScene" + threadID)
 	marker.SetPosition(toX, toY, toZ)
 	marker.SetAngle(toAngleX, toAngleY, toAngleZ)
 endfunction
+
+
 
 function SetStartingVariables()
 	MistressMove = new ReferenceAlias[3]
@@ -180,6 +201,15 @@ function SetStartingVariables()
 	Attack[0] = Attack0
 	Attack[1] = Attack1
 	Attack[2] = Attack2
+	
+	Mistress = new ReferenceAlias[2]
+	Mistress[0] = Mistress0
+	Mistress[1] = Mistress1
+	
+	Victim = new ReferenceAlias[3]
+	Victim[0] = Victim0
+	Victim[1] = Victim1
+	Victim[2] = Victim2
 endfunction
 
 ; Move
@@ -255,6 +285,16 @@ ReferenceAlias Property Attack0 Auto
 ReferenceAlias Property Attack1 Auto
 ReferenceAlias Property Attack2 Auto
 
+; Mistress
+ReferenceAlias[] Property Mistress Auto
+ReferenceAlias Property Mistress0  Auto  
+ReferenceAlias Property Mistress1  Auto  
+
+; Victim
+ReferenceAlias[] Property Victim Auto
+ReferenceAlias Property Victim0  Auto  
+ReferenceAlias Property Victim1  Auto  
+ReferenceAlias Property Victim2  Auto  
 
 bool Property Running = false Auto
 bool Property HasPlayer = false Auto
@@ -299,3 +339,4 @@ bool function RunSceneStop()
 	Running = false
 	return true
 endfunction
+
