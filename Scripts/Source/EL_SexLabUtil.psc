@@ -1,4 +1,5 @@
 Scriptname EL_SexLabUtil extends Quest  
+{this script only exists to monitor strapon usage. No one uses Evilynn's strapon without permisison.}
 
 event OnInit()
 	allActors = new Actor[50]
@@ -6,7 +7,16 @@ event OnInit()
 endevent
 
 EL_SexLabUtil function Get() Global
-	return Game.GetFormFromFile(0x061B6AB2, "LichEvilynn.esp") as EL_SexLabUtil
+	return Game.GetFormFromFile(0x1B6AB2, "LichEvilynn.esp") as EL_SexLabUtil
+endfunction
+
+function StopPlayerSceneControls(sslThreadController ThreadController) Global
+	sslSystemConfig Config = SexLabUtil.GetAPI().Config
+	ThreadController.UnregisterForKey(Config.AdvanceAnimation)
+	ThreadController.UnregisterForKey(Config.ChangeAnimation)
+	ThreadController.UnregisterForKey(Config.ChangePositions)
+	ThreadController.UnregisterForKey(Config.MoveScene)
+	ThreadController.UnregisterForKey(Config.EndAnimation)
 endfunction
 
 function OnGameLoad()
@@ -15,11 +25,12 @@ function OnGameLoad()
 	RegisterForModEvent("HookAnimationStarting", "OnAnimationStarting")
 	RegisterForModEvent("HookAnimationEnd", "OnAnimationEnd")
 	RegisterForModEvent("SexLabLoadStrapons", "OnLoadStrapons")
-	EL_Utility.Log("Registered for sexlab events", "EL_SexLabUtil")
+	EL_SexLabAnimations.Get().LoadAnimations()
 endfunction
 
 event OnLoadStrapons()
-	SexLabConfig.LoadStrapon("LichEvilynn.esp", 0x1BF70E)
+	SexLabConfig.LoadStrapon("LichEvilynn.esp", 0x1BF70E) ; Strapless Dildo.
+	SexLabConfig.LoadStrapon("LichEvilynn.esp", 0x1D9C22) ; Charged Strapless Dildo.
 endevent
 
 event OnAnimationStarting(int tid, bool HasPlayer)
@@ -54,6 +65,8 @@ event OnAnimationEnd(int tid, bool HasPlayer)
 	endwhile
 endevent
 
+; Only allow authorized actors to equip the "special" strapons while still allowing random/custom strapons
+; Hacky workaround is to equip all female actors with a random (correct) strapon before starting.
 function SetStraponForActor(Actor theActor, Form Strapon)
 	int allActorID = allActors.find(theActor)
 	if allActorID < 0
@@ -104,6 +117,7 @@ form function GetRandomStrapon(Actor theActor)
 		return none
 	endif
 	form MagicStrapon = Game.GetFormFromFile(0x1BF70E, "LichEvilynn.esp")
+	form MagicStrapon2 = Game.GetFormFromFile(0x1D9C22, "LichEvilynn.esp")
 	form Strapon = none
 	int times = 15
 	bool looking = true
@@ -112,12 +126,13 @@ form function GetRandomStrapon(Actor theActor)
 		if Strapon == none
 			return none
 		endif
-		looking = Strapon == MagicStrapon
+		looking = Strapon == MagicStrapon || Strapon == MagicStrapon2
 		times = times + 1
 	endwhile
 	return Strapon
 endfunction
 
+string AnimationPrefix = "Lich Evilynn"
 Form[] allStrapons
 Actor[] allActors
 Faction Property EL_HasMagicStrapon  Auto  

@@ -1,4 +1,6 @@
 Scriptname EL_CaptiveMovement extends Quest  
+{old, needs to be updated.}
+
 
 ; Fetch CaptiveMovement API
 EL_CaptiveMovement function Get() Global

@@ -2,13 +2,16 @@ Scriptname EL_Captives extends Quest
 
 bool initalized = false
 EL_CaptivesTats property Tats auto hidden
+EL_CaptivesMind property Mind auto hidden
+EL_CaptivesAudio property Audio auto hidden
+EL_CaptivesSexLab property SexLab auto hidden
 
 EL_Captives function Get() Global
 	return Game.GetFormFromFile(0x050F545D, "LichEvilynn.esp") as EL_Captives
 endfunction
 
-bool function Capture(Actor theCaptive, bool inLair = true) Global
-	return Get().InitialCapture(theCaptive, inLair)
+bool function Capture(Actor theCaptive, bool TrappedInLair = true) Global
+	return Get().InitialCapture(theCaptive, TrappedInLair)
 endfunction
 
 ReferenceAlias function FindActorSlot(Actor theCaptive) Global
@@ -23,6 +26,21 @@ ReferenceAlias[] captives
 event OnInit()
 	Initialize()
 endevent
+
+event OnUpdate()
+	EL_Utility.Log("OnUpdate", "EL_Captives")
+	Maintenance()
+endevent
+
+function OnGameLoad()
+	if initalized == false
+		Initialize()
+	endif
+	SexLab.OnGameLoad()
+	Tats.OnGameLoad()
+	Mind.OnGameLoad()
+	Audio.OnGameLoad()
+endfunction
 
 function InitializeCapriveVariables()
 	captives = new ReferenceAlias[25]
@@ -53,21 +71,40 @@ function InitializeCapriveVariables()
 	captives[24] = Captive25
 endfunction
 
-function OnGameLoad()
-	RegisterForModEvent("CaptiveSex_Start", "OnSexStart")
-	RegisterForModEvent("CaptiveSex_End", "OnSexEnd")
-	if initalized == false
-		Initialize()
-	endif
+
+; check captives ever 10 seconds.
+; but, limit to maxAtOnce at a time.
+int maxAtOnce = 10
+int current = 0
+Function Maintenance()
+	EL_Utility.Log("Maintenance starting at captive " + current, "EL_Captives")
+	int i = 0
+	int count = captives.length
+	while i < maxAtOnce
+		if captives[current].GetReference() != none
+			(captives[current] as EL_Captive).Maintenance()
+		endif
+		i = i + 1
+		current = current + 1
+		if current >= count
+			current = 0
+		endif
+	endwhile
+	EL_Utility.Log("Maintenance ending at captive " + current, "EL_Captives")
+	RegisterForSingleUpdate(10.0)
 endfunction
 
 function Initialize()
 	initalized = true
-	EL_CaptivesTats CaptivesScript = Game.GetFormFromFile(0x050F545D, "LichEvilynn.esp") as EL_CaptivesTats
+	Tats = Game.GetFormFromFile(0x050F545D, "LichEvilynn.esp") as EL_CaptivesTats
+	Mind = Game.GetFormFromFile(0x050F545D, "LichEvilynn.esp") as EL_CaptivesMind
+	Audio = Game.GetFormFromFile(0x050F545D, "LichEvilynn.esp") as EL_CaptivesAudio
+	SexLab = Game.GetFormFromFile(0x050F545D, "LichEvilynn.esp") as EL_CaptivesSexLab
 	InitializeCapriveVariables()
+	RegisterForSingleUpdate(10.0)
 endfunction
 
-bool function InitialCapture(Actor theCaptive, bool inLair = true)
+bool function InitialCapture(Actor theCaptive, bool TrappedInLair = true)
 	int iSlot = GetOpenSlot()
 	if iSlot == -1
 		return false
@@ -78,38 +115,23 @@ bool function InitialCapture(Actor theCaptive, bool inLair = true)
 		return false
 	endif
 	EL_Captive captive = captives[iSlot] as EL_Captive
-	bool success = captive.Capture(theCaptive)
+	bool success = captive.Capture(theCaptive, TrappedInLair)
 	if success == false
 		return false
 	endif
 	theCaptive.SetFactionRank(EL_IsCaptive, 1)
-	if (inLair)
-		theCaptive.SetFactionRank(EL_CaptiveInLair, 1)
+	if (TrappedInLair)
+		theCaptive.SetFactionRank(EL_CaptiveTrappedInLair, 1)
 	endif
 	
-	SexLabUtil.GetAPI().TrackActor(theCaptive, "CaptiveSex")
-	
+	Tats.Capture(theCaptive)
+	Mind.Capture(theCaptive)
+	Audio.Capture(theCaptive)
+	SexLab.Capture(theCaptive)
+
 	EL_Utility.Log("Captured " + theCaptive.GetLeveledActorBase().GetName() , "EL_Captives")
 	return true
 endfunction
-
-event OnSexEnd(Form FormRef, int tid)
-	Actor theCaptive = FormRef as Actor
-	EL_Captive elCaptive = RunGetCaptiveScript(theCaptive)
-	if elCaptive == none
-		return
-	endif
-	elCaptive.OnSexEnd(tid)
-endevent
-
-event OnSexStart(Form FormRef, int tid)
-	Actor theCaptive = FormRef as Actor
-	EL_Captive elCaptive = RunGetCaptiveScript(theCaptive)
-	if elCaptive == none
-		return
-	endif
-	elCaptive.OnSexStart(tid)
-endevent
 
 EL_Captive function RunGetCaptiveScript(Actor theCaptive = none)
 	return RunFindActorSlot(theCaptive) as EL_Captive
@@ -176,6 +198,6 @@ ReferenceAlias Property Captive23  Auto
 ReferenceAlias Property Captive24  Auto
 ReferenceAlias Property Captive25  Auto
 
-Faction Property EL_CaptiveInLair  Auto
+Faction Property EL_CaptiveTrappedInLair  Auto
 Faction Property EL_IsCaptive  Auto
 

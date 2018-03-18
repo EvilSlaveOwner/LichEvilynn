@@ -29,6 +29,3 @@ Bunny 1:
 
 
 Player.GetActorRef().PathToReference(Bunny.GetRef(), 0.75)
-
-EL_Captives.GetCaptiveScript(Player).SetAvanceQuestOnEnd(Self as Quest, 30)
-EL_LairVicBunnyScene1.Get().EL_LairVicBunnyScene1Rape.Start()

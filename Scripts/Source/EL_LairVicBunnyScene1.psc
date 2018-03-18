@@ -1,63 +1,98 @@
-Scriptname EL_LairVicBunnyScene1 extends Quest  
+Scriptname EL_LairVicBunnyScene1 extends Quest  conditional
 
-int BunnyStatus = 0
+EL_LairVicBunnyScene1 function Get() Global
+	return Game.GetFormFromFile(0x16D735, "LichEvilynn.esp") as EL_LairVicBunnyScene1
+endfunction
+
+sslThreadModel Thread
+sslThreadController ThreadController
+ReferenceAlias Property Alias_Player  Auto  
+ReferenceAlias Property Alias_Bunny  Auto  
+Scene Property EL_LairVicBunnyScene1Rape Auto
+Scene Property EL_LairVicBunnyScene1Torture Auto
+bool Property SexLabAnimationOver Auto hidden conditional
 
 function FirstRape()
+	SexLabAnimationOver = false
 	Actor Player = Alias_Player.GetActorRef()
 	Actor Bunny = Alias_Bunny.GetActorRef()
-
+	
 	EL_Captives.Capture(Player, true)
 	EL_Captives.Capture(Bunny, true)
 
-	EL_Captives.GetCaptiveScript(Player).SetAvanceQuestOnEnd(Self as Quest, 30)
-	BunnyStatus = 1
-	sslBaseAnimation theAnimation =  SexLabUtil.GetAPI().GetAnimationByRegistry("EL_LongFaceSit")
-	sslThreadModel thread = SexLabUtil.GetAPI().NewThread()
-	Thread.SetHook("LairVicBunnyRape1")
-	RegisterForModEvent("HookStageEnd_LairVicBunnyRape1", "OnBunnyRape1StageEnd")
-	RegisterForModEvent("HookStageEnd_AnimationEnding", "OnBunnyRape1StageEnd")
-	thread.AddActor(Player)
-	thread.AddActor(Bunny)
-	thread.IsVictim(Bunny)
-	thread.DisableRedress(Player)
-	thread.DisableRedress(Bunny)
-	thread.DisableRagdollEnd(Bunny, false)
-	thread.AddAnimation(theAnimation)
-	thread.CenterOnObject(Player)
-	thread.StartThread()
-	Utility.Wait(2.0)
-	Debug.MessageBox("Evilynn shoves Sara to the ground and stands over her.\n\nIntimidated by Evilynn,\nSara timidly licks at your pussy.")
+	; EL_Captives.GetCaptiveScript(Player).SetAvanceQuestOnEnd(Self as Quest, 30)
+
+	sslBaseAnimation theAnimation =  SexLabUtil.GetAPI().GetAnimationByRegistry("EL_StoryLongFaceSit")
+	Thread = SexLabUtil.GetAPI().NewThread()
+	EL_RegisterForEvents("LairVicBunnyRape1")
+	Thread.AddActor(Player)
+	Thread.AddActor(Bunny, true)
+	Thread.IsVictim(Bunny)
+	Thread.DisableRedress(Player)
+	Thread.DisableRedress(Bunny)
+	Thread.DisableRagdollEnd(Bunny, false)
+	Thread.AddAnimation(theAnimation)
+	Thread.CenterOnObject(Player)
+	ThreadController = Thread.StartThread()
+	ThreadController.AutoAdvance = false
 	EL_Utility.Log("Start Rape 1", "EL_LairVicBunnyScene1")
+	Utility.Wait(2.0)
+	; Debug.MessageBox("Evilynn shoves Sara to the ground.\nHer pussy close to Sara's face.\n\nIntimidated by Evilynn,\nSara timidly licks at your pussy.\n")
 endfunction
 
-event OnBunnyRape1StageEnd(int tid, bool HasPlayer)
-	sslThreadController Thread = SexLabUtil.GetAPI().GetController(tid)
-	Actor Bunny = Alias_Bunny.GetActorRef()
-	if Thread.Stage == 1
-		EL_Utility.Log("Stage 1 end", "EL_LairVicBunnyScene1")
-		Debug.MessageBox("Evilynn grabs Sara's head and pulls her face into your pussy.\n\nYou can feel her pleasure build as she grinds against Sara's face.")
-		EL_CaptivesTats.SetTatOnActor(Bunny, "EL_Tears1")
-		return
-	elseif Thread.Stage == 2
-		EL_Utility.Log("Stage 2 end", "EL_LairVicBunnyScene1")
-		UnRegisterForModEvent("HookStageEnd_LairVicBunnyRape1")
-		UnRegisterForModEvent("HookStageEnd_AnimationEnding")
-		BunnyBites()
-	endif
+function EL_RegisterForEvents(string HookName)
+	Thread.SetHook(HookName)
+	RegisterForModEvent("HookStageStart_" + HookName +"StageStart", "On" + HookName + "StageStart")
+	RegisterForModEvent("HookStageEnd_" + HookName, "On" + HookName + "StageEnd")
+	RegisterForModEvent("HookAnimationStart_" + HookName, "On" + HookName + "AnimationStart")
+	RegisterForModEvent("HookAnimationEnd_" + HookName, "On" + HookName + "AnimationEnd")
+endfunction
+
+function EL_UnregisterForEvents(string HookName)
+	UnregisterForModEvent("HookStageStart_" + HookName + "StageStart")
+	UnregisterForModEvent("HookStageEnd_" + HookName)
+	UnregisterForModEvent("HookAnimationStart_" + HookName)
+	UnregisterForModEvent("HookAnimationEnd_" + HookName)
+endfunction
+
+event OnLairVicBunnyRape1AnimationStart(int tid, bool HasPlayer)
+	SexLabAnimationOver = false
+	EL_SexLabUtil.StopPlayerSceneControls(ThreadController)
 endevent
 
-function BunnyBites()
-	if BunnyStatus != 1
-		EL_Utility.Log("Error, BunnyBites and status code is " + BunnyStatus, "EL_LairVicBunnyScene1")
-		return
-	endif
-	Actor Player = Alias_Player.GetActorRef()
-	BunnyStatus = 2
-	EL_CaptivesTats.SetTatOnActor(Player, "Red Pussy")
-	Debug.MessageBox("Evilynn's pleasure is interrupted when Sara suddenly bites down hard.\n\nAgony radiates from your pussy as Sara sinks her teeth into your sensitive flesh.")
-	Debug.MessageBox("With Evilynn in control, you can't even scream as she rips away from Sara's teeth.\nYou feel your flesh tear, and feel Evilynn's amusement at your pain.\n\nThis doesn't prevent her from grabbing Sara by the throat.\n\nWith a thought she summons a pillory, and forces Sara into place.")
-	SetStage(30)
+event OnLairVicBunnyRape1AnimationEnd(int tid, bool HasPlayer)
+	SexLabAnimationOver = true
+	EL_UnregisterForEvents("LairVicBunnyRape1")
+endevent
+
+event OnLairVicBunnyRape1StageStart(int tid, bool HasPlayer)
+	;EL_SexLabUtil.StopPlayerSceneControls(ThreadController)
+endevent
+
+event OnLairVicBunnyRape1StageEnd(int tid, bool HasPlayer)
+	;EL_SexLabUtil.StopPlayerSceneControls(ThreadController)
+endevent
+	
+function GoToSexLabStage(int stage)
+	ThreadController.GoToStage(stage)
 endfunction
 
-ReferenceAlias Property Alias_Player  Auto  
-ReferenceAlias Property Alias_Bunny  Auto  
+function EndAnimation(bool quickly)
+	ThreadController.EndAnimation(quickly)
+	SexLabAnimationOver = true
+endfunction
+
+function BunnyBites()
+	Actor Player = Alias_Player.GetActorRef()
+	Actor Bunny = Alias_Bunny.GetActorRef()
+
+	EL_CaptivesTats.SetTatOnActor(Bunny, "EL_Tears2")
+	EL_CaptivesTats.SetTatOnActor(Player, "EL_TorturedPussy")
+	Debug.MessageBox("Evilynn's pleasure is interrupted when Sara suddenly bites down hard.\n\nAgony radiates from your pussy as Sara sinks her teeth into your sensitive flesh.")
+
+	; Debug.MessageBox("With Evilynn in control, you can't even scream as she rips away from Sara's teeth.\nYou feel your flesh tear, and feel Evilynn's amusement at your pain.\n\nThis doesn't prevent her from grabbing Sara by the throat.\n\nWith a thought she summons a pillory, and forces Sara into place.")
+	;SetStage(30)
+endfunction
+
+
+

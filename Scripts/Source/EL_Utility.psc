@@ -107,9 +107,6 @@ endfunction
 
 ; hotkeys
 event OnKeyDown(int keyCode)
-	if sslAnimatingFaction && PlayerRef.GetFactionRank(sslAnimatingFaction) >= 0
-		return
-	endif
 	if Utility.IsInMenuMode() || UI.IsMenuOpen("Console") || UI.IsMenuOpen("Loading Menu")
 		if keyCode != CancelScreenFade
 			Log("Ignoring keyCode " + keyCode + ", in menu, console, or loading.", "EL_Utility")
@@ -119,6 +116,9 @@ event OnKeyDown(int keyCode)
 	if keyCode == CancelScreenFade
 		EL_Screen.FadeIn()
 	endIf
+	if sslAnimatingFaction && PlayerRef.GetFactionRank(sslAnimatingFaction) >= 0
+		return
+	endif
 	if keyCode == ToggleFreeCamera
 		SafeToggleFreeCamera()
 	endIf

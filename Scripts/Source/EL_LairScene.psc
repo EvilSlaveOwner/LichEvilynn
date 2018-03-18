@@ -340,3 +340,5 @@ bool function RunSceneStop()
 	return true
 endfunction
 
+
+Faction Property  EL_IsInScene auto

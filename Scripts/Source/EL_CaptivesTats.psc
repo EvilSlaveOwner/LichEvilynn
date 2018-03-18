@@ -1,5 +1,20 @@
 Scriptname EL_CaptivesTats extends Quest  
 
+bool initalized = false
+event OnInit()
+	Initialize()
+endevent
+
+event OnUpdate()
+	EL_Utility.Log("OnUpdate", "EL_CaptivesSexLab")
+endevent
+
+function OnGameLoad()
+	if initalized == false
+		Initialize()
+	endif
+endfunction
+
 EL_Captives property Captives auto hidden
 
 EL_CaptivesTats function Get() Global
@@ -26,14 +41,14 @@ function RemoveTatFromActor(Actor theCaptive, string theTat, bool last = true) G
 	Get().RunRemoveTatFromActor(theCaptive, theTat, last)
 endfunction
 
+function Capture(Actor theCaptive)
+endfunction
+
 string[] name
 string[] section
 int[] color
 float[] alpha
-
-event OnInit()
-	Initialize()
-endevent
+float[] fadeTime
 
 function RunSetTatOnActor(Actor theCaptive, string theTat, bool last = true)
 	int index = name.find(theTat)
@@ -60,15 +75,17 @@ function ApplyTatByIndex(Actor theCaptive, int index, bool last = true)
 		EL_Utility.Log("Error loading CaptiveTats for " + theCaptive.GetLeveledActorBase().GetName() + " actor not captured?" , "EL_CaptivesTats")
 		return
 	endif
-	captiveTats.AddTat(section[index], name[index], color[index], last, true, alpha[index])
+	captiveTats.AddTat(section[index], name[index], color[index], last, true, alpha[index], fadeTime[index])
 endfunction
 
 function Initialize()
+	initalized = true
 	EL_Captives CaptivesScript = Game.GetFormFromFile(0x050F545D, "LichEvilynn.esp") as EL_Captives
 	name = new string[100]
 	section = new string[100]
 	color = new int[100]
 	alpha = new float[100]
+	fadeTime = new float[100]
 	InitializeLichEvilynnTats()
 	InitializeCaneTats()
 endfunction
@@ -77,224 +94,63 @@ function InitializeLichEvilynnTats()
 	string defaultSection = "Lich Evilynn"
 	int defaultColor = 13112340
 	float defaultAlpha = 1.0
-	int index
+	float defaultFadeTime = 1.0
 	
-	index = GetSlotIDOrNextEmpty("EL_AfterEffect1")
-	name[index] = "EL_AfterEffect1"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
+	SetTat("EL_TorturedPussy", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_AfterEffect1", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_AfterEffect2", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_AfterEffect3", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_AfterEffect4", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_BatteredHead", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_CutsMarks1", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_CutsMarks2", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_CutsMarks3", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_Dirt1", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_Dirt2", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_Dirt3", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_Scarred1", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_Scarred2", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("EL_Scarred3", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
 	
-	index = GetSlotIDOrNextEmpty("EL_AfterEffect2")
-	name[index] = "EL_AfterEffect2"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_AfterEffect3")
-	name[index] = "EL_AfterEffect3"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_AfterEffect4")
-	name[index] = "EL_AfterEffect4"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_BatteredHead")
-	name[index] = "EL_BatteredHead"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-
-	index = GetSlotIDOrNextEmpty("EL_CutsMarks1")
-	name[index] = "EL_CutsMarks1"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-
-	index = GetSlotIDOrNextEmpty("EL_CutsMarks2")
-	name[index] = "EL_CutsMarks2"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_CutsMarks3")
-	name[index] = "EL_CutsMarks3"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_Dirt1")
-	name[index] = "EL_Dirt1"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_Dirt2")
-	name[index] = "EL_Dirt2"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_Dirt3")
-	name[index] = "EL_Dirt3"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_Scarred1")
-	name[index] = "EL_Scarred1"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_Scarred2")
-	name[index] = "EL_Scarred2"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_Scarred3")
-	name[index] = "EL_Scarred3"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_SobHead1")
-	name[index] = "EL_SobHead1"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_SobHead2")
-	name[index] = "EL_SobHead2"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_Tears1")
-	name[index] = "EL_Tears2"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_Tears2")
-	name[index] = "EL_Tears2"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("EL_Tears3")
-	name[index] = "EL_Tears3"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
+	SetTat("EL_SobHead1", defaultSection, defaultColor, 0.5, 0.5)
+	SetTat("EL_SobHead2", defaultSection, defaultColor, 0.5, 0.5)
+	SetTat("EL_Tears1", defaultSection, defaultColor, 0.5, 0.5)
+	SetTat("EL_Tears2", defaultSection, defaultColor, 0.5, 0.5)
+	SetTat("EL_Tears3", defaultSection, defaultColor, 0.5, 0.5)
 endfunction
 
 function InitializeCaneTats()
 	string defaultSection = "Cane Marks"
 	int defaultColor = 13112340
 	float defaultAlpha = 1.0
-	int index
+	float defaultFadeTime = 1.0
 	
-	index = GetSlotIDOrNextEmpty("Cane Marks on Ass - Thin")
-	name[index] = "Cane Marks on Ass - Thin"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Cane Marks on Ass - Thick")
-	name[index] = "Cane Marks on Ass - Thick"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Cane Marks on Back - Less")
-	name[index] = "Cane Marks on Back - Less"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Cane Marks on Back - More")
-	name[index] = "Cane Marks on Back - More"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Cane Marks on Back - Random")
-	name[index] = "Cane Marks on Back - Random"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Cane Marks on Ass")
-	name[index] = "Cane Marks on Ass"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Cane Marks on Tits")
-	name[index] = "Cane Marks on Tits"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Red Pussy")
-	name[index] = "Red Pussy"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Spanked Ass - Light")
-	name[index] = "Spanked Ass - Light"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Spanked Ass - Dark")
-	name[index] = "Spanked Ass - Dark"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Spanked Tits - Light")
-	name[index] = "Spanked Tits - Light"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Spanked Tits - Dark")
-	name[index] = "Spanked Tits - Dark"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Spanked Set - Light")
-	name[index] = "Spanked Set - Light"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Spanked Set - Dark")
-	name[index] = "Spanked Set - Dark"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Cane Marks Random Set")
-	name[index] = "Cane Marks Random Set"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
-	
-	index = GetSlotIDOrNextEmpty("Cane Marks Set")
-	name[index] = "Cane Marks Set"
-	section[index] = defaultSection
-	color[index] = defaultColor
-	alpha[index] = defaultAlpha
+	SetTat("Cane Marks on Ass - Thin", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Cane Marks on Ass - Thick", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Cane Marks on Back - Less", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Cane Marks on Back - More", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Cane Marks on Back - Random", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Cane Marks on Ass", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Cane Marks on Tits", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Red Pussy", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Spanked Ass - Light", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Spanked Ass - Dark", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Spanked Tits - Light", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Spanked Tits - Dark", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Spanked Set - Light", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Spanked Set - Dark", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Cane Marks Random Set", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+	SetTat("Cane Marks Set", defaultSection, defaultColor, defaultAlpha, defaultFadeTime)
+
+endfunction
+
+function SetTat(string theName, string theSection, int theColor, float theAlpha, float theFadeTime)
+	int index = GetSlotIDOrNextEmpty(theName)
+	name[index] = theName
+	section[index] = theSection
+	color[index] = theColor
+	alpha[index] = theAlpha
+	fadeTime[index] = theFadeTime
 endfunction
 
 int function GetSlotIDOrNextEmpty(string theName)
